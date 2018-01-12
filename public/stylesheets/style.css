@@ -1,0 +1,158 @@
+@import url('https://fonts.googleapis.com/css?family=Oswald|Voltaire');
+body {
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: #ffe6ce;
+  font-family: 'Oswald', sans-serif;
+}
+
+h2 {
+  margin: 20px;
+  font-family: 'Voltaire', sans-serif;
+  font-size: 2em;
+}
+
+a {
+  color: #00B7FF;
+}
+
+header {
+  position: fixed;
+  background: black;
+  width: 100%;
+  height: 60px;
+  top: 0px;
+  opacity: 0.8;
+}
+
+nav {
+  color: white;
+  font-family: 'Voltaire', sans-serif;
+  font-size: 1.5em;
+  margin-top: 15px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+section {
+  height: 768px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.desc {
+  display: block;
+  left: 60px;
+}
+
+#promo_container {
+  position: absolute;
+  top: 300px;
+  right: 100px;
+}
+
+#promo_bg {
+  position: relative;
+  height: 250px;
+  width: 250px;
+  -moz-transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  background-color: red;
+}
+
+#promo_desc {
+  position: absolute;
+  top: 0px;
+  text-align: center;
+}
+
+#banner {
+  display: flex;
+  justify-content: center;
+  top: 0px;
+  background-color: black;
+}
+
+#presentation {
+  background-color: green;
+}
+
+.comparaison {
+  width: 15%;
+  height: 271px;
+}
+
+#c1 {
+  background-color: red;
+}
+
+#c2 {
+  background-color: yellow;
+}
+
+#c3 {
+  background-color: purple;
+}
+
+#c4 {
+  background-color: green;
+}
+
+#boutique_container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+#valeurs {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+#legacy {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+#legacy ul {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+#reseaux_sociaux {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-inline-end: 30px;
+}
+
+.valeur_box {
+  width: 100px;
+  text-align: center;
+}
+
+.valeur_logo {}
+
+.valeur_title {}
+
+.valeur_desc {}
+
+ul {
+  list-style-type: none;
+}
+
+nav ul {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin: auto;
+}
+
+footer {
+  background-color: pink;
+  height: 100px;
+  text-align: center;
+}

@@ -1,14 +1,23 @@
 @import url('https://fonts.googleapis.com/css?family=Oswald|Voltaire');
+
+/*charte graphique
+noir1 : #181818
+beige : #ffffcc
+*/
+
 body {
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+
   background-color: #ffe6ce;
   font-family: 'Oswald', sans-serif;
+  padding: 0px;
+  margin: 0px;
 }
 
 h2 {
-  margin: 20px;
-  font-family: 'Voltaire', sans-serif;
-  font-size: 2em;
+  color: #181818;
+  margin-left: 5vw;
+  font-family: 'Oswald', sans-serif;
+  font-size: 4.5vh;
 }
 
 a {
@@ -19,18 +28,35 @@ header {
   position: fixed;
   background: black;
   width: 100%;
-  height: 60px;
+  height: 8vh;
   top: 0px;
-  opacity: 0.8;
+  opacity: 0.9;
+}
+
+/* logo */
+header img {
+  width: 3vw;
 }
 
 nav {
   color: white;
-  font-family: 'Voltaire', sans-serif;
-  font-size: 1.5em;
-  margin-top: 15px;
-  margin-left: 20px;
-  margin-right: 20px;
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.2em;
+
+  margin:0px;
+  padding: 0px;
+}
+
+nav ul {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+ margin-left: 10vw;
+ margin-right: 10vw;
+ margin-top: 5px;
+
 }
 
 section {
@@ -41,28 +67,51 @@ section {
 
 .desc {
   display: block;
-  left: 60px;
+  margin-left: 8vw;
+  margin-bottom: 5vh;
+}
+
+#banner_bg {
+  position: relative;
+  background-color: #181818;
+  width: 100%;
+  height: 65vh;
+
+}
+
+#banner_img {
+  position: absolute;
+  width: 100%;
+
+}
+
+#banner_img img {
+  display: block;
+  width: 50vw;
+ margin: auto;
 }
 
 #promo_container {
   position: absolute;
-  top: 300px;
+  top: 55vh;
   right: 100px;
 }
 
 #promo_bg {
   position: relative;
-  height: 250px;
-  width: 250px;
+  height: 16vw;
+  width: 16vw;
   -moz-transform: rotate(45deg);
   -webkit-transform: rotate(45deg);
-  background-color: red;
+  background-color: #212121;
 }
 
 #promo_desc {
   position: absolute;
-  top: 0px;
+  top: 2vh;
   text-align: center;
+  color: white;
+  font-size: 1vw;
 }
 
 #banner {
@@ -72,8 +121,10 @@ section {
   background-color: black;
 }
 
+
+
 #presentation {
-  background-color: green;
+
 }
 
 .comparaison {
@@ -143,13 +194,7 @@ ul {
   list-style-type: none;
 }
 
-nav ul {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  margin: auto;
-}
+
 
 footer {
   background-color: pink;

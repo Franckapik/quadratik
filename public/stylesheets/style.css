@@ -1,12 +1,10 @@
 @import url('https://fonts.googleapis.com/css?family=Oswald|Voltaire');
-
 /*charte graphique
 noir1 : #181818
 beige : #ffffcc
 */
 
 body {
-
   background-color: #ffe6ce;
   font-family: 'Oswald', sans-serif;
   padding: 0px;
@@ -14,10 +12,10 @@ body {
 }
 
 h2 {
-  color: #181818;
-  margin-left: 5vw;
+
+
   font-family: 'Oswald', sans-serif;
-  font-size: 4.5vh;
+  font-size:2em;
 }
 
 a {
@@ -31,9 +29,11 @@ header {
   height: 8vh;
   top: 0px;
   opacity: 0.9;
+  z-index: 1;
 }
 
 /* logo */
+
 header img {
   width: 3vw;
 }
@@ -42,8 +42,7 @@ nav {
   color: white;
   font-family: 'Oswald', sans-serif;
   font-size: 1.2em;
-
-  margin:0px;
+  margin: 0px;
   padding: 0px;
 }
 
@@ -53,65 +52,279 @@ nav ul {
   flex-wrap: wrap;
   justify-content: space-around;
   align-items: center;
- margin-left: 10vw;
- margin-right: 10vw;
- margin-top: 5px;
-
+  margin-left: 10vw;
+  margin-right: 10vw;
+  margin-top: 5px;
 }
 
 section {
-  height: 768px;
-  padding-top: 10px;
-  padding-bottom: 10px;
+
+  width: 100%;
+  height: 100vh;
 }
 
-.desc {
-  display: block;
-  margin-left: 8vw;
-  margin-bottom: 5vh;
-}
 
-#banner_bg {
-  position: relative;
+
+#banner {
   background-color: #181818;
-  width: 100%;
-  height: 65vh;
-
 }
 
-#banner_img {
+#presentation {
+
+  background-color: white;
+}
+
+.contenu_presentation{
+  text-align: right;
   position: absolute;
-  width: 100%;
-
+  margin-top: 2vw;
+  right: 5vw;
 }
 
-#banner_img img {
-  display: block;
-  width: 50vw;
- margin: auto;
-}
-
-#promo_container {
+.contenu_quadralab{
+  text-align: left;
   position: absolute;
-  top: 55vh;
-  right: 100px;
+  margin-top: 2vw;
+  left: 5vw;
 }
 
-#promo_bg {
+.contenu_boutique{
+
+}
+
+#presentation img {
+width: 50%;
+padding: 15px;
+}
+
+#quadralab img {
+width: 25%;
+padding: 15px;
+}
+
+.hexagon_boutique{
+  position: absolute;
+  background : #B93A59;
+background : rgba(185, 58, 89, 1);
+margin-top: 5%;
+right: 20vw;
+width: 10vw;
+height: 10vw;
+transform: rotate(45deg);
+
+
+}
+
+.hexagon_txt{
+  text-align: center;
+  transform: rotate(-45deg);
+}
+
+
+
+#boutique {
+  background-color: white;
+}
+
+#caracteristiques {
+  background-color: white;
+}
+
+#quadralab {}
+
+#livraison {
+  background-color: #181818;
+  color: white;
+}
+
+#payment_icons{
+  width: 6vw;
+}
+
+#fdp_icons{
+  position: absolute;
+  margin-top: 10%;
+  width: 20vw;
+  left: 30vw;
+}
+
+#hp {
+  position: absolute;
+  margin-top: 10%;
+  width: 15vw;
+  left: 70vw;
+}
+
+.newsletter {
+  position: absolute;
+  right: 5vw;
+  margin-top: 24%;
+}
+.newsletter_form{
+
+}
+
+.newsletter_form input {
+  width: 15vw;
+}
+
+
+
+#contact {
+  background-color: white;
   position: relative;
-  height: 16vw;
+}
+
+#valeurs{
+  position: absolute;
+  width: 50vw;
+  right: 25vw;
+
+}
+
+#social{
+  position: absolute;
+  margin-top: 10%;
+  width: 15vw;
+  left: 70vw;
+}
+
+#contact_icons{
+  position: absolute;
+  display: block;
+  margin-top: 10%;
+  width: 30vw;
+  right: 0vw;
+  bottom: 0;
+
+}
+
+.infos_legales{
+  text-align: center;
+  transform: rotate(-45deg);
+  position: absolute;
+  color: white;
+  display: block;
+  margin-top: 10%;
+  width: 30vw;
+  right: 0vw;
+  bottom: 0;
+}
+
+#promo {
+  border-style: Solid;
+  border-color: #B93A59;
+  border-color: rgba(185, 58, 89, 1);
+  border-width: 3px;
+  position: absolute;
+  top: 60vh;
+  right: 10vw;
+  width: 30vw;
+  height: 25vh;
+  font-family: Oswald;
+  font-size: 1.5em;
+  text-align: center;
+  line-height: 0em;
+  color: #FFFFFF;
+  color: rgb(255, 255, 255);
+}
+
+#promo .big {
+  font-size: 2em;
+}
+
+button {
+  font-family: 'Oswald', sans-serif;
+  background-color: #4CAF50;
+  /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+#diagonaleG1_container {
+  position: absolute;
+  top: 0vh;
+  right: 30vw;
+}
+
+.diagonale {
+  height: 3100px;
   width: 16vw;
+  z-index: 0;
+}
+
+.lastdiagonale {
+  height: 100vh;
+}
+
+#diagonale_end {
+  position: absolute;
+  width: 11.3vw;
+  height: 11.3vw;
+  top: 100vh;
+  background-color: red;
+  transform: rotate(-45deg);
+  transform-origin: top left;
+}
+
+#diagonaleG1 {
   -moz-transform: rotate(45deg);
   -webkit-transform: rotate(45deg);
-  background-color: #212121;
+  transform-origin: top right;
+  background-color: #da3d3d;
 }
 
-#promo_desc {
+#diagonaleD1 {
+  position: relative;
+  top: 60vmax;
+  -moz-transform: rotate(-90deg);
+  -webkit-transform: rotate(-90deg);
+  transform-origin: top right;
+  background-color: purple;
+}
+
+#diagonaleG2 {
+  position: relative;
+  top: 141vmax;
+  -moz-transform: rotate(90deg);
+  -webkit-transform: rotate(90deg);
+  transform-origin: top right;
+  background-color: yellow;
+}
+
+#diagonaleD2 {
+  position: relative;
+  top: 141vmax;
+  -moz-transform: rotate(90deg);
+  -webkit-transform: rotate(-90deg);
+  transform-origin: top right;
+  background-color: orange;
+}
+
+#diagonaleG1_logo {
+  position: relative;
+  top: 41vmax;
+  right: 15vw;
+  background-color: blue;
+  width: 22vw;
+  height: 22vw;
+  z-index: -1;
+}
+
+#diagonaleG1_titre {
   position: absolute;
-  top: 2vh;
-  text-align: center;
-  color: white;
-  font-size: 1vw;
+  background-color: green;
+  transform: rotate(-45deg);
+  transform-origin: top left;
+  top: 50vmax;
+  left: 2vw;
+  width: 12vw;
+  height: 18vw;
 }
 
 #banner {
@@ -121,11 +334,7 @@ section {
   background-color: black;
 }
 
-
-
-#presentation {
-
-}
+#presentation {}
 
 .comparaison {
   width: 15%;
@@ -193,8 +402,6 @@ section {
 ul {
   list-style-type: none;
 }
-
-
 
 footer {
   background-color: pink;

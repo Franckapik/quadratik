@@ -1,16 +1,15 @@
 @import url('https://fonts.googleapis.com/css?family=Oswald|Voltaire');
-/*charte graphique
-noir1 : #181818
-beige : #ffffcc
-*/
 
 :root {
-    --main-color:#06c;
+    --colorbg1:#181818;
+    --colorbg2:#ffe6ce;
+    --main_color:#00AB9C;
+    --accentcolor:#FFC000;
 }
 
 
 body {
-  background-color: #ffe6ce;
+  background-color: var(--colorbg2) ;
   font-family: 'Oswald', sans-serif;
   padding: 0px;
   margin: 0px;
@@ -34,7 +33,7 @@ header {
   height: 8vh;
   top: 0px;
   opacity: 0.9;
-  z-index: 1;
+  z-index: 3;
 }
 
 /* logo */
@@ -71,12 +70,12 @@ section {
 
 
 #banner {
-  background-color: #181818;
+  background-color: var(--colorbg1);
+  position: relative;
 }
 
 #presentation {
-
-  background-color: white;
+  background-color: background-color: var(--colorbg2);
 }
 
 .contenu_presentation{
@@ -109,8 +108,7 @@ padding: 15px;
 
 .hexagon_boutique{
   position: absolute;
-  background : #B93A59;
-background : rgba(185, 58, 89, 1);
+  background :var(--accentcolor);
 margin-top: 5%;
 right: 20vw;
 width: 10vw;
@@ -125,20 +123,43 @@ transform: rotate(45deg);
   transform: rotate(-45deg);
 }
 
+#main_dif{
+  position: absolute;
+  width: 50vw;
+  left: -5vw;
+  z-index: 0;
+}
 
+#diag1{
+  position: absolute;
+  width: 80vw;
+  margin-top: 0;
+  z-index: 1;
+
+}
+
+#diag2{
+  position: absolute;
+  left: 20;
+
+  z-index: -1;
+}
 
 #boutique {
-  background-color: white;
+  background-color: var(--colorbg2);
 }
 
 #caracteristiques {
-  background-color: white;
+  background-color: var(--colorbg2);
 }
 
-#quadralab {}
+#quadralab {
+  background-color: var(--colorbg1);
+  color: white;
+}
 
 #livraison {
-  background-color: #181818;
+  background-color: var(--colorbg1);
   color: white;
 }
 
@@ -176,7 +197,7 @@ transform: rotate(45deg);
 
 
 #contact {
-  background-color: white;
+  background-color: var(--colorbg2);
   position: relative;
 }
 
@@ -211,15 +232,14 @@ transform: rotate(45deg);
   color: white;
   display: block;
   margin-top: 10%;
-  width: 30vw;
-  right: 0vw;
-  bottom: 0;
+  right: 50px;
+  bottom: 40px;
 }
 
 #promo {
   border-style: Solid;
-  border-color: #B93A59;
-  border-color: rgba(185, 58, 89, 1);
+  border-color: var(--main_color);
+
   border-width: 3px;
   position: absolute;
   top: 60vh;
@@ -230,20 +250,22 @@ transform: rotate(45deg);
   font-size: 1.5em;
   text-align: center;
   line-height: 0em;
-  color: #FFFFFF;
-  color: rgb(255, 255, 255);
+  color: white;
 }
 
 #promo .big {
   font-size: 2em;
 }
 
+#order_button{
+  margin-top: 20px;
+}
+
 button {
   font-family: 'Oswald', sans-serif;
-  background-color: #4CAF50;
-  /* Green */
+  background-color: var(--main_color);
   border: none;
-  color: white;
+  color: black;
   padding: 15px 32px;
   text-align: center;
   text-decoration: none;
@@ -336,7 +358,7 @@ button {
   display: flex;
   justify-content: center;
   top: 0px;
-  background-color: black;
+  background-color: var(--colorbg1);
 }
 
 #presentation {}
@@ -406,10 +428,4 @@ button {
 
 ul {
   list-style-type: none;
-}
-
-footer {
-  background-color: pink;
-  height: 100px;
-  text-align: center;
 }

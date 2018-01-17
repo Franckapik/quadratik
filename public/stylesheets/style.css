@@ -4,6 +4,11 @@ noir1 : #181818
 beige : #ffffcc
 */
 
+:root {
+    --main-color:#06c;
+}
+
+
 body {
   background-color: #ffe6ce;
   font-family: 'Oswald', sans-serif;

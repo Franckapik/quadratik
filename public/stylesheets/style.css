@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Oswald|Voltaire');
 :root {
   --colorbg1: #181818;
-  --colorbg2: #ffe6ce;
+  --colorbg2: #ededed;
   --main_color: #00AB9C;
   --accentcolor: #FFC000;
 }
@@ -73,12 +73,12 @@ section {
 
 .left {
   width: 50%;
-  min-width: 360px;
+  min-width: 361px;
 }
 
 .right {
   width: 50%;
-  min-width: 360px;
+  min-width: 361px;
 }
 
 #main_dif {
@@ -116,13 +116,20 @@ section {
   background-color: var(--colorbg1);
 }
 
+#presentation {
+  background-color: var(--colorbg2);
+  color: black;
+}
+
 #quadralab {
   background-color: var(--colorbg1);
   color: white;
 }
 
 #boutique {
-  background-color: var(--colorbg2);
+
+  background-image: url("../images/organic_collection.png");
+  background-size: contain no-repeat;
 }
 
 #livraison {
@@ -195,13 +202,21 @@ section {
   bottom: 40px;
 }
 
+#titre{
+  position: relative;
+  width: 15vw;
+  top: 20vh;
+  left: 10vw;
+  z-index: 1;
+}
+
 #promo {
   border-style: Solid;
   border-color: var(--main_color);
   border-width: 3px;
   position: absolute;
-  width: 30vw;
-  height: 25vh;
+  width: 40%;
+  height: 25%;
   font-family: Oswald;
   font-size: 1.5em;
   text-align: center;

@@ -9,6 +9,8 @@ var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
+var guide = require('./routes/guide');
+var quadralab = require('./routes/quadralab');
 
 var app = express();
 
@@ -24,9 +26,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'quadralab')));
+app.use(express.static(path.join(__dirname, 'views')));
 
 app.use('/', index);
+app.use('/guide', guide);
 app.use('/users', users);
+app.use('/quadralab', quadralab);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

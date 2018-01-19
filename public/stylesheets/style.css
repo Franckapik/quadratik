@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Oswald|Voltaire');
+@import url('https://fonts.googleapis.com/css?family=Oswald');
 @import url('https://fonts.googleapis.com/css?family=Alegreya+Sans+SC:100,100i,300,300i,400,400i,500,500i,700,700i,800,800i,900,900i|Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i');
 
 
@@ -10,6 +10,7 @@
 }
 
 body {
+  background: black;
   font-family: 'Oswald', sans-serif;
   padding: 0px;
   margin: 0px;
@@ -26,7 +27,7 @@ a {
 }
 
 header {
-  position: fixed;
+  position: sticky;
   background: black;
   width: 100%;
   height: 8vh;
@@ -38,7 +39,7 @@ header {
 /* logo */
 
 header img {
-  width: 5vw;
+  width: 95px;
 }
 
 nav {
@@ -54,6 +55,8 @@ nav ul {
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-around;
+  align-items:flex-start;
+  padding-top: 15px;
 
 
 
@@ -76,6 +79,8 @@ section {
 
 section img {
   padding:  30px;
+  display: block;
+  margin: auto;
 }
 
 button{
@@ -103,6 +108,15 @@ button{
   min-width: 300px;
 }
 
+.left h2 {
+  text-align: left;
+
+}
+
+.right h2 {
+  text-align: right;
+}
+
 .right {
   width: 50%;
   min-width: 300px;
@@ -120,9 +134,12 @@ button{
 }
 
 #quadralab img {
-  width: 25%;
+  width: 50%;
+  max-width: 250px;
 
 }
+
+
 
 .hexagon_boutique {
   position: absolute;
@@ -154,7 +171,7 @@ button{
 }
 
 #boutique {
-
+background-color: var(--colorbg2);
 }
 
 #livraison {
@@ -172,7 +189,7 @@ button{
 }
 
 #payment_icons {
-  width: 20vh;
+  width: 23vh;
 }
 
 #fdp_icons {
@@ -180,8 +197,17 @@ button{
 }
 
 #hparleur {
+  margin-left: -20px;
   display: block;
-  width: 10vh;
+  width: 30vh;
+}
+
+.row{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+
 }
 
 .newsletter {
@@ -193,7 +219,7 @@ button{
 .newsletter_form {}
 
 .newsletter_form input {
-  width: 15vw;
+  width: 200px;
 }
 
 
@@ -207,10 +233,10 @@ button{
 #contact_icons {
   position: absolute;
   display: block;
-  margin-top: 10%;
-  width: 30vw;
+
+  width: 20%;
   right: 0vw;
-  bottom: 0;
+  bottom: 0px;
 }
 
 .infos_legales {
@@ -268,11 +294,8 @@ button {
 
 
 
-.valeurs {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 80vh;
+#valeurs_img {
+width: 100vh;
 }
 
 #legacy {
@@ -326,6 +349,18 @@ ul {
     -webkit-transform: rotate(45deg) translate(-8px, -8px);
     transform: rotate(45deg) translate(-8px, -8px);
 }
+
+footer {
+  text-align: center;
+  color:white;
+  background-color: green;
+  height: 200px;
+}
+
+
+
+
+
 
 /* SLIDESHOW */
 
@@ -444,6 +479,12 @@ header{
 
 .hamburger{
   display: block;
+}
+
+section img {
+  padding: 15px;
+  display: block;
+  margin: auto;
 }
 
 }

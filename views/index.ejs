@@ -58,34 +58,36 @@
 
 
   <section id="presentation">
-    <div class="right">
-
-    </div>
     <div class="left flex">
 
-
-
-      <div class="contenu_presentation">
-
-
-
-        <h2>Le diffuseur acoustique</h2>
-        <p>Le diffuseur acoustique permets d'améliorer l'acoustique d'un studio de manière considérable.</p>
-        <p>Il révèle la sensation agréable d'être entouré par le son et favorise ainsi inspiration et émotions.</p>
-
-        <p>Il supprime les phénomènes indésirables dans les fréquences medium et aigues.
-      </p>
-        <img src="images/bureau.svg" alt="Station de Home Studio avec enceintes de monitoring">
-        <p></p>
-        <p></p>
-        <div class="center">
-          Pour comprendre tous les rôles du diffuseur acoustique
-        </div>
-        <p></p>
-        <button class="center">Suivez le Guide !</button>
-
-      </div>
     </div>
+
+    <div class="right flex">
+
+
+
+            <div class="contenu_presentation">
+
+
+
+              <h2>Le diffuseur acoustique</h2>
+              <p>Le diffuseur acoustique permets d'améliorer l'acoustique d'un studio de manière considérable.</p>
+              <p>Il révèle la sensation agréable d'être entouré par le son et favorise ainsi inspiration et émotions.</p>
+
+              <p>Il supprime les phénomènes indésirables dans les fréquences medium et aigues.
+            </p>
+              <img src="images/bureau.svg" alt="Station de Home Studio avec enceintes de monitoring">
+              <p></p>
+              <p></p>
+              <div class="center">
+                Pour comprendre tous les rôles du diffuseur acoustique
+              </div>
+              <p></p>
+              <button class="center">Suivez le Guide !</button>
+
+            </div>
+    </div>
+
   </section>
 
   <section id="quadralab">
@@ -101,7 +103,7 @@
         <p>Transformer votre espace de créativité avec un design innovant et totalement personnel !</p>
         Entrer dans le QuadraLab, un outil en ligne gratuit!
         <p></p>
-        <img class="center" src="images/faders.svg" alt="Faders de console Home Studio">
+        <img id="faders" class="center" src="images/faders.svg" alt="Faders de console Home Studio">
         <p></p>
         <p></p>
 
@@ -115,6 +117,7 @@
   </section>
 
   <section id="boutique">
+    <h2>Boutique</h2>
     <!-- Slideshow container -->
  <div class="slideshow-container">
 
@@ -157,16 +160,20 @@
 
 
       <h2>Paiement & Livraison</h2>
+<div class="row">
+  <img id="payment_icons" src="images/payment_method.svg" alt="Moyens de paiements existant pour toute commande">
+  <img id="fdp_icons" src="images/fdp.svg" alt="Frais de ports 3 euros avec paiment sécurisé et emballage 2nde main">
+</div>
 
-      <img id="payment_icons" src="images/payment_method.svg" alt="Moyens de paiements existant pour toute commande">
-      <img id="fdp_icons" src="images/fdp.svg" alt="Frais de ports 3 euros avec paiment sécurisé et emballage 2nde main">
 
     </div>
+
     <div class="right flex">
-      
+      <h2>Prenons contact</h2>
+
       <img id="hparleur" src="images/hp.svg" alt="Dessin de Haut parleur">
 
-      <div class="newsletter">
+      <div class="newsletter flex">
         <p>Newsletter</p>
         <p>Restez informé des dernières nouveautés en acoustique</p>
 
@@ -185,32 +192,40 @@
   <section id="contact">
 
 
+    <div class="flex center">
+
 
     <h2>Nos valeurs</h2>
 
     <p>En commandant sur quadratik.fr, vous soutenez nos valeurs sur le travail, la santé et l'environnement.</p>
     Merci
-    <div class="valeurs">
+</div>
 
 
-      <img id="valeurs" src="images/valeurs.svg" alt="Les valeurs de l'entreprise Quadratik sont inscrites ici">
-    </div>
-    <img id="social" src="images/social.svg" alt="Les valeurs de l'entreprise Quadratik sont inscrites ici">
+      <img id="valeurs_img" src="images/valeurs.svg" alt="Les valeurs de l'entreprise Quadratik sont inscrites ici">
+
+
     <img id="contact_icons" src="images/contact_icons.svg" alt="Les valeurs de l'entreprise Quadratik sont inscrites ici">
 
 
     <div class="right flex">
 
 
-      <div class="infos_legales">
-        <p>infos légales</p>
-        <p>conditions générales de ventes</p>
-        <p>®Quadratik.fr </p>
-        <p>2018</p>
 
-      </div>
     </div>
   </section>
+
+  <footer>
+    <p></p>
+
+      <p>infos légales</p>
+      <p>conditions générales de ventes</p>
+      <p>®Quadratik.fr </p>
+      <p>2018</p>
+
+    </div>
+
+  </footer>
 
   <script type="text/javascript">
 
@@ -248,6 +263,8 @@ function showSlides(n) {
   dots[slideIndex-1].className += " active";
 }
   </script>
+
+
 
 </body>
 

@@ -1,0 +1,9 @@
+www.quadratik.fr {
+  proxy / localhost:3000
+}
+
+quadratik.fr {
+  proxy / localhost:3000
+}
+
+

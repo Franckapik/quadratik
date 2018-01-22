@@ -1,13 +1,13 @@
 www.quadratik.fr {
   proxy / localhost:3000
-  proxy / localhost:1111
+  proxy /api localhost:1111
 
 
 }
 
 quadratik.fr {
   proxy / localhost:3000
-  proxy / localhost:1111
+  proxy /api localhost:1111
 }
 
 

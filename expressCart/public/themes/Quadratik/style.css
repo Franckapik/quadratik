@@ -1,3 +1,5 @@
+@import url('../../../../public/stylesheets/style.css');
+
 .search-bar-input, #frm_search, .search-bar-input .btn{
     padding-top: 10px;
     height: 45px;
@@ -79,7 +81,7 @@
     background-color: #E74C3C;
 }
 
-.pushy-link:hover, .pushy-link:focus, .pushy-link:active, .pushy-link:active:hover, 
+.pushy-link:hover, .pushy-link:focus, .pushy-link:active, .pushy-link:active:hover,
 #empty-cart:hover, #empty-cart:focus, #empty-cart:active, #empty-cart:active:hover{
     border-color: #cc4135;
     background-color: #cc4135;
@@ -131,7 +133,7 @@
         padding-right: 7.5px;
         padding-left: 7.5px;
     }
- 
+
     .navActive>a{
         color: white !important;
         background-color: #E74C3C;

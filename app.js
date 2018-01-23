@@ -5,14 +5,42 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+const keyPublishable = "pk_test_oaiyISu3eJI542wOXmZ0ePd4";
+const keySecret = "sk_test_Ni9H4zEQgnRRZyABHemWY6Bh";
+
+
+const stripe = require("stripe")(keySecret);
+
 
 
 var index = require('./routes/index');
 var users = require('./routes/users');
 var guide = require('./routes/guide');
 var quadralab = require('./routes/quadralab');
+var shop = require('./routes/shop');
 
 var app = express();
+
+
+app.use(require("body-parser").urlencoded({extended: false}));
+
+app.post("/charge", (req, res) => {
+  let amount = 500;
+
+  stripe.customers.create({
+     email: req.body.stripeEmail,
+    source: req.body.stripeToken
+  })
+  .then(customer =>
+    stripe.charges.create({
+      amount,
+      description: "Sample Charge",
+         currency: "usd",
+         customer: customer.id
+    }))
+  .then(charge => res.render("charge.ejs"));
+});
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -32,6 +60,7 @@ app.use('/', index);
 app.use('/guide', guide);
 app.use('/users', users);
 app.use('/quadralab', quadralab);
+app.use('/shop', shop);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

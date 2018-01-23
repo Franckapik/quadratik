@@ -13,6 +13,10 @@ body {
 
 }
 
+#body_shop {
+  background: var(--colorbg2);
+}
+
 .guide_container img {
   display: block;
   margin: auto;

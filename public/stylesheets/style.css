@@ -17,6 +17,11 @@ body {
   background: var(--colorbg2);
 }
 
+.shop_container {
+  padding: 2vw 10vw 2vw 15vw;
+  text-align: justify;
+}
+
 .guide_container img {
   display: block;
   margin: auto;
@@ -42,6 +47,10 @@ body {
 
 .accent {
   color: var(--accentcolor);
+}
+
+.shop img{
+  width: 8vw;
 }
 
 .guide_liste{
@@ -144,6 +153,7 @@ section img {
 button {
   display: block;
   margin: auto;
+  border-radius: 5px;
 }
 
 .center {

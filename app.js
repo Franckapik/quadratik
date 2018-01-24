@@ -108,8 +108,8 @@ app.get('/buy' , ( req , res ) => {
 		"payment_method": "paypal"
 	},
 	"redirect_urls": {
-		"return_url": "https://localhost:3000/pay_success",
-		"cancel_url": "https://localhost:3000/pay_err"
+		"return_url": "https://www.quadratik.fr:3000/pay_success",
+		"cancel_url": "https://www.quadratik.fr:3000/pay_err"
 	},
 	"transactions": [{
 		"amount": {

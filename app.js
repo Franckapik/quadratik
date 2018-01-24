@@ -7,50 +7,6 @@ var bodyParser = require('body-parser');
 var app = express();
 var config = require('./config')
 
-//Payment requiring
-var paypal = require('paypal-rest-sdk');
-
-const keyPublishable = "pk_test_oaiyISu3eJI542wOXmZ0ePd4";
-const keySecret = "sk_test_Ni9H4zEQgnRRZyABHemWY6Bh";
-var stripe = require("stripe")(keySecret);
-
-// configure paypal with the credentials you got when you created your paypal app
-paypal.configure({
-  'mode': 'sandbox', //sandbox or live
-  'client_id': config.paypal_id,
-  'client_secret': config.paypal_secret
-});
-
-
-//STRIPE
-app.use(bodyParser.urlencoded({ extended: false }));
-
-app.post("/charge", (req, res) => {
-  console.log(req.body.nbItems);
-  let amount = (req.body.nbItems*100).toFixed(0);;
-
-  stripe.customers.create({
-     email: req.body.stripeEmail,
-    source: req.body.stripeToken,
-  })
-  .then(customer =>
-    stripe.charges.create({
-      amount,
-      description: "Sample Charge",
-         currency: "eur",
-         customer: customer.id
-    }))
-  .then(function(charge){
-    if(charge.paid){
-       res.render("charge.ejs", { charge });
-
-    }
-    else {
- res.send('Erreur de paiment');
-    }}
-  );
-});
-
 //VIEW ENGINE
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -76,6 +32,9 @@ var quadralab = require('./routes/quadralab');
 var shop = require('./routes/shop');
 var pay_success = require('./routes/pay_success');
 var pay_err = require('./routes/pay_err');
+var buy = require('./routes/buy');
+var charge = require('./routes/charge');
+var liste = require('./routes/liste');
 
 //ROUTES
 app.use('/', index);
@@ -85,65 +44,9 @@ app.use('/quadralab', quadralab);
 app.use('/shop', shop);
 app.use('/pay_success', pay_success);
 app.use('/pay_err', pay_err);
-app.use('/liste',function(req, res, next){
-
-stripe.charges.list(
-  { limit: 3 },
-  function(err, charges) {
-  res.send(charges);
-  }
-);
-
-
-});
-
-
-//PAYPAL
-
-// start payment process
-app.get('/buy' , ( req , res ) => {
-	// create payment object
-    var payment = {
-            "intent": "authorize",
-	"payer": {
-		"payment_method": "paypal"
-	},
-	"redirect_urls": {
-		"return_url": "https://www.quadratik.fr/pay_success",
-		"cancel_url": "https://www.quadratik.fr/pay_err"
-	},
-	"transactions": [{
-		"amount": {
-			"total": 39.00,
-			"currency": "USD"
-		},
-		"description": " a book on mean stack "
-	}]
-    }
-
-
-	// call the create Pay method
-    createPay( payment )
-        .then( ( transaction ) => {
-            var id = transaction.id;
-            var links = transaction.links;
-            var counter = links.length;
-            while( counter -- ) {
-                if ( links[counter].method == 'REDIRECT') {
-					// redirect to paypal where user approves the transaction
-                    return res.redirect( links[counter].href )
-                }
-            }
-        })
-        .catch( ( err ) => {
-            console.log( err );
-            res.redirect('/pay_err');
-        });
-});
-
-
-
-
+app.use('/buy', buy); //paypal
+app.use('/charge', charge); //stripe
+app.use('/liste', liste); //stripe admin
 
 
 // catch 404 and forward to error handler
@@ -164,20 +67,6 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-
-// helper functions
-var createPay = ( payment ) => {
-    return new Promise( ( resolve , reject ) => {
-        paypal.payment.create( payment , function( err , payment ) {
-         if ( err ) {
-             reject(err);
-         }
-        else {
-            resolve(payment);
-        }
-        });
-    });
-}
 
 
 module.exports = app;

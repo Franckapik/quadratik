@@ -25,6 +25,7 @@ var app = express();
 app.use(require("body-parser").urlencoded({extended: false}));
 
 app.post("/charge", (req, res) => {
+  
   let amount = 500;
 
   stripe.customers.create({
@@ -35,13 +36,21 @@ app.post("/charge", (req, res) => {
     stripe.charges.create({
       amount,
       description: "Sample Charge",
-         currency: "usd",
+         currency: "eur",
          customer: customer.id
     }))
-  .then(charge => res.render("charge.ejs"));
+  .then(function(charge){
+    if(charge.paid){
+       res.render("charge.ejs", { charge });
+
+    }
+    else {
+ res.send('Erreur de paiment');
+    }}
+  );
 });
 
-
+//charge => res.render("charge.ejs", { charge })
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -61,6 +70,19 @@ app.use('/guide', guide);
 app.use('/users', users);
 app.use('/quadralab', quadralab);
 app.use('/shop', shop);
+app.use('/liste',function(req, res, next){
+
+stripe.charges.list(
+  { limit: 3 },
+  function(err, charges) {
+  res.send(charges);
+  }
+);
+
+
+});
+
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

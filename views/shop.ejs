@@ -1,173 +1,95 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>Boutique Quadratik.fr</title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-    <script src="https://www.paypalobjects.com/api/checkout.js"></script>
-    <script>
-      paypal.Button.render({
-        env: 'production', // Or 'sandbox',
 
-        commit: true, // Show a 'Pay Now' button
+<head>
+  <meta charset="utf-8">
+  <title>Boutique Quadratik.fr</title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+  <script src="https://www.paypalobjects.com/api/checkout.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.18/vue.min.js"></script>
+  <script type="text/javascript" src="js/paypal.js"></script>
+</head>
 
-        style: {
-          color: 'gold',
-          size: 'small'
-        },
+<body id="body_shop">
 
-        payment: function(data, actions) {
-          /*
-           * Set up the payment here
-           */
-        },
-
-        onAuthorize: function(data, actions) {
-          /*
-           * Execute the payment here
-           */
-        },
-
-        onCancel: function(data, actions) {
-          /*
-           * Buyer cancelled the payment
-           */
-        },
-
-        onError: function(err) {
-          /*
-           * An error occurred during the transaction
-           */
-        }
-      }, '#paypal-button');
-    </script>
-  </head>
-  <body id="body_shop">
-    <div id="app">
-  <div class="header">
-    <!--stripe-->
-    <form action="/charge" method="POST">
-  <script
-    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-    data-key="pk_test_oaiyISu3eJI542wOXmZ0ePd4"
-    data-amount="999"
-    data-name="Quadratik.fr"
-    data-description="Diffuseurs acoustiques"
-    data-image="/images/logo_black.svg"
-    data-locale="fr"
-    data-zip-code="true">
-  </script>
-</form>
+  <% include header.ejs %>
 
 
-    <div id="paypal-button">ICI</div>
-    <h2>Comics</h2>
-    <div>
-      <button @click="showCart = !showCart" v-show="!verified">
+  <div id="app">
+    <div class="header">
+
+      <!--Boutique articles-->
+
+      <h2>Comics</h2>
+      <div>
+        <button @click="showCart = !showCart" v-show="!verified">
         {{ items.length + (items.length > 1 || items.length === 0 ? " items" : " item") }}
       </button>
+      </div>
     </div>
-  </div>
-  <div class="cart" v-show="showCart">
-    <div v-show="items.length > 0">
-      <ul>
-        <li v-for="item in items" transition="fade">
-          <p><strong>{{ item.quantity }}</strong> - {{ item.name }} <i class="fa fa-trash" @click="removeFromCart(item)"></i></p>
-        </li>
-      </ul>
-      <div><button @click="verified = true, showCart = false">Check out</button></div>
+    <div class="cart" v-show="showCart">
+      <div v-show="items.length > 0">
+        <ul>
+          <li v-for="item in items" transition="fade">
+            <p><strong>{{ item.quantity }}</strong> - {{ item.name }} <i class="fa fa-trash" @click="removeFromCart(item)"></i></p>
+          </li>
+        </ul>
+        <div><button @click="verified = true, showCart = false">Check out</button></div>
+      </div>
+      <div v-show="items.length === 0">
+        <p>Your cart is empty!</p>
+      </div>
     </div>
-    <div v-show="items.length === 0">
-      <p>Your cart is empty!</p>
-    </div>
-  </div>
-  <div class="container">
-    <div class="shop" v-show="!verified">
-      <h3>New Arrivals</h3>
-      <ul>
-        <li v-for="item in shop">
-          <div>
-            <h5>{{ item.name }}</h5>
-            <p>${{ item.price }}</p>
-            <button @click="addToCart(item)">Add to cart</button>
+    <div class="container">
+      <div class="shop" v-show="!verified">
+        <h3>New Arrivals</h3>
+        <ul>
+          <li v-for="item in shop">
+            <div>
+              <h5>{{ item.name }}</h5>
+              <p>${{ item.price }}</p>
+              <button @click="addToCart(item)">Add to cart</button>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="checkout" v-show="verified">
+        <h3>Your Cart</h3>
+        <h5 v-for="item in items"><strong>{{ item.quantity }}</strong> - {{ item.name }}<span>${{ item.price * item.quantity }}</span></h5>
+        <hr />
+        <div class="row">
+          <div class="u-pull-right">
+            <h5>Total: <span>{{ total | currency }}</span></h5>
+            <button>Looks Good</button>
           </div>
-        </li>
-      </ul>
-    </div>
-    <div class="checkout" v-show="verified">
-      <h3>Your Cart</h3>
-      <h5 v-for="item in items"><strong>{{ item.quantity }}</strong> - {{ item.name }}<span>${{ item.price * item.quantity }}</span></h5>
-      <hr />
-      <div class="row">
-        <div class="u-pull-right">
-          <h5>Total: <span>{{ total | currency }}</span></h5>
-          <button>Looks Good</button>
         </div>
       </div>
     </div>
+
+      <!--Stripe-->
+      <form action="/charge" method="POST">
+
+        <input type="text" name="nbItems" value="{{ total }}" disabled="disabled">
+        <script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="pk_test_oaiyISu3eJI542wOXmZ0ePd4" data-amount="888" data-name="Quadratik.fr" data-description="Diffuseurs acoustiques" data-image="/images/logo_black.svg" data-locale="fr"
+          data-zip-code="true">
+        </script>
+      </form>
+
+      <!--Paypal-->
+
+      <div id="paypal-button">ICI</div>
+
+      <a href="/buy">
+                        <button class="btn btn-warning btn-lg"> Buy now for $39 </button>
+      </a> 
+
+
+
   </div>
-</div>
-  </body>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.18/vue.min.js">
-  </script>
+</body>
+
+<script type="text/javascript" src="js/articles.js">
+</script>
 
 
-  <script type="text/javascript">
-  const shop = [
-{
-  name: "One-Punch Man, Vol. 5",
-  price: 10.02,
-  quantity: 0
-},
-{
-  name: "Batman '66, Vol. 5",
-  price: 9.98,
-  quantity: 0
-},
-{
-  name: "Dragon Ball Freeza Arc, Vol. 1",
-  price: 15.98,
-  quantity: 0
-},
-{
-  name: "Uzumaki: Spiral into Horror, Vol. 1",
-  price: 4.84,
-  quantity: 0
-},
-{
-  name: "Superman: Red Son (New Edition)",
-  price: 10.93,
-  quantity: 0
-}
-];
-
-const vm = new Vue({
-el: "#app",
-data: {
-  items: [],
-  shop: shop,
-  showCart: false,
-  verified: false
-},
-computed: {
-  total() {
-    var total = 0;
-    for(var i = 0; i < this.items.length; i++) {
-      total += this.items[i].price;
-    }
-    return total;
-  }
-},
-methods: {
-  addToCart(item) {
-    item.quantity += 1;
-    this.items.push(item);
-  },
-  removeFromCart(item) {
-    item.quantity -= 1;
-    this.items.splice(this.items.indexOf(item), 1);
-  }
-}
-});
-  </script>
 </html>

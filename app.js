@@ -5,6 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var app = express();
+var config = require('./config')
 
 //Payment requiring
 var paypal = require('paypal-rest-sdk');
@@ -16,8 +17,8 @@ var stripe = require("stripe")(keySecret);
 // configure paypal with the credentials you got when you created your paypal app
 paypal.configure({
   'mode': 'sandbox', //sandbox or live
-  'client_id': 'AfOhgzVI02bsj86o3bP0ShMJC3lMWBCqUuv1Iv9amOIp2HrKGFvFVUC9EoshmpefxHROzTKrF0PmAdnY', // please provide your client id here
-  'client_secret': 'EHjACTc6bF5yxFLCZZuJU0QLb8Y8YL672wah1cmqwQS-CZy9OQSOUQ2YvfuX0GlXi1pOHuH1gPtzHzXf' // provide your client secret here
+  'client_id': config.paypal_id,
+  'client_secret': config.paypal_secret
 });
 
 

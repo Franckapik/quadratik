@@ -73,7 +73,7 @@ var users = require('./routes/users');
 var guide = require('./routes/guide');
 var quadralab = require('./routes/quadralab');
 var shop = require('./routes/shop');
-var pay_sucess = require('./routes/pay_sucess');
+var pay_success = require('./routes/pay_success');
 var pay_err = require('./routes/pay_err');
 
 //ROUTES
@@ -82,7 +82,7 @@ app.use('/guide', guide);
 app.use('/users', users);
 app.use('/quadralab', quadralab);
 app.use('/shop', shop);
-app.use('/pay_sucess', pay_sucess);
+app.use('/pay_success', pay_success);
 app.use('/pay_err', pay_err);
 app.use('/liste',function(req, res, next){
 

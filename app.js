@@ -7,14 +7,27 @@ var bodyParser = require('body-parser');
 var app = express();
 var config = require('./config')
 
+
+const keyPublishable = config.stripe_publishable;
+const keySecret = config.stripe_secret;
+var stripe = require("stripe")(keySecret);
+
+app.use(logger('dev'));
+
+//STRIPE
+app.use(bodyParser.json());
+
+app.use(bodyParser.urlencoded({ extended: false }));
+
+
+
 //VIEW ENGINE
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(logger('dev'));
-app.use(bodyParser.json());
+
 
 //STATICS
 
@@ -33,8 +46,8 @@ var shop = require('./routes/shop');
 var pay_success = require('./routes/pay_success');
 var pay_err = require('./routes/pay_err');
 var buy = require('./routes/buy');
-var charge = require('./routes/charge');
 var liste = require('./routes/liste');
+var charge = require('./routes/charge');
 
 //ROUTES
 app.use('/', index);
@@ -45,8 +58,9 @@ app.use('/shop', shop);
 app.use('/pay_success', pay_success);
 app.use('/pay_err', pay_err);
 app.use('/buy', buy); //paypal
-app.use('/charge', charge); //stripe
-app.use('/liste', liste); //stripe admin
+app.use('/liste',liste);
+app.use('/charge',charge);
+
 
 
 // catch 404 and forward to error handler
@@ -67,6 +81,8 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+
 
 
 module.exports = app;

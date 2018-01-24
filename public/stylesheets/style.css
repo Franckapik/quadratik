@@ -50,7 +50,12 @@ body {
 }
 
 .shop img{
-  width: 8vw;
+  display: block;
+  margin: auto;
+  padding: 20px;
+  max-width: 20vw;
+
+  border-radius: 5px;
 }
 
 .guide_liste{
@@ -165,6 +170,13 @@ button {
 .flex {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex_row {
+  display: flex;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
 }

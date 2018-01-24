@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "PORT=80 node ./bin/www"
+    "start": "node ./bin/www"
   },
   "dependencies": {
     "body-parser": "~1.18.2",
@@ -16,5 +16,8 @@
     "serve-favicon": "~2.4.5",
     "socket.io": "^2.0.4",
     "stripe": "^5.4.0"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.23.6"
   }
 }

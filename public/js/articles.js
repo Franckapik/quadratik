@@ -1,7 +1,7 @@
 //ARTICLES
 
 const shop = [{
-  collection: {
+  
     name: "Woodik-7",
     price: 10.02,
     quantity: 0,
@@ -25,7 +25,7 @@ const shop = [{
     quantity: 0,
     img: "/images/modeles/chene-7.jpg"
   }
-}];
+];
 
 //VUE.JS
 

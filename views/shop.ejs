@@ -5,6 +5,7 @@
   <meta charset="utf-8">
   <title>Boutique Quadratik.fr</title>
   <link rel='stylesheet' href='/stylesheets/style.css' />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="https://www.paypalobjects.com/api/checkout.js"></script>
   <script src="https://checkout.stripe.com/checkout.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.18/vue.min.js"></script>
@@ -20,40 +21,99 @@
 
 
       <div id="app">
-        <div class="header">
+        <div class="cart_box">
 
-          <h2>Boutique</h2>
+
 
           <!-- PANIER-->
-          <div>
-            <button @click="showCart = !showCart" v-show="!verified">
-        {{ items.length + (items.length > 1 || items.length === 0 ? " items" : " item") }}
-      </button>
+
+          <button @click="showCart = !showCart" v-show="!verified" id="cart_button">
+      <i class="fa fa-shopping-cart fa-2x" aria-hidden="true"></i> {{ items.length  }}
+    </button>
+
+
+
+          <div class="cart" v-show="showCart">
+            <div v-show="items.length > 0">
+              <ul>
+                <li v-for="item in items" transition="fade">
+                  <p><strong>{{ item.quantity }}</strong> - {{ item.name }} <i class="fa fa-trash" @click="removeFromCart(item)"></i></p>
+                </li>
+              </ul>
+              <div><button @click="verified = true, showCart = false" id="order_button">Passer la commande</button></div>
+            </div>
+            <div v-show="items.length === 0">
+              <p>Votre panier est vide!</p>
+            </div>
           </div>
         </div>
-
-        <div class="cart" v-show="showCart">
-          <div v-show="items.length > 0">
-            <ul>
-              <li v-for="item in items" transition="fade">
-                <p><strong>{{ item.quantity }}</strong> - {{ item.name }} <i class="fa fa-trash" @click="removeFromCart(item)"></i></p>
-              </li>
-            </ul>
-            <div><button @click="verified = true, showCart = false">Passer la commande</button></div>
-          </div>
-          <div v-show="items.length === 0">
-            <p>Votre panier est vide!</p>
-          </div>
-        </div>
-
+        <h2>Boutique</h2>
         <!--  LISTE ARTICLES -->
         <div class="container">
           <div class="shop" v-show="!verified">
-            <h3>Nouvelles collections</h3>
+            <div class="collection">
+              <h3>Simple et efficace : Klassik-7</h3>
+              <ul class="flex_row">
+                <li v-for="item in shop[0]">
+                  <div class="article_box">
+                    <h5>{{ item.name }}</h5>
+                    <p>{{ item.price }} €</p>
+                    <img src="{{ item.img }}" alt="Affichage non disponible" data-action="zoom">
+                    <button @click="addToCart(item)">Ajouter au panier</button>
+                    <!-- TO DO : view details-->
+                  </div>
+                </li>
+              </ul>
+            </div>
+<div class="collection">
+  <h3>Collection Organik</h3>
+  <ul class="flex_row">
+    <li v-for="item in shop[1]">
+      <div class="article_box">
+        <h5>{{ item.name }}</h5>
+        <p>{{ item.price }} €</p>
+        <img src="{{ item.img }}" alt="Affichage non disponible" data-action="zoom">
+        <button @click="addToCart(item)">Ajouter au panier</button>
+        <!-- TO DO : view details-->
+      </div>
+    </li>
+  </ul>
+</div>
+
+            <div class="collection">
+              <h3>Collection Botanik</h3>
+              <ul class="flex_row">
+                <li v-for="item in shop[2]">
+                  <div class="article_box">
+                    <h5>{{ item.name }}</h5>
+                    <p>{{ item.price }} €</p>
+                    <img src="{{ item.img }}" alt="Affichage non disponible" data-action="zoom">
+                    <button @click="addToCart(item)">Ajouter au panier</button>
+                    <!-- TO DO : view details-->
+                  </div>
+                </li>
+              </ul>
+            </div>
+          <div class="collection">
+            <h3>Collection Minimalik</h3>
             <ul class="flex_row">
-              <li v-for="item in shop">
-                <div>
-                  <h5>{{ item.collection.name }}</h5>
+              <li v-for="item in shop[3]">
+                <div class="article_box">
+                  <h5>{{ item.name }}</h5>
+                  <p>{{ item.price }} €</p>
+                  <img src="{{ item.img }}" alt="Affichage non disponible" data-action="zoom">
+                  <button @click="addToCart(item)">Ajouter au panier</button>
+                  <!-- TO DO : view details-->
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="collection">
+            <h3>Collection Gamik</h3>
+            <ul class="flex_row">
+              <li v-for="item in shop[4]">
+              <div class="article_box">
+                  <h5>{{ item.name }}</h5>
                   <p>{{ item.price }} €</p>
                   <img src="{{ item.img }}" alt="Affichage non disponible" data-action="zoom">
                   <button @click="addToCart(item)">Ajouter au panier</button>
@@ -63,15 +123,19 @@
             </ul>
           </div>
 
+          </div>
+
           <!-- CHECKOUT -->
           <div class="checkout" v-show="verified">
             <h3>Votre Panier</h3>
-            <h5 v-for="item in items"><strong>{{ item.quantity }}</strong> - {{ item.name }}<span>${{ item.price * item.quantity }}</span></h5>
+            <h5 v-for="item in items"><strong>{{ item.quantity }}</strong> - {{ item.name }}<span>    | {{ item.price * item.quantity }} €</span></h5>
             <hr />
             <div class="row">
               <div class="u-pull-right">
                 <h5>Total: <span>{{ total | currency }}</span></h5>
                 <p></p>
+
+
 
                 <div class="payment_solutions">
                   <!--Stripe-->
@@ -82,9 +146,11 @@
 
                   <!--Chèque-->
                   <button type="button" name="button_cheque" id="button_cheque"> Chèque Bancaire </button>
+                  <a href="/shop">retour en boutique</a>
                 </div>
 
               </div>
+
             </div>
           </div>
         </div>

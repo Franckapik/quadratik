@@ -124,6 +124,33 @@ h5 {
   border-radius: 5px;
 }
 
+.promo{
+  color: var(--accentcolor);
+  font-weight: 500;
+}
+
+.boutique_header{
+  background-color: var(--accentcolor);
+  padding: 15px 30px 15px 30px;
+  border-radius: 2px;
+}
+
+.payment_solutions{
+  padding: 30px;
+  background-color: grey;
+  border-radius: 3px;
+}
+
+.payment_solutions button{
+  margin: 10px;
+}
+
+.u-pull-right a {
+  display: block;
+  text-align: center;
+  color: var(--colorbg1);
+}
+
 a {
   text-decoration: none;
   color: white;
@@ -405,6 +432,8 @@ button {
 #promo button {
   position: relative;
   top: 0px;
+  padding: 15px 32px;
+  font-size: 16px;
 }
 
 button {
@@ -412,10 +441,11 @@ button {
   background-color: var(--main_color);
   border: none;
   color: black;
-  padding: 15px 32px;
+  padding: 10px 15px;
   text-align: center;
   text-decoration: none;
-  font-size: 16px;
+  font-size: 1em;
+
 }
 
 #valeurs_img {

@@ -67,6 +67,7 @@
             </div>
 <div class="collection">
   <h3>Collection Organik</h3>
+  <hr>
   <ul class="flex_row">
     <li v-for="item in shop[1]">
       <div class="article_box">
@@ -132,12 +133,12 @@
             <hr />
             <div class="row">
               <div class="u-pull-right">
-                <h5>Total: <span>{{ total | currency }}</span></h5>
+                <h5>Total: <span>{{ total  }} €</span></h5>
                 <p></p>
 
 
 
-                <div class="payment_solutions">
+                <div class="payment_solutions flex_row">
                   <!--Stripe-->
                   <button id="customButton"> Carte bancaire </button>
 
@@ -146,8 +147,11 @@
 
                   <!--Chèque-->
                   <button type="button" name="button_cheque" id="button_cheque"> Chèque Bancaire </button>
-                  <a href="/shop">retour en boutique</a>
+
                 </div>
+                <p></p>
+                <p></p>
+                <a href="/shop">Retour en boutique</a>
 
               </div>
 

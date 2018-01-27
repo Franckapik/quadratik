@@ -1,35 +1,34 @@
 var express = require('express');
 var router = express.Router();
-var config = require('../config')
+var config = require('../config');
 
 const keyPublishable = config.stripe_publishable;
 const keySecret = config.stripe_secret;
 var stripe = require("stripe")(keySecret);
-
-router.post("/", (req, res) => {
-  console.log(req.body);
+console.log(keySecret);
+router.post("/charge", (req, res) => {
   let amount = 500;
-
+ console.log(req.body.id);
   stripe.customers.create({
-     email: req.body.stripeEmail,
-    source: req.body.stripeToken,
+    email: req.body.email,
+    card: req.body.id
   })
   .then(customer =>
     stripe.charges.create({
       amount,
       description: "Sample Charge",
-         currency: "eur",
-         customer: customer.id
+      currency: "usd",
+      customer: customer.id
     }))
-  .then(function(charge){
-    if(charge.paid){
-       res.render("charge.ejs", { charge });
-
-    }
-    else {
- res.send('Erreur de paiment');
-    }}
-  );
+  .then(
+    (charge) => {
+      res.render('charge', {charge})
+      console.log(charge)
+    })
+  .catch(err => {
+    console.log("Error:", err);
+    res.status(500).send({error: "Purchase Failed"});
+  });
 });
 
 module.exports = router;

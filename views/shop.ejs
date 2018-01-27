@@ -8,12 +8,14 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="https://www.paypalobjects.com/api/checkout.js"></script>
   <script src="https://checkout.stripe.com/checkout.js"></script>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.18/vue.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/zooming/1.2.7/zooming.js"></script>
   <script type="text/javascript" src="js/paypal.js"></script>
+    <script type="text/javascript" src="js/stripe.js"></script>
 </head>
 
 <body id="body_shop">
+
 
   <% include header.ejs %>
 
@@ -23,7 +25,7 @@
       <div id="app">
         <div class="cart_box">
 
-
+<%= variable %>
 
           <!-- PANIER-->
 
@@ -140,7 +142,7 @@
 
                 <div class="payment_solutions flex_row">
                   <!--Stripe-->
-                  <button id="customButton"> Carte bancaire </button>
+                <button id="buttonCheckout">Carte bancaire</button>
 
                   <!--Paypal-->
                   <a href="/buy"><button class="btn btn-warning btn-lg"> PayPal </button></a>
@@ -166,9 +168,49 @@
       </div>
     </div>
 </body>
+<script src="/socket.io/socket.io.js"></script>
 
 <script type="text/javascript" src="js/articles.js"></script>
-<script type="text/javascript" src="js/stripe.js"></script>
+<script type="text/javascript">
+
+var checkoutHandler = StripeCheckout.configure({
+  key: "pk_test_oaiyISu3eJI542wOXmZ0ePd4",
+  locale: "fr"
+});
+
+var button = document.getElementById("buttonCheckout");
+button.addEventListener("click", function(ev) {
+  checkoutHandler.open({
+    name: "Sample Store",
+    description: "Example Purchase",
+    token: handleToken
+  });
+});
+
+function handleToken(token) {
+  fetch("/charge", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(token)
+    })
+    .then(response => {
+      if (!response.ok)
+        throw response;
+      return response.json();
+    })
+    .then(output => {
+      console.log("Purchase succeeded:", output);
+    })
+    .catch(err => {
+      console.log("Purchase failed:", err);
+    })
+
+}
+
+
+</script>
 
 
 </html>

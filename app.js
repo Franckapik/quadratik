@@ -7,6 +7,21 @@ var bodyParser = require('body-parser');
 var app = express();
 var config = require('./config')
 
+var cart = {};
+var server = require('http').createServer(app);
+var io = require('socket.io')(server);
+io.sockets.on('connection', function (socket) {
+
+      socket.on('add',  function (add) {
+
+        console.log('Un client me parle ! Il me dit : ' + add);
+        cart.quantity = add;
+        console.log('cart' + cart.quantity);
+    });
+
+});
+
+server.listen(3000);
 
 const keyPublishable = config.stripe_publishable;
 const keySecret = config.stripe_secret;
@@ -59,7 +74,7 @@ app.use('/pay_success', pay_success);
 app.use('/pay_err', pay_err);
 app.use('/buy', buy); //paypal
 app.use('/liste',liste);
-app.use('/charge',charge);
+app.post('/charge',charge);
 
 
 

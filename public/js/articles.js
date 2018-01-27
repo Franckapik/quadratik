@@ -128,6 +128,8 @@ const shop = [[{
 ];
 
 
+var socket = io.connect('http://localhost:3000');
+
 
 
 //VUE.JS
@@ -153,6 +155,9 @@ const vm = new Vue({
     addToCart(item) {
       item.quantity += 1;
       this.items.push(item);
+
+      socket.emit('add', item.quantity);
+
     },
     removeFromCart(item) {
       item.quantity -= 1;

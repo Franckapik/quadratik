@@ -5,19 +5,30 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var app = express();
-var config = require('./config')
+var config = require('./config');
+var session = require('express-session');
+
+app.use(session({
+  secret: 'mycatiscuteandyoudontcare',
+  cookie: {
+    maxAge: 60000
+  },
+  resave: false,
+  saveUninitialized: true
+}));
+
 
 var cart = {};
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
-io.sockets.on('connection', function (socket) {
+io.sockets.on('connection', function(socket) {
 
-      socket.on('add',  function (add) {
+  socket.on('add', function(add) {
 
-        console.log('Un client me parle ! Il me dit : ' + add);
-        cart.quantity = add;
-        console.log('cart' + cart.quantity);
-    });
+    console.log('Un client me parle ! Il me dit : ' + add);
+    cart.quantity = add;
+    console.log('cart' + cart.quantity);
+  });
 
 });
 
@@ -32,7 +43,9 @@ app.use(logger('dev'));
 //STRIPE
 app.use(bodyParser.json());
 
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({
+  extended: false
+}));
 
 
 
@@ -73,8 +86,8 @@ app.use('/shop', shop);
 app.use('/pay_success', pay_success);
 app.use('/pay_err', pay_err);
 app.use('/buy', buy); //paypal
-app.use('/liste',liste);
-app.post('/charge',charge);
+app.use('/liste', liste);
+app.post('/charge', charge);
 
 
 
@@ -94,6 +107,7 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
+  console.warn(err);
   res.render('error');
 });
 

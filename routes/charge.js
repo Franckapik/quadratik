@@ -23,6 +23,7 @@ router.post("/charge", (req, res) => {
     }))
   .then(
     (charge) => {
+      req.session.charge = charge;
       console.log(req.session);
       res.redirect('/pay_success')
     })

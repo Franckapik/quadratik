@@ -5,7 +5,7 @@ var config = require('../config');
 const keyPublishable = config.stripe_publishable;
 const keySecret = config.stripe_secret;
 var stripe = require("stripe")(keySecret);
-console.log(keySecret);
+
 router.post("/charge", (req, res) => {
   let amount = 500;
  console.log(req.body.id);
@@ -22,8 +22,7 @@ router.post("/charge", (req, res) => {
     }))
   .then(
     (charge) => {
-      res.render('charge', {charge})
-      console.log(charge)
+      res.redirect('/pay_success')
     })
   .catch(err => {
     console.log("Error:", err);

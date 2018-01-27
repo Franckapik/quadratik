@@ -22,7 +22,7 @@ router.post("/charge", (req, res) => {
       customer: customer.id
     }))
   .then(
-    (req, res, charge) => {
+    (charge) => {
       console.log(req.session);
       res.redirect('/pay_success')
     })

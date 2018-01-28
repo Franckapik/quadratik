@@ -128,12 +128,38 @@ const shop = [[{
 ];
 
 
-
-
+const vm = new Vue({
+  el: "#app",
+  data: {
+    items: [],
+    shop: shop,
+    showCart: false,
+    verified: false
+  },
+  computed: {
+    total() {
+      var total = 0;
+      for(var i = 0; i < this.items.length; i++) {
+        total += this.items[i].price;
+      }
+      return total;
+    }
+  },
+  methods: {
+    addToCart(item) {
+      item.quantity += 1;
+      this.items.push(item);
+    },
+    removeFromCart(item) {
+      item.quantity -= 1;
+      this.items.splice(this.items.indexOf(item), 1);
+    }
+  }
+});
 
 
 //VUE.JS
-
+/*
 const vm = new Vue({
   el: "#app",
   data: {
@@ -148,9 +174,10 @@ const vm = new Vue({
       for (var i = 0; i < this.items.length; i++) {
         total += this.items[i].price;
       }
+      return total;
       var socket = io.connect('http://localhost:3000');
       socket.emit('cart', total);
-      return total;
+
     }
   },
   methods: {
@@ -166,4 +193,4 @@ const vm = new Vue({
       this.items.splice(this.items.indexOf(item), 1);
     }
   }
-});
+});*/

@@ -128,7 +128,7 @@ const shop = [[{
 ];
 
 
-var socket = io.connect('http://localhost:3000');
+
 
 
 
@@ -148,6 +148,8 @@ const vm = new Vue({
       for (var i = 0; i < this.items.length; i++) {
         total += this.items[i].price;
       }
+      var socket = io.connect('http://localhost:3000');
+      socket.emit('cart', total);
       return total;
     }
   },
@@ -156,7 +158,7 @@ const vm = new Vue({
       item.quantity += 1;
       this.items.push(item);
 
-      socket.emit('add', item.quantity);
+
 
     },
     removeFromCart(item) {

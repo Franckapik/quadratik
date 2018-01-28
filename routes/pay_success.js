@@ -1,12 +1,20 @@
 var express = require('express');
 var router = express.Router();
-var session = require('express-session');
+var config = require('../config');
+const keyPublishable = config.stripe_publishable;
+const keySecret = config.stripe_secret;
+var stripe = require("stripe")(keySecret);
 
-/* GET home page. */
+
 router.get('/' , (req ,res, next ) => {
 
-    console.log('Session charge:' + req.session.charge);
-    res.render('pay_success');
+  stripe.charges.retrieve(
+    req.query.charge_id,
+    function(err, charge) {
+      console.log(charge.id);
+      res.render('pay_success', {charge});
+    }
+  );
 })
 
 module.exports = router;

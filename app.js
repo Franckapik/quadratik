@@ -1,42 +1,76 @@
 var express = require('express');
+var app = express();
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var app = express();
 var config = require('./config');
 var session = require('express-session');
 
+// Chargement de socket.io
 app.use(session({
   secret: 'mycatiscuteandyoudontcare',
   cookie: {
     maxAge: 60000
   },
-  resave: false,
+  resave: true,
   saveUninitialized: true
 }));
 
-
-var cart = {};
-var server = require('http').createServer(app);
+var server = require('http').Server(app);
 var io = require('socket.io')(server);
-io.sockets.on('connection', function(socket) {
-
-  socket.on('add', function(add) {
-
-    console.log('Un client me parle ! Il me dit : ' + add);
-    cart.quantity = add;
-    console.log('cart' + cart.quantity);
-  });
-
-});
 
 server.listen(3000);
+
 
 const keyPublishable = config.stripe_publishable;
 const keySecret = config.stripe_secret;
 var stripe = require("stripe")(keySecret);
+
+// Quand un client se connecte, on le note dans la console
+
+app.get('/session', function(req, res, next) {
+  var sessData = req.session;
+  sessData.someAttribute = "foo";
+});
+
+app.get('/bar', function(req, res, next) {
+  var someAttribute = req.session.someAttribute;
+  res.send(`This will print the attribute I set earlier: ${someAttribute}`);
+});
+
+var cart = {};
+
+io.on('connection', function(socket) {
+
+  console.log('Un client est connecté !');
+
+  socket.on('cart', function(cart_total){
+    cart.total = cart_total;
+    console.log('cart   :' + cart.total);
+  })
+
+  socket.on('token', function(token_id) {
+    console.log(token_id);
+
+      stripe.charges.create({
+        amount: cart.total * 100,
+        currency: "eur",
+        description: "Example charge",
+        source: token_id,
+      }, function(err, charge) {
+        if (charge.id) {
+          console.log(charge.id);
+        socket.emit('redirect', charge);
+      }
+
+      });
+
+
+    });
+  });
+
 
 app.use(logger('dev'));
 
@@ -75,7 +109,7 @@ var pay_success = require('./routes/pay_success');
 var pay_err = require('./routes/pay_err');
 var buy = require('./routes/buy');
 var liste = require('./routes/liste');
-var charge = require('./routes/charge');
+//var charge = require('./routes/charge');
 
 //ROUTES
 app.use('/', index);
@@ -87,7 +121,7 @@ app.use('/pay_success', pay_success);
 app.use('/pay_err', pay_err);
 app.use('/buy', buy); //paypal
 app.use('/liste', liste);
-app.post('/charge', charge);
+//app.post('/charge', charge);
 
 
 
@@ -99,6 +133,7 @@ app.use(function(req, res, next) {
 });
 
 
+
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
@@ -107,7 +142,7 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  console.warn(err);
+  //console.warn(err);
   res.render('error');
 });
 

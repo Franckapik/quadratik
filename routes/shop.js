@@ -14,7 +14,7 @@ router.get('/', function(req, res, next) {
 
       cart.cart_total = obj.total;
       cart.cart_articles = obj.articles;
-      session.save();
+      req.session.save();
 
       console.log(cart);
     //console.log(req.session.total);

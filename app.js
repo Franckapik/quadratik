@@ -7,6 +7,24 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var config = require('./config');
 var session = require('express-session');
+const sqlite3 = require('sqlite3').verbose();
+
+// open database in memory
+let db = new sqlite3.Database(':memory:', (err) => {
+  if (err) {
+    return console.error(err.message);
+  }
+  console.log('Connected to the in-memory SQlite database.');
+});
+
+// close the database connection
+db.close((err) => {
+  if (err) {
+    return console.error(err.message);
+  }
+  console.log('Close the database connection.');
+});
+
 
 //Session & Cookies
 app.use(session({
@@ -83,6 +101,7 @@ var pay_success = require('./routes/pay_success');
 var pay_err = require('./routes/pay_err');
 var buy = require('./routes/buy');
 var liste = require('./routes/liste');
+var cart = require('./routes/cart');
 //var charge = require('./routes/charge');
 
 //ROUTES
@@ -95,6 +114,7 @@ app.use('/pay_success', pay_success);
 app.use('/pay_err', pay_err);
 app.use('/buy', buy); //paypal
 app.use('/liste', liste);
+app.use('/cart', cart);
 //app.post('/charge', charge);
 
 

@@ -12,7 +12,7 @@
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/zooming/1.2.7/zooming.js"></script>
   <script type="text/javascript" src="js/paypal.js"></script>
 
- <script src="https://checkout.stripe.com/checkout.js"></script>
+  <script src="https://checkout.stripe.com/checkout.js"></script>
 
 </head>
 
@@ -20,8 +20,8 @@
 
 
   <% include header.ejs %>
- <div id="app">
-    <div class="shop_container">
+    <div id="app">
+      <div class="shop_container">
 
 
         <div class="cart_box">
@@ -68,21 +68,21 @@
                 </li>
               </ul>
             </div>
-<div class="collection">
-  <h3>Collection Organik</h3>
-  <hr>
-  <ul class="flex_row">
-    <li v-for="item in shop[1]">
-      <div class="article_box">
-        <h5>{{ item.name }}</h5>
-        <p>{{ item.price }} €</p>
-        <img v-bind:src="item.img" alt="Affichage non disponible" data-action="zoom">
-        <button @click="addToCart(item)">Ajouter au panier</button>
-        <!-- TO DO : view details-->
-      </div>
-    </li>
-  </ul>
-</div>
+            <div class="collection">
+              <h3>Collection Organik</h3>
+              <hr>
+              <ul class="flex_row">
+                <li v-for="item in shop[1]">
+                  <div class="article_box">
+                    <h5>{{ item.name }}</h5>
+                    <p>{{ item.price }} €</p>
+                    <img v-bind:src="item.img" alt="Affichage non disponible" data-action="zoom">
+                    <button @click="addToCart(item)">Ajouter au panier</button>
+                    <!-- TO DO : view details-->
+                  </div>
+                </li>
+              </ul>
+            </div>
 
             <div class="collection">
               <h3>Collection Botanik</h3>
@@ -98,34 +98,34 @@
                 </li>
               </ul>
             </div>
-          <div class="collection">
-            <h3>Collection Minimalik</h3>
-            <ul class="flex_row">
-              <li v-for="item in shop[3]">
-                <div class="article_box">
-                  <h5>{{ item.name }}</h5>
-                  <p>{{ item.price }} €</p>
-                  <img v-bind:src="item.img" alt="Affichage non disponible" data-action="zoom">
-                  <button @click="addToCart(item)">Ajouter au panier</button>
-                  <!-- TO DO : view details-->
-                </div>
-              </li>
-            </ul>
-          </div>
-          <div class="collection">
-            <h3>Collection Gamik</h3>
-            <ul class="flex_row">
-              <li v-for="item in shop[4]">
-              <div class="article_box">
-                  <h5>{{ item.name }}</h5>
-                  <p>{{ item.price }} €</p>
-                  <img v-bind:src="item.img" alt="Affichage non disponible" data-action="zoom">
-                  <button @click="addToCart(item)">Ajouter au panier</button>
-                  <!-- TO DO : view details-->
-                </div>
-              </li>
-            </ul>
-          </div>
+            <div class="collection">
+              <h3>Collection Minimalik</h3>
+              <ul class="flex_row">
+                <li v-for="item in shop[3]">
+                  <div class="article_box">
+                    <h5>{{ item.name }}</h5>
+                    <p>{{ item.price }} €</p>
+                    <img v-bind:src="item.img" alt="Affichage non disponible" data-action="zoom">
+                    <button @click="addToCart(item)">Ajouter au panier</button>
+                    <!-- TO DO : view details-->
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="collection">
+              <h3>Collection Gamik</h3>
+              <ul class="flex_row">
+                <li v-for="item in shop[4]">
+                  <div class="article_box">
+                    <h5>{{ item.name }}</h5>
+                    <p>{{ item.price }} €</p>
+                    <img v-bind:src="item.img" alt="Affichage non disponible" data-action="zoom">
+                    <button @click="addToCart(item)">Ajouter au panier</button>
+                    <!-- TO DO : view details-->
+                  </div>
+                </li>
+              </ul>
+            </div>
 
           </div>
 
@@ -144,7 +144,7 @@
                 <div class="payment_solutions flex_row">
                   <!--Stripe-->
 
-  <button id="customButton">Carte bancaire</button>
+                  <button id="customButton">Carte bancaire</button>
 
 
                   <!--Paypal-->
@@ -171,208 +171,211 @@
       </div>
     </div>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js">
-
     </script>
 
 
     <script>
-    const shop = [[{
-        name: "Klassik-6",
-        price: 50,
-        quantity: 0,
-        img: "/images/modeles/klassik/klassik-6.jpg"
-      }
-    ],
+      const shop = [
+        [{
+          name: "Klassik-6",
+          price: 50,
+          quantity: 0,
+          img: "/images/modeles/klassik/klassik-6.jpg"
+        }],
 
-      [{
-        name: "Woodik-7",
-        price: 55,
-        quantity: 0,
-        img: "/images/modeles/organik/woodik-7.jpg"
-      },
-      {
-          name: "Wenge-7",
-          price: 66,
-          quantity: 0,
-          img: "/images/modeles/organik/wenge-7.jpg"
-        },
+        [{
+            name: "Woodik-7",
+            price: 55,
+            quantity: 0,
+            img: "/images/modeles/organik/woodik-7.jpg"
+          },
+          {
+            name: "Wenge-7",
+            price: 66,
+            quantity: 0,
+            img: "/images/modeles/organik/wenge-7.jpg"
+          },
 
-        {
-          name: "Teck-7",
-          price: 78,
-          quantity: 0,
-          img: "/images/modeles/organik/teck-7.jpg"
-        },
-        {
-          name: "Chêne-7",
-          price: 78,
-          quantity: 0,
-          img: "/images/modeles/organik/chene-7.jpg"
-        }
-      ],
-
-      [{
-          name: "Anemone-7",
-          price: 85,
-          quantity: 0,
-          img: "/images/modeles/botanik/anemone-7.jpg"
-        },
-        {
-          name: "Aubergine-7",
-          price: 78,
-          quantity: 0,
-          img: "/images/modeles/botanik/aubergine-7.jpg"
-        },
-        {
-          name: "Lichen-7",
-          price: 85,
-          quantity: 0,
-          img: "/images/modeles/botanik/lichen-7.jpg"
-        },
-        {
-          name: "Liseron Bleu-7",
-          price: 85,
-          quantity: 0,
-          img: "/images/modeles/botanik/liseron_bleu-7.jpg"
-        }
-      ],
-
-      [{
-          name: "Gruk-7",
-          price: 78,
-          quantity: 0,
-          img: "/images/modeles/minimalik/gruk-7.jpg"
-        },
-        {
-          name: "Klio-7",
-          price: 85,
-          quantity: 0,
-          img: "/images/modeles/minimalik/klio-7.jpg"
-        },
-        {
-          name: "Orelo-7",
-          price: 78,
-          quantity: 0,
-          img: "/images/modeles/minimalik/orelo-7.jpg"
-        },
-        {
-          name: "Romal-7",
-          price: 78,
-          quantity: 0,
-          img: "/images/modeles/minimalik/romal-7.jpg"
-        }
-      ],
-
-      [{
-          name: "Invader-7",
-          price: 78,
-          quantity: 0,
-          img: "/images/modeles/gamik/invader-7.jpg"
-        },
-        {
-          name: "Mario-7",
-          price: 85,
-          quantity: 0,
-          img: "/images/modeles/gamik/mario-7.jpg"
-        },
-        {
-          name: "Spaceship-7",
-          price: 78,
-          quantity: 0,
-          img: "/images/modeles/gamik/spaceship-7.jpg"
-        },
-        {
-          name: "Snake-7",
-          price: 78,
-          quantity: 0,
-          img: "/images/modeles/gamik/snake-7.jpg"
-        }
-      ], [{
-          name: "K7 - Pack 6 diffuseurs",
-          price: 420,
-          quantity: 0,
-          img: "/images/modeles/giantik/tape-dif6.jpg"
-        },
-        {
-          name: "Headphone - Pack 6 diffuseurs",
-          price: 420,
-          quantity: 0,
-          img: "/images/modeles/giantik/headphone-dif6.jpg"
-        }
-      ]
-
-    ];
-var socket = io.connect('http://localhost:3000');
-    const vm = new Vue({
-      el: "#app",
-      data: {
-        items: [],
-        shop: shop,
-        showCart: false,
-        verified: false
-      },
-      computed: {
-        total() {
-          var total = 0;
-          for(var i = 0; i < this.items.length; i++) {
-            total += this.items[i].price;
+          {
+            name: "Teck-7",
+            price: 78,
+            quantity: 0,
+            img: "/images/modeles/organik/teck-7.jpg"
+          },
+          {
+            name: "Chêne-7",
+            price: 78,
+            quantity: 0,
+            img: "/images/modeles/organik/chene-7.jpg"
           }
-          socket.emit('cart', {total : total, articles: this.items});
-          return total;
-        }
-      },
-      methods: {
-        addToCart(item) {
-          item.quantity += 1;
-          this.items.push(item);
+        ],
 
+        [{
+            name: "Anemone-7",
+            price: 85,
+            quantity: 0,
+            img: "/images/modeles/botanik/anemone-7.jpg"
+          },
+          {
+            name: "Aubergine-7",
+            price: 78,
+            quantity: 0,
+            img: "/images/modeles/botanik/aubergine-7.jpg"
+          },
+          {
+            name: "Lichen-7",
+            price: 85,
+            quantity: 0,
+            img: "/images/modeles/botanik/lichen-7.jpg"
+          },
+          {
+            name: "Liseron Bleu-7",
+            price: 85,
+            quantity: 0,
+            img: "/images/modeles/botanik/liseron_bleu-7.jpg"
+          }
+        ],
 
+        [{
+            name: "Gruk-7",
+            price: 78,
+            quantity: 0,
+            img: "/images/modeles/minimalik/gruk-7.jpg"
+          },
+          {
+            name: "Klio-7",
+            price: 85,
+            quantity: 0,
+            img: "/images/modeles/minimalik/klio-7.jpg"
+          },
+          {
+            name: "Orelo-7",
+            price: 78,
+            quantity: 0,
+            img: "/images/modeles/minimalik/orelo-7.jpg"
+          },
+          {
+            name: "Romal-7",
+            price: 78,
+            quantity: 0,
+            img: "/images/modeles/minimalik/romal-7.jpg"
+          }
+        ],
 
+        [{
+            name: "Invader-7",
+            price: 78,
+            quantity: 0,
+            img: "/images/modeles/gamik/invader-7.jpg"
+          },
+          {
+            name: "Mario-7",
+            price: 85,
+            quantity: 0,
+            img: "/images/modeles/gamik/mario-7.jpg"
+          },
+          {
+            name: "Spaceship-7",
+            price: 78,
+            quantity: 0,
+            img: "/images/modeles/gamik/spaceship-7.jpg"
+          },
+          {
+            name: "Snake-7",
+            price: 78,
+            quantity: 0,
+            img: "/images/modeles/gamik/snake-7.jpg"
+          }
+        ],
+        [{
+            name: "K7 - Pack 6 diffuseurs",
+            price: 420,
+            quantity: 0,
+            img: "/images/modeles/giantik/tape-dif6.jpg"
+          },
+          {
+            name: "Headphone - Pack 6 diffuseurs",
+            price: 420,
+            quantity: 0,
+            img: "/images/modeles/giantik/headphone-dif6.jpg"
+          }
+        ]
+
+      ];
+
+      const vm = new Vue({
+        el: "#app",
+        data: {
+          items: [],
+          shop: shop,
+          showCart: false,
+          verified: false
         },
-        removeFromCart(item) {
-          item.quantity -= 1;
-          this.items.splice(this.items.indexOf(item), 1);
+        computed: {
+          total() {
+            var total = 0;
+            for (var i = 0; i < this.items.length; i++) {
+              total += this.items[i].price;
+            }
+
+            return total;
+          }
+        },
+        methods: {
+          addToCart(item) {
+            item.quantity += 1;
+            this.items.push(item);
+            fetch('/cart', {
+                method: 'post',
+                body: JSON.stringify({
+                  item: this.items,
+                  qty: item.quantity
+                })
+              }).then(res => res.json())
+              .then((json) => console.log(json) );
+          },
+          removeFromCart(item) {
+            item.quantity -= 1;
+            this.items.splice(this.items.indexOf(item), 1);
+          }
         }
-      }
-    });
-
-    var handler = StripeCheckout.configure({
-      key: 'pk_test_oaiyISu3eJI542wOXmZ0ePd4',
-      image: '/images/logo_black.svg',
-      locale: 'fr',
-      token: function(token) {
-        console.log(token.id);
-
-        var socket = io.connect('http://localhost:3000');
-        socket.emit('token', token.id);
-        socket.on('redirect', function(charge){
-          console.log("redirection");
-          window.location = "http://localhost:3000/pay_success?charge_id=" + charge.id ;
-        })
-
-        // You can access the token ID with `token.id`.
-        // Get the token ID to your server-side code for use.
-      }
-    });
-
-    document.getElementById('customButton').addEventListener('click', function(e) {
-      // Open Checkout with further options:
-      handler.open({
-        name: 'Quadratik.fr',
-        description: 'Spécialiste du diffuseur acoustique',
-        currency: 'eur',
-        amount: vm.total*100
       });
-      e.preventDefault();
-    });
 
-    // Close Checkout on page navigation:
-    window.addEventListener('popstate', function() {
-      handler.close();
-    });
+      var handler = StripeCheckout.configure({
+        key: 'pk_test_oaiyISu3eJI542wOXmZ0ePd4',
+        image: '/images/logo_black.svg',
+        locale: 'fr',
+        token: function(token) {
+          console.log(token.id);
 
+          var socket = io.connect('http://localhost:3000');
+          socket.emit('token', token.id);
+          socket.on('redirect', function(charge) {
+            console.log("redirection");
+            window.location = "http://localhost:3000/pay_success?charge_id=" + charge.id;
+          })
 
+          // You can access the token ID with `token.id`.
+          // Get the token ID to your server-side code for use.
+        }
+      });
 
+      document.getElementById('customButton').addEventListener('click', function(e) {
+        // Open Checkout with further options:
+        handler.open({
+          name: 'Quadratik.fr',
+          description: 'Spécialiste du diffuseur acoustique',
+          currency: 'eur',
+          amount: vm.total * 100
+        });
+        e.preventDefault();
+      });
+
+      // Close Checkout on page navigation:
+      window.addEventListener('popstate', function() {
+        handler.close();
+      });
     </script>
 </body>
+
 </html>

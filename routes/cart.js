@@ -9,7 +9,7 @@ router.get('/', function(req, res, next) {
 
 //ajoute un article au panier
 router.post('/', function(req, res, next) {
-console.log(req.body);
+console.log(req.item);
 });
 
 //remplace Tout le contenu du panier

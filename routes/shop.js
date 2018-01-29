@@ -3,7 +3,7 @@ var router = express.Router();
 
 router.get('/', function(req, res, next) {
   console.log('sessionID :' + req.sessionID);
-  
+
   var cart = req.session;
 
   req.io.on('connection', function(socket) {
@@ -14,6 +14,7 @@ router.get('/', function(req, res, next) {
 
       cart.cart_total = obj.total;
       cart.cart_articles = obj.articles;
+      session.save();
 
       console.log(cart);
     //console.log(req.session.total);

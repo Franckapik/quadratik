@@ -14,7 +14,7 @@ app.use(session({
   cookie: {
     maxAge: 60000
   },
-  resave: true,
+  resave: false,
   saveUninitialized: true
 }));
 
@@ -40,37 +40,11 @@ app.get('/bar', function(req, res, next) {
   res.send(`This will print the attribute I set earlier: ${someAttribute}`);
 });
 
-var cart = {};
-
-io.on('connection', function(socket) {
-
-  console.log('Un client est connecté !');
-
-  socket.on('cart', function(cart_obj) {
-    cart.total = cart_obj.total;
-    console.log('cart   :' + cart.total);
-  })
-
-  socket.on('token', function(token_id) {
-    console.log(token_id);
-
-    stripe.charges.create({
-      amount: cart.total,
-      currency: "eur",
-      description: "Example charge",
-      source: token_id
-    }, function(err, charge) {
-      console.log(err);
-      console.log(charge);
-      socket.emit('redirect', charge);
-
-
-    });
-
-
-  });
+// Make io accessible to our router
+app.use(function(req,res,next){
+    req.io = io;
+    next();
 });
-
 
 app.use(logger('dev'));
 

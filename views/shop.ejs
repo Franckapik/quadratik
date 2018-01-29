@@ -3,6 +3,7 @@
 
 <head>
   <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src *; style-src * 'checkout.stripe.com' ; script-src * 'self' 'unsafe-inline' localhost:* checkout.stripe.com 'unsafe-eval';">
   <title>Boutique Quadratik.fr</title>
   <link rel='stylesheet' href='/stylesheets/style.css' />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -29,7 +30,7 @@
           <!-- PANIER-->
 
           <button @click="showCart = !showCart" v-show="!verified">
-        {{ items.length + (items.length > 1 || items.length === 0 ? " items" : " item") }}
+        {{ items.length + (items.length > 1 ? " articles" : " article") }}
       </button>
 
 
@@ -303,7 +304,6 @@
 
     ];
 
-
     const vm = new Vue({
       el: "#app",
       data: {
@@ -318,6 +318,9 @@
           for(var i = 0; i < this.items.length; i++) {
             total += this.items[i].price;
           }
+          var socket = io.connect('http://localhost:3000');
+          socket.emit('cart', {items : items, total : total});
+
           return total;
         }
       },
@@ -325,6 +328,9 @@
         addToCart(item) {
           item.quantity += 1;
           this.items.push(item);
+
+
+
         },
         removeFromCart(item) {
           item.quantity -= 1;
@@ -336,7 +342,7 @@
     var handler = StripeCheckout.configure({
       key: 'pk_test_oaiyISu3eJI542wOXmZ0ePd4',
       image: '/images/logo_black.svg',
-      locale: 'auto',
+      locale: 'fr',
       token: function(token) {
         console.log(token.id);
 
@@ -358,7 +364,7 @@
         name: 'Quadratik.fr',
         description: 'Spécialiste du diffuseur acoustique',
         currency: 'eur',
-        amount: 2000
+        amount: vm.total*100
       });
       e.preventDefault();
     });

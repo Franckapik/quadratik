@@ -8,7 +8,7 @@ var bodyParser = require('body-parser');
 var config = require('./config');
 var session = require('express-session');
 
-// Chargement de socket.io
+//Session & Cookies
 app.use(session({
   secret: 'mycatiscuteandyoudontcare',
   cookie: {
@@ -18,18 +18,18 @@ app.use(session({
   saveUninitialized: true
 }));
 
+// Chargement de socket.io
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 
 server.listen(3000);
 
-
+//stripe configuration
 const keyPublishable = config.stripe_publishable;
 const keySecret = config.stripe_secret;
 var stripe = require("stripe")(keySecret);
 
 // Quand un client se connecte, on le note dans la console
-
 app.get('/session', function(req, res, next) {
   var sessData = req.session;
   sessData.someAttribute = "foo";
@@ -46,30 +46,30 @@ io.on('connection', function(socket) {
 
   console.log('Un client est connecté !');
 
-  socket.on('cart', function(cart_total){
-    cart.total = cart_total;
+  socket.on('cart', function(cart_obj) {
+    cart.total = cart_obj.total;
     console.log('cart   :' + cart.total);
   })
 
   socket.on('token', function(token_id) {
     console.log(token_id);
 
-      stripe.charges.create({
-        amount: cart.total * 100,
-        currency: "eur",
-        description: "Example charge",
-        source: token_id,
-      }, function(err, charge) {
-        if (charge.id) {
-          console.log(charge.id);
-        socket.emit('redirect', charge);
-      }
-
-      });
+    stripe.charges.create({
+      amount: cart.total,
+      currency: "eur",
+      description: "Example charge",
+      source: token_id
+    }, function(err, charge) {
+      console.log(err);
+      console.log(charge);
+      socket.emit('redirect', charge);
 
 
     });
+
+
   });
+});
 
 
 app.use(logger('dev'));

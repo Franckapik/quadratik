@@ -6,8 +6,14 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var config = require('./config');
-var session = require('express-session');
+const session = require('express-session');
+const KnexSessionStore = require('connect-session-knex')(session);
+var knex = require('knex')({
+  client: 'sqlite3',
+  useNullAsDefault: true
+});
 const sqlite3 = require('sqlite3').verbose();
+
 app.use(bodyParser.json());
 // open database in memory
 let db = new sqlite3.Database(':memory:', (err) => {
@@ -32,6 +38,7 @@ app.use(session({
   cookie: {
     maxAge: 60000
   },
+  store:new KnexSessionStore,
   resave: false,
   saveUninitialized: true
 }));

@@ -311,6 +311,17 @@
           showCart: false,
           verified: false
         },
+
+        created: {
+
+          function(item) {
+            fetch('/cart', {
+                method: 'get',
+              }).then(res => console.log(res))
+              .catch(error => console.error('Error:', error))
+              .then(response => console.log('Success:', response));
+          }
+        },
         computed: {
           total() {
             var total = 0;
@@ -326,15 +337,18 @@
             item.quantity += 1;
             this.items.push(item);
             fetch('/cart', {
-                credentials: 'include' ,
+                credentials: 'include',
                 method: 'post',
                 body: JSON.stringify({
                   item: this.items,
                   qty: item.quantity
+                }),
+                headers: new Headers({
+                  'Content-Type': 'application/json'
                 })
               }).then(res => res.json())
-.catch(error => console.error('Error:', error))
-.then(response => console.log('Success:', response));
+              .catch(error => console.error('Error:', error))
+              .then(response => console.log('Success:', response));
           },
           removeFromCart(item) {
             item.quantity -= 1;

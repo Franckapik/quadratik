@@ -5,11 +5,18 @@ var router = express.Router();
 //renvoie le contenu du panier
 router.get('/', function(req, res, next) {
 
+res.json({
+  item : req.session.item,
+  qty : req.session.qty
+})
+
 });
 
 //ajoute un article au panier
 router.post('/', function(req, res, next) {
-console.log(req.body);
+console.log(req.body.qty);
+req.session.qty = req.body.qty;
+req.session.item = req.body.item;
  res.json('ok')
 });
 

@@ -312,15 +312,10 @@
           verified: false
         },
 
-        created: {
-
-          function(item) {
-            fetch('/cart') //get
-            .then(res => res.json())
-            .catch(error => console.error('Error:', error))
-            .then(json => console.log('Success:', json));
-          }
+        mounted: function() {
+          this.updateCart();
         },
+
         computed: {
           total() {
             var total = 0;
@@ -345,13 +340,19 @@
                 headers: new Headers({
                   'Content-Type': 'application/json'
                 })
-              }).then(res => res.json()) //retourne un objet avant les data
+              }).then(res => res.json())
               .catch(error => console.error('Error:', error))
               .then(response => console.log('Success:', response));
           },
           removeFromCart(item) {
             item.quantity -= 1;
             this.items.splice(this.items.indexOf(item), 1);
+          },
+          updateCart() {
+          fetch('/cart')
+            .then(res => console.log(res))
+            .catch(error => console.error('Error:', error))
+            .then(response => console.log('Success:', response))
           }
         }
       });

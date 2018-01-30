@@ -312,9 +312,7 @@
           verified: false
         },
 
-        mounted: function() {
-          this.updateCart();
-        },
+
 
         computed: {
           total() {
@@ -349,12 +347,18 @@
             this.items.splice(this.items.indexOf(item), 1);
           },
           updateCart() {
-          fetch('/cart')
-            .then(res => console.log(res))
-            .catch(error => console.error('Error:', error))
-            .then(response => console.log('Success:', response))
+            fetch('/cart')
+              .then(res => res.json())
+              .catch(error => console.error('Error:', error))
+              .then(res => console.log('Success:', res))
           }
+        },
+
+
+        created: function() {
+          this.updateCart();
         }
+
       });
 
       var handler = StripeCheckout.configure({

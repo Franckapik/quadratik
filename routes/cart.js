@@ -4,7 +4,7 @@ var router = express.Router();
 
 //renvoie le contenu du panier
 router.get('/', function(req, res, next) {
-
+console.log('ici');
 res.json({
   item : req.session.item,
   qty : req.session.qty

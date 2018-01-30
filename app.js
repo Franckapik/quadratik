@@ -31,7 +31,7 @@ db.close((err) => {
   console.log('Close the database connection.');
 });
 
-
+app.use(cookieParser());
 //Session & Cookies
 app.use(session({
   secret: 'mycatiscuteandyoudontcare',
@@ -92,7 +92,7 @@ app.set('view engine', 'ejs');
 
 //STATICS
 
-app.use(cookieParser());
+
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'quadralab')));
 app.use(express.static(path.join(__dirname, 'views')));

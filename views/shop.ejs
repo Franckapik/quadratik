@@ -326,38 +326,29 @@
         },
         methods: {
           addToCart(item) {
-            item.quantity += 1;
-            this.items.push(item);
             fetch('/cart', {
                 credentials: 'include',
                 method: 'post',
                 body: JSON.stringify({
-                  item: this.items,
-                  qty: item.quantity
+                  item_name:item.name,
+                  item_price:item.price
                 }),
                 headers: new Headers({
                   'Content-Type': 'application/json'
                 })
               }).then(res => res.json())
               .catch(error => console.error('Error:', error))
-              .then(response => console.log('Success:', response));
+              .then(response => console.log('GET Success:', response.cart));
           },
           removeFromCart(item) {
             item.quantity -= 1;
             this.items.splice(this.items.indexOf(item), 1);
-          },
-          updateCart() {
-            fetch('/cart')
-              .then(res => res.json())
-              .catch(error => console.error('Error:', error))
-              .then(res => console.log('Success:', res))
+
           }
+
         },
 
 
-        created: function() {
-          this.updateCart();
-        }
 
       });
 

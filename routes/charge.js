@@ -22,7 +22,7 @@ router.post("/charge", (req, res) => {
   }, function(err, charge) {
     req.session.charge = charge.id;
     if (charge.paid) {
-      res.redirect(301,'pay_success');
+      res.redirect('pay_success');
     } else {
       res.redirect('pay_err', {
         err

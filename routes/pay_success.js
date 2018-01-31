@@ -7,14 +7,22 @@ var stripe = require("stripe")(keySecret);
 
 
 router.get('/' , (req ,res, next ) => {
+  console.log("chargeid", req.session.charge);
 
   stripe.charges.retrieve(
-    req.query.charge_id,
+    req.session.charge,
     function(err, charge) {
-      console.log(charge.id);
-      res.render('pay_success', {charge});
+      if(charge) {
+        console.log(charge.id);
+        res.send(charge.id);
+      }
+      else {
+        console.log(err);
+      }
     }
+
   );
+
 })
 
 module.exports = router;

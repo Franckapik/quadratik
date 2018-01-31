@@ -9,16 +9,25 @@ const keySecret = config.stripe_secret;
 var stripe = require("stripe")(keySecret);
 
 router.post("/charge", (req, res) => {
-  var token = req.body.stripeToken; // Using Express
+  var token = req.body.token; // Using Express
+  var amount = req.body.amount;
+  console.log(token);
 
   // Charge the user's card:
   stripe.charges.create({
-    amount: 1000,
+    amount: amount,
     currency: "eur",
     description: "Example charge",
-    source: token,
+    source: token.id,
   }, function(err, charge) {
-    // asynchronously called
+    req.session.charge = charge.id;
+    if (charge.paid) {
+      res.redirect('pay_success');
+    } else {
+      res.redirect('pay_err', {
+        err
+      });
+    }
   });
 });
 

@@ -8,7 +8,7 @@
   <link rel='stylesheet' href='/stylesheets/style.css' />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="https://www.paypalobjects.com/api/checkout.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.18/vue.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/zooming/1.2.7/zooming.js"></script>
   <script type="text/javascript" src="js/paypal.js"></script>
 
@@ -29,7 +29,7 @@
           <!-- PANIER-->
 
           <button @click="showCart = !showCart" v-show="!verified">
-        {{ items.length + (items.length > 1 ? " articles" : " article") }}
+        {{ articlesQty + (articlesQty > 1 ? " articles" : " article") }}
       </button>
 
 
@@ -37,8 +37,9 @@
           <div class="cart" v-show="showCart">
             <div v-show="items.length > 0">
               <ul>
-                <li v-for="item in items" transition="fade">
-                  <p><strong>{{ item.quantity }}</strong> - {{ item.name }} <i class="fa fa-trash" @click="removeFromCart(item)"></i></p>
+
+                <li v-for="item in items">
+                  <p><strong>{{ item.qty }}</strong> - {{ item.name }} <i class="fa fa-trash" @click="removeFromCart(item)"></i></p>
                 </li>
               </ul>
               <div><button @click="verified = true, showCart = false" id="order_button">Passer la commande</button></div>
@@ -63,7 +64,6 @@
                     <p>{{ item.price }} €</p>
                     <img v-bind:src="item.img" alt="Affichage non disponible" data-action="zoom">
                     <button @click="addToCart(item)">Ajouter au panier</button>
-                    <!-- TO DO : view details-->
                   </div>
                 </li>
               </ul>
@@ -132,7 +132,7 @@
           <!-- CHECKOUT -->
           <div class="checkout" v-show="verified">
             <h3>Votre Panier</h3>
-            <h5 v-for="item in items"><strong>{{ item.quantity }}</strong> - {{ item.name }}<span>    | {{ item.price * item.quantity }} €</span></h5>
+            <h5 v-for="item in items"><strong>{{ item.name }}</strong> <span>{{ item.price }} €</span> {{ item.qty }} articles<span> <span><i class="fa fa-trash" @click="removeFromCart(item)"></i></span>    | {{ item.price * item.qty }} €</span></h5>
             <hr />
             <div class="row">
               <div class="u-pull-right">
@@ -170,42 +170,39 @@
 
       </div>
     </div>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js">
-    </script>
-
 
     <script>
       const shop = [
         [{
           name: "Klassik-6",
           price: 50,
-          quantity: 0,
+
           img: "/images/modeles/klassik/klassik-6.jpg"
         }],
 
         [{
             name: "Woodik-7",
             price: 55,
-            quantity: 0,
+
             img: "/images/modeles/organik/woodik-7.jpg"
           },
           {
             name: "Wenge-7",
             price: 66,
-            quantity: 0,
+
             img: "/images/modeles/organik/wenge-7.jpg"
           },
 
           {
             name: "Teck-7",
             price: 78,
-            quantity: 0,
+
             img: "/images/modeles/organik/teck-7.jpg"
           },
           {
             name: "Chêne-7",
             price: 78,
-            quantity: 0,
+
             img: "/images/modeles/organik/chene-7.jpg"
           }
         ],
@@ -213,25 +210,25 @@
         [{
             name: "Anemone-7",
             price: 85,
-            quantity: 0,
+
             img: "/images/modeles/botanik/anemone-7.jpg"
           },
           {
             name: "Aubergine-7",
             price: 78,
-            quantity: 0,
+
             img: "/images/modeles/botanik/aubergine-7.jpg"
           },
           {
             name: "Lichen-7",
             price: 85,
-            quantity: 0,
+
             img: "/images/modeles/botanik/lichen-7.jpg"
           },
           {
             name: "Liseron Bleu-7",
             price: 85,
-            quantity: 0,
+
             img: "/images/modeles/botanik/liseron_bleu-7.jpg"
           }
         ],
@@ -239,25 +236,25 @@
         [{
             name: "Gruk-7",
             price: 78,
-            quantity: 0,
+
             img: "/images/modeles/minimalik/gruk-7.jpg"
           },
           {
             name: "Klio-7",
             price: 85,
-            quantity: 0,
+
             img: "/images/modeles/minimalik/klio-7.jpg"
           },
           {
             name: "Orelo-7",
             price: 78,
-            quantity: 0,
+
             img: "/images/modeles/minimalik/orelo-7.jpg"
           },
           {
             name: "Romal-7",
             price: 78,
-            quantity: 0,
+
             img: "/images/modeles/minimalik/romal-7.jpg"
           }
         ],
@@ -265,38 +262,38 @@
         [{
             name: "Invader-7",
             price: 78,
-            quantity: 0,
+
             img: "/images/modeles/gamik/invader-7.jpg"
           },
           {
             name: "Mario-7",
             price: 85,
-            quantity: 0,
+
             img: "/images/modeles/gamik/mario-7.jpg"
           },
           {
             name: "Spaceship-7",
             price: 78,
-            quantity: 0,
+
             img: "/images/modeles/gamik/spaceship-7.jpg"
           },
           {
             name: "Snake-7",
             price: 78,
-            quantity: 0,
+
             img: "/images/modeles/gamik/snake-7.jpg"
           }
         ],
         [{
             name: "K7 - Pack 6 diffuseurs",
             price: 420,
-            quantity: 0,
+
             img: "/images/modeles/giantik/tape-dif6.jpg"
           },
           {
             name: "Headphone - Pack 6 diffuseurs",
             price: 420,
-            quantity: 0,
+
             img: "/images/modeles/giantik/headphone-dif6.jpg"
           }
         ]
@@ -312,44 +309,72 @@
           verified: false
         },
 
+        created: function() {
 
+          this.updateCart();
+        },
 
         computed: {
           total() {
             var total = 0;
             for (var i = 0; i < this.items.length; i++) {
-              total += this.items[i].price;
+              total += this.items[i].price * this.items[i].qty;
             }
 
             return total;
-          }
+          },
+          articlesQty() {
+            var articlesQty = 0;
+            for (var i = 0; i < this.items.length; i++) {
+              articlesQty += this.items[i].qty;
+
+            }
+
+            return articlesQty;
+          },
         },
+
         methods: {
           addToCart(item) {
             fetch('/cart', {
                 credentials: 'include',
                 method: 'post',
                 body: JSON.stringify({
-                  item_name:item.name,
-                  item_price:item.price
+                  item_name: item.name,
+                  item_price: item.price
                 }),
                 headers: new Headers({
                   'Content-Type': 'application/json'
                 })
               }).then(res => res.json())
               .catch(error => console.error('Error:', error))
-              .then(response => console.log('GET Success:', response.cart));
+              .then(response => console.log('POST Success:', response.add));
+            this.updateCart();
           },
           removeFromCart(item) {
-            item.quantity -= 1;
-            this.items.splice(this.items.indexOf(item), 1);
-
+            fetch('/cart/' + item.name, {
+                credentials: 'include',
+                method: 'delete'
+              }).then(res => res.json())
+              .catch(error => console.error('Error:', error))
+              .then(response => console.log('DELETE Success:', response.cart));
+            this.updateCart();
+          },
+          updateCart() {
+            fetch('/cart', {
+                credentials: 'include',
+                method: 'get',
+                headers: new Headers({
+                  'Content-Type': 'application/json'
+                })
+              }).then(res => res.json())
+              .catch(error => console.error('Error:', error))
+              .then(
+                function(response) {
+                  vm.items = response.cart;
+                });
           }
-
-        },
-
-
-
+        }
       });
 
       var handler = StripeCheckout.configure({
@@ -357,17 +382,18 @@
         image: '/images/logo_black.svg',
         locale: 'fr',
         token: function(token) {
-          console.log(token.id);
 
-          var socket = io.connect('http://localhost:3000');
-          socket.emit('token', token.id);
-          socket.on('redirect', function(charge) {
-            console.log("redirection");
-            window.location = "http://localhost:3000/pay_success?charge_id=" + charge.id;
-          })
-
-          // You can access the token ID with `token.id`.
-          // Get the token ID to your server-side code for use.
+          fetch('/charge', {
+              credentials: 'include',
+              method: 'post',
+              body: JSON.stringify({
+                token : token,
+                amount : vm.total
+              }),
+              headers: new Headers({
+                'Content-Type': 'application/json'
+              })
+            });
         }
       });
 

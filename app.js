@@ -109,7 +109,7 @@ var pay_err = require('./routes/pay_err');
 var buy = require('./routes/buy');
 var liste = require('./routes/liste');
 var cart = require('./routes/cart');
-//var charge = require('./routes/charge');
+var charge = require('./routes/charge');
 
 //ROUTES
 app.use('/', index);
@@ -122,7 +122,7 @@ app.use('/pay_err', pay_err);
 app.use('/buy', buy); //paypal
 app.use('/liste', liste);
 app.use('/cart', cart);
-//app.post('/charge', charge);
+app.post('/charge', charge);
 
 
 
@@ -143,7 +143,7 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  //console.warn(err);
+  console.warn(err);
   res.render('error');
 });
 

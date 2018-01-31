@@ -2,8 +2,9 @@ var express = require('express');
 var router = express.Router();
 var cart = [];
 //renvoie le contenu du panier
-router.get('/:item', function(req, res, next) {
+router.get('/', function(req, res, next) {
 
+res.json ({cart : cart});
 
 
 });
@@ -14,29 +15,25 @@ router.post('/', function(req, res, next) {
 
   var product = {};
 
-  if (cart.indexOf(req.body.item_name) === -1) {
+  var index = cart.findIndex(x => x.name == req.body.item_name) //trouve l'index (0,1,2) du produit ajouté au panier
+
+  if (index === -1) { //nouveau produit ajouté
     product.name = req.body.item_name;
     product.price = req.body.item_price;
-    product.qty = 0;
+    product.qty = 1;
     cart.push(product);
-  }
-  else {
-    console.log('exist yet');
+  } else {
+    cart[index].qty++
+      console.log('exist yet');
 
   }
-  req.session.cart = cart;
 
-
-  /*var cart = req.session.cart = [];
-  if (cart.indexOf(req.body.item_name) === -1)
-  cart.push(req.body.item_name);
-  else {
-    cart.qty++
-  }*/
+  req.session.cart = cart; //session
 
   res.json({
-    cart: cart
+    add: product
   })
+
 });
 
 //remplace Tout le contenu du panier
@@ -45,11 +42,27 @@ router.put('/', function(req, res, next) {
 });
 
 //supprime un article au panier
-router.delete('/:id', function(req, res, next) {
+router.delete('/:item', function(req, res, next) {
 
-});
-//supprime TOUT le panier
-router.delete('/', function(req, res, next) {
+  var index = cart.findIndex(x => x.name == req.params.item) //trouve l'index (0,1,2) du produit ajouté au panier
+  console.log(index);
+
+  if (index === -1) { //n'existe pas = pas de supression
+  } else {
+    cart[index].qty--
+
+      if (cart[index].qty == 0) {
+        cart.splice(index, 1);
+      }
+
+  }
+
+  req.session.cart = cart; //session
+
+  res.json({
+    cart: cart
+  })
+
 
 });
 
@@ -59,17 +72,10 @@ router.post('/order', function(req, res, next) {
 
 });
 
-router.get('/list', function(req, res, next) {
+router.get('/list', function(req, res, next) { //envoie le panier de la session
   var cart = req.session.cart;
-  res.text({
-    results: cart
-  });
+  res.send(cart);
 });
-
-
-
-
-
 
 
 

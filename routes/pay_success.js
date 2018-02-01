@@ -5,27 +5,37 @@ const keyPublishable = config.stripe_publishable;
 const keySecret = config.stripe_secret;
 var stripe = require("stripe")(keySecret);
 
+var order ={};
 
 router.get('/' , (req ,res, next ) => {
-  console.log("chargeid", req.session.charge);
-  res.render('index');
 
 
-  /*stripe.charges.retrieve(
-    req.session.charge,
+if(req.query.paymentId) { //paypal
 
+  order.paymentId = req.query.paymentId;
+  order.token = req.query.token;
+  order.PayerID = req.query.PayerID;
+
+  console.log(req.query.paymentId);
+  console.log(req.query.token);
+  console.log(req.query.PayerID);
+
+  req.session.order = order;
+  res.send('Votre commande ' + req.query.paymentId + ' via Paypal a bien été enregistrée')
+
+}
+
+
+if(req.query.charge_id) { //stripe
+//stripe
+  stripe.charges.retrieve(
+    req.query.charge_id,
     function(err, charge) {
-      if(charge) {
-        console.log(charge.id);
-        res.send(charge.id);
-      }
-      else {
-        console.log(err);
-      }
+      req.session.cart = [];
+      res.render('pay_success', {charge : charge});
     }
-
-  );*/
-
-});
+  );
+}
+})
 
 module.exports = router;

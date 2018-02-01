@@ -5,13 +5,13 @@
   <meta charset="utf-8">
   <meta http-equiv="Content-Security-Policy" content="default-src *; style-src * 'checkout.stripe.com' ; script-src * 'self' 'unsafe-inline' localhost:* checkout.stripe.com 'unsafe-eval';">
   <title>Boutique Quadratik.fr</title>
+
   <link rel='stylesheet' href='/stylesheets/style.css' />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="https://www.paypalobjects.com/api/checkout.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vue"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/zooming/1.2.7/zooming.js"></script>
   <script type="text/javascript" src="js/paypal.js"></script>
-
   <script src="https://checkout.stripe.com/checkout.js"></script>
 
 </head>
@@ -28,7 +28,7 @@
 
           <!-- PANIER-->
 
-          <button @click="showCart = !showCart" v-show="!verified">
+          <button @click="showCart = !showCart" v-show="!order">
         {{ articlesQty + (articlesQty > 1 ? " articles" : " article") }}
       </button>
 
@@ -42,7 +42,7 @@
                   <p><strong>{{ item.qty }}</strong> - {{ item.name }} <i class="fa fa-trash" @click="removeFromCart(item)"></i></p>
                 </li>
               </ul>
-              <div><button @click="verified = true, showCart = false" id="order_button">Passer la commande</button></div>
+              <div><button @click="order = true, showCart = false, boutique = false" id="order_button">Commander</button></div>
             </div>
             <div v-show="items.length === 0">
               <p>Votre panier est vide!</p>
@@ -50,11 +50,186 @@
           </div>
         </div>
 
+        <div class="checkin" v-show="checkin">
+          <h2>Enregistrement de commande</h2>
+          <form class="" action="/order/user" method="post">
 
-        <h2>Boutique</h2>
+            <!-- Nom-->
+            <div class="control-group">
+              <label class="control-label">Nom </label>
+              <div class="controls">
+                <input id="nom" name="nom" type="text" placeholder="Dupond" class="input-xlarge">
+
+              </div>
+            </div>
+            <!-- Prenom -->
+            <div class="control-group">
+              <label class="control-label">Prénom</label>
+              <div class="controls">
+                <input id="prenom" name="prenom" type="text" placeholder="Bernard" class="input-xlarge">
+
+              </div>
+            </div>
+            <!--Adresse-->
+            <div class="control-group">
+              <label class="control-label">Adresse</label>
+              <div class="controls">
+                <input id="adresse" name="adresse" type="text" placeholder="Rue des Camélias, Batiment C, Etage 2" class="input-xlarge">
+
+              </div>
+            </div>
+
+            Utiliser cette adresse pour la livraison
+
+            <!-- Ville-->
+            <div class="control-group">
+              <label class="control-label">Ville/Commune</label>
+              <div class="controls">
+                <input id="ville" name="ville" type="text" placeholder="Paris" class="input-xlarge">
+
+              </div>
+            </div>
+            <!-- Region-->
+            <div class="control-group">
+              <label class="control-label">Region</label>
+              <div class="controls">
+                <input id="region" name="region" type="text" placeholder="Ile de France" class="input-xlarge">
+
+              </div>
+            </div>
+            <!-- Code Postal-->
+            <div class="control-group">
+              <label class="control-label">Code Postal</label>
+              <div class="controls">
+                <input id="codepostal" name="codepostal" type="text" placeholder="95200" class="input-xlarge">
+
+              </div>
+            </div>
+            <!-- Mail-->
+            <div class="control-group">
+              <label class="control-label">Adresse E-mail</label>
+              <div class="controls">
+                <input id="mail" name="mail" type="text" placeholder="bernard.dupond@gmail.com" class="input-xlarge">
+
+              </div>
+            </div>
+            <!-- Telephone-->
+            <div class="control-group">
+              <label class="control-label">Téléphone</label>
+              <div class="controls">
+                <input id="telephone" name="telephone" type="text" placeholder="0631927480" class="input-xlarge">
+
+              </div>
+            </div>
+            <!-- Utilisation-->
+            <div class="control-group">
+              <label class="control-label">Contexte d'utilisation</label>
+              <div class="controls">
+                <input type="radio" name="utilisation" value="homestudio" checked> Home studio<br>
+                <input type="radio" name="utilisation" value="studiopro"> Studio professionnel<br>
+                <input type="radio" name="utilisation" value="homecinema"> Home cinema <br>
+                <input type="radio" name="utilisation" value="autre"> Autre <br>
+              </div>
+            </div>
+
+            <button type="submit"  @click="checkin = false, livraison=true">Suivant</button>
+
+          </form>
+        </div>
+
+        <div id="Orderlivraison" v-show="livraison">
+          <form class="order_form" action="/cart/checkin" method="post">
+          <h2>Livraison</h2>
+          Choisir un point relais
+          <p></p>
+           Envoyer à mon adresse personnelle
+           <p></p>
+           Choisir une autre adresse de livraison
+           <p></p>
+
+
+
+
+            <!-- Nom complet -->
+            <div class="control-group">
+              <label class="control-label">Nom complet</label>
+              <div class="controls">
+                <input id="livraison_nom" name="livraison_nom" type="text" placeholder="Mr Bernard Dupond" class="input-xlarge">
+
+              </div>
+            </div>
+            <!--Adresse-->
+            <div class="control-group">
+              <label class="control-label">Adresse</label>
+              <div class="controls">
+                <input id="livraison_adresse" name="livraison_adresse" type="text" placeholder="Rue des Camélias, Batiment C, Etage 2" class="input-xlarge">
+
+              </div>
+            </div>
+
+
+            <!-- Ville-->
+            <div class="control-group">
+              <label class="control-label">Ville/Commune</label>
+              <div class="controls">
+                <input id="livraison_ville" name="livraison_ville" type="text" placeholder="Paris" class="input-xlarge">
+
+              </div>
+            </div>
+            <!-- Region-->
+            <div class="control-group">
+              <label class="control-label">Region</label>
+              <div class="controls">
+                <input id="livraison_region" name="livraison_region" type="text" placeholder="Ile de France" class="input-xlarge">
+
+              </div>
+            </div>
+            <!-- Code Postal-->
+            <div class="control-group">
+              <label class="control-label">Code Postal</label>
+              <div class="controls">
+                <input id="livraison_codepostal" name="livraison_codepostal" type="text" placeholder="95200" class="input-xlarge">
+
+              </div>
+            </div>
+
+
+            <button type="submit" @click="livraison=false, paiement = true">Suivant</button>
+
+          </form>
+        </div>
+
+        <div class="paiement" v-show="paiement">
+          <h2>Paiement</h2>
+
+          <div class="payment_solutions flex_row">
+            <!--Stripe-->
+
+            <button id="customButton">Carte bancaire</button>
+
+
+            <!--Paypal-->
+            <a href="/buy"><button class="btn btn-warning btn-lg"> PayPal </button></a>
+
+            <!--Chèque-->
+            <button type="button" name="button_cheque" id="button_cheque"> Chèque Bancaire </button>
+
+          </div>
+        </div>
+
+        <div class="success" v-show="success">
+          FELICITATION Order n° X
+
+          Retour à l'accueil
+          Partage sur Facebook
+          Etc..
+        </div>
+
+
         <!--  LISTE ARTICLES -->
         <div class="container">
-          <div class="shop" v-show="!verified">
+          <div class="shop" v-show="boutique">
+              <h2>Boutique</h2>
             <div class="collection">
               <h3>Simple et efficace : Klassik-7</h3>
               <ul class="flex_row">
@@ -130,7 +305,7 @@
           </div>
 
           <!-- CHECKOUT -->
-          <div class="checkout" v-show="verified">
+          <div class="checkout" v-show="order">
             <h3>Votre Panier</h3>
             <h5 v-for="item in items"><strong>{{ item.name }}</strong> <span>{{ item.price }} €</span> {{ item.qty }} articles<span> <span><i class="fa fa-trash" @click="removeFromCart(item)"></i></span>    | {{ item.price * item.qty }} €</span></h5>
             <hr />
@@ -140,20 +315,8 @@
                 <p></p>
 
 
+<button value="Suivant" @click="checkin = true, order=false">Continuer</button>
 
-                <div class="payment_solutions flex_row">
-                  <!--Stripe-->
-
-                  <button id="customButton">Carte bancaire</button>
-
-
-                  <!--Paypal-->
-                  <a href="/buy"><button class="btn btn-warning btn-lg"> PayPal </button></a>
-
-                  <!--Chèque-->
-                  <button type="button" name="button_cheque" id="button_cheque"> Chèque Bancaire </button>
-
-                </div>
                 <p></p>
                 <p></p>
                 <a href="/shop">Retour en boutique</a>
@@ -306,7 +469,13 @@
           items: [],
           shop: shop,
           showCart: false,
-          verified: false
+          order: false,
+          checkin: false,
+          livraison: false,
+          paiement: false,
+          boutique: true,
+          success:false
+
         },
 
         created: function() {
@@ -384,16 +553,26 @@
         token: function(token) {
 
           fetch('/charge', {
-              credentials: 'include',
-              method: 'post',
-              body: JSON.stringify({
-                token : token,
-                amount : vm.total
-              }),
-              headers: new Headers({
-                'Content-Type': 'application/json'
-              })
-            });
+            credentials: 'include',
+            method: 'post',
+            body: JSON.stringify({
+              token: token,
+              amount: vm.total
+            }),
+            headers: new Headers({
+              'Content-Type': 'application/json'
+            })
+          }).then(res => res.json()).then(
+
+            function(response) {
+              console.log(response.res);
+              window.location = "/pay_success?charge_id=" + response.res;
+              vm.success = true;
+              var order_id = x;
+            }
+
+          );
+
         }
       });
 
@@ -412,6 +591,7 @@
       window.addEventListener('popstate', function() {
         handler.close();
       });
+
     </script>
 </body>
 

@@ -1,5 +1,37 @@
 var express = require('express');
 var router = express.Router();
+var modele = require('../model');
+
+router.post('/user', function(res,res,next){
+  User.sync({force: true}).then(() => {
+    // Table created
+    return User.create({
+      nom: req.body.nom,
+      prenom: req.body.prenom,
+      adresse: req.body.adresse,
+      ville: req.body.ville,
+      region: req.body.region,
+      postal: req.body.codepostal,
+      mail: req.body.mail,
+      telephone: req.body.telephone,
+      utilisation: req.body.utilisation
+    });
+  });
+
+
+
+});
+
+
+
+
+
+
+
+
+
+
+/*
 var cart = [];
 //renvoie le contenu du panier
 router.get('/', function(req, res, next) {
@@ -79,6 +111,6 @@ router.get('/list', function(req, res, next) { //envoie le panier de la session
 });
 
 
-
+*/
 
 module.exports = router;

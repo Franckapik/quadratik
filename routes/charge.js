@@ -1,8 +1,6 @@
 var express = require('express');
 var router = express.Router();
 var config = require('../config');
-var session = require('express-session');
-
 
 const keyPublishable = config.stripe_publishable;
 const keySecret = config.stripe_secret;
@@ -21,13 +19,7 @@ router.post("/charge", (req, res) => {
     source: token.id,
   }, function(err, charge) {
     req.session.charge = charge.id;
-    if (charge.paid) {
-      res.redirect('pay_success');
-    } else {
-      res.redirect('pay_err', {
-        err
-      });
-    }
+    res.json({res : charge.id});
   });
 });
 

@@ -1,3 +1,5 @@
+
+module.exports = {
 const Sequelize = require('sequelize');
 //DATABASE with sequelize
 
@@ -25,7 +27,7 @@ sequelize
     console.error('Unable to connect to the database:', err);
   });
 
-module.exports = {
+
 
 
 const Product = sequelize.define('product', {

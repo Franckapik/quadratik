@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Admin</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  </head>
+  <body id="body_guide">
+  <% include header.ejs %>
+<div class="order_bar"></div>
+<div class="order_content">
+ADMIN
+  <div class="order_bar"> </div>
+  <form class="" action="/admin/productCreate" method="post">
+    collection
+    <p></p>
+    <input type="text" name="collectionId" value="">
+    <p></p>
+    name
+    <p></p>
+    <input type="text" name="name" value="">
+    <p></p>
+    price
+    <p></p>
+    <input type="text" name="price" value="">
+    <p></p>
+    img
+    <p></p>
+    <input type="text" name="img" value="">
+    <p></p>
+    Nombre de couleurs
+    <p></p>
+    <input type="text" name="nbCouleurs" value="">
+    <p></p>
+    description
+    <p></p>
+    <input type="text" name="descriptionId" value="">
+    <p></p>
+    performance
+    <p></p>
+    <input type="text" name="performanceid" value="">
+    <p></p>
+    update(put name)
+    <p></p>
+    <input type="text" name="update" value="">
+    <p></p>
+    <input type="submit" name="" value="Envoyer">
+  </form>
+
+
+  <hr>
+
+  <ul>
+      <% for(var i=0; i<product.length; i++) {%>
+        <li><img style="width: 100px;" src="/images/modeles/<%= product[i].collection.name %>/<%= product[i].name %>.jpg" alt="">
+          <%= product[i].performance.id %> -
+          <%= product[i].collection.name %> -
+           <%= product[i].name %> -
+            <%= product[i].price %> € -
+            <%= product[i].performance.frequence %> Hz -
+            Top <%= product[i].performance.classement %> -
+            <%= product[i].nbCouleurs %> couleur(s) -
+            </li>
+      <% } %>
+  </ul>
+
+  </body>
+</html>

@@ -1,15 +1,9 @@
 var express = require('express');
 var router = express.Router();
 var model = require('../model');
-var User = model.User;
-var Livraison = model.Livraison;
-var Paiement = model.Paiement;
 var Product = model.Product;
-var Description = model.Description;
-var Collection = model.Collection;
-const Sequelize = require('sequelize');
-var config = require('../config');
 
+const Sequelize = require('sequelize');
 //DATABASE with sequelize
 
 const sequelize = new Sequelize('database', 'username', 'password', {
@@ -27,15 +21,22 @@ const sequelize = new Sequelize('database', 'username', 'password', {
   storage: 'db.sqlite'
 });
 
-router.get('/', function(req, res, next) {
+router.post('/productCreate', function(req, res, next) {
 
-  Product.findAll({ include: [{ all: true }]}).then(product => {
-    ;
-    res.render('shop', {
-      data : product
+  User.sync()
+    .then(() => {
+
+      return User.create({
+        name: req.body.name,
+        price: req.body.price,
+        img: req.body.img,
+        description: req.body.description
+      });
     });
-  })
+
 
 });
+
+
 
 module.exports = router;

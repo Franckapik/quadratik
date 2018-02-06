@@ -11,16 +11,127 @@ body {
 #body_guide {
   background: var(--colorbg2);
   padding-top: 100px;
-
 }
 
 #body_shop {
   background: var(--colorbg2);
+  padding-top: 70px;
+}
+
+/* Bar de progression */
+.w3-light-grey{
+  display: block;
+  margin: auto;
+  background-color: var(--main_color_light);
+  width: 72vw;
+  border-radius: 15px;
+}
+
+.w3-green {
+  background-color: var(--main_color);
+  height:24px;
+  width:0%;
+  border-radius: 15px;
+  margin:  3vw 2vw 0 0vw;
+}
+
+.accent {
+  background-color: var(--accentcolor);
+  color: var(--colorbg1);
+}
+
+.commande_process {
+  text-align: center;
+}
+
+.commande_process input {
+  width: 250px;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border-radius: 4px;
+  border: 0px;
+  background-color: var(--main_color);
+  color: white;
+}
+
+.commande_process input[type=text]:focus {
+  background-color: rgb(41, 130, 106);
+}
+
+.commande_process input[type=radio] {
+  background-color: red;
+  width: 20px;
+}
+
+.form_box {
+  display: block;
+  text-align: left;
+}
+
+.form_part {
+  width: 70vw;
+}
+
+form {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+}
+
+input:invalid {
+  border: 1px solid red;
+}
+
+input:valid {
+  border: 1px solid green;
+}
+
+fieldset {
+  padding: 0 20px 20px 20px;
+  margin-bottom: 10px;
+  border: 2px solid var(--main_color);
+  max-width: 250px;
+}
+
+label.inline {
+  display: inline;
+  text-align: left;
+  margin-right: 50px;
+}
+
+.form_label {
+  font-size: 1em;
+  margin-left: 20px;
+}
+
+.form_livraison_choice {
+  width: 70vw;
+  align-items: last baseline;
+  display: flex;
+  flex-direction: row;
+  align-items: last baseline;
+  justify-content: center;
+  flex-wrap: wrap;
 
 }
 
+.form_choice_block {
+
+  width: 200px;
+  margin: 10px 30px 10px 30px;
+  background-color: var(--main_color_light);
+  padding: 20px;
+  border-radius: 2px;
+}
+
+.form_livraison_choosed {
+  padding: 40px;
+}
+
 .shop_container {
-  padding: 2vw 8vw 2vw 8vw;
+  padding: 2vw 3vw 2vw 3vw;
   text-align: justify;
 }
 
@@ -30,8 +141,6 @@ body {
   padding: 20px;
   max-width: 60vw;
   max-height: 80vh;
-
-
 }
 
 .guide_container {
@@ -47,28 +156,23 @@ body {
   border-radius: 5px;
 }
 
-.accent {
-  color: var(--accentcolor);
-}
 
-.shop img{
+.shop img {
   display: block;
   margin: auto;
-  padding: 20px;
-  max-width: 320px;
-
+  padding: 10px;
+  max-width: 400px;
   border-radius: 20px;
 }
 
 .shop h3 {
   display: block;
-
-  background-color: rgb(213, 213, 213);
+  background-color:var(--main_color_light);
   border-radius: 3px;
-  margin-right: 30%;
+  margin-right: 30px;
   padding: 10px;
   margin-top: 30px;
-  margin-left: -50px;
+  margin-left: 90px;
 }
 
 .shop ul {
@@ -79,12 +183,12 @@ body {
   margin-top: 50px;
 }
 
-.guide_liste{
+.guide_liste {
   background-color: rgb(185, 200, 191);
   border-radius: 5px;
 }
-.guide_liste li{
 
+.guide_liste li {
   padding: 8px;
 }
 
@@ -125,26 +229,38 @@ h5 {
   border-radius: 5px;
 }
 
-.promo{
+.promo {
   color: var(--accentcolor);
   font-weight: 500;
 }
 
-.boutique_header{
+.boutique_header {
   background-color: var(--accentcolor);
   padding: 15px 30px 15px 30px;
   border-radius: 2px;
 }
 
-.payment_solutions{
+.payment_solutions {
+  margin: auto;
   padding: 30px;
-  background-color: grey;
+  background-color: var(--main_color_light);
   border-radius: 3px;
+  width: 70vw;
 }
 
-.payment_solutions button{
-  margin: 10px;
+.payment_solutions i {
+  color: var(--main_color);
 }
+
+.payment_solutions button {
+  margin: 20px;
+  width: 120px;
+  background-color: white;
+}
+.paiement_box {
+  margin: 0px 40px 20px 40px;
+}
+
 
 .u-pull-right a {
   display: block;
@@ -162,34 +278,81 @@ a {
   color: black;
 }
 
-a:link { text-decoration:none; }
+a:link {
+  text-decoration: none;
+}
 
 header {
   position: fixed;
   background: black;
-
   width: 100%;
-  height: 70px;;
+  height: 70px;
+  ;
   top: -10px;
   opacity: 0.8;
   z-index: 3;
 }
 
-.cart_box{
-  background: var(--colorbg2);
+
+.cart_articles h3{
+  padding: 10px;
+  border-radius: 8px;
+  background-color:var(--main_color_light);
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.cart_large{
+  height: 150%;
+}
+
+.cart_large hr {
+
+	border-top: 2px dashed var(--main_color);
+}
+
+.cart_total {
+  text-align: right;
+}
+
+.cart_button {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+}
+.cart_button button {
+    margin: 0px 20px 0px 20px;
+}
+
+.cart_articles i {
+  color: var(--main_color);
+}
+.cart_box {
+  background: rgb(255, 255, 255, 0.5);
+
   border-radius: 5px;
   position: fixed;
-  right: 20px;
+  right: 5vw;;
   top: 13vh;
   opacity: 0.8;
   z-index: 3;
+
+}
+.cart_box ul {
+  padding: 0px;
+  margin: 20px;
 }
 
-#cart_button{
+
+#cart_button {
   background-color: var(--main_color);
 }
 
-#order_button{
+#order_button {
   background-color: var(--accentcolor);
 }
 
@@ -212,9 +375,8 @@ nav ul {
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-around;
-  align-items:flex-start;
+  align-items: flex-start;
   padding-top: 3px;
-
 }
 
 section {
@@ -254,7 +416,8 @@ button {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;*/
+  justify-content: center;
+  */
 }
 
 .flex_row {
@@ -265,9 +428,18 @@ button {
   flex-wrap: wrap;
 }
 
-.article_box{
+.article_box {
   display: block;
   text-align: center;
+}
+.article_box i {
+color: var(--main_color);
+}
+.article_box span {
+  padding: 8px;
+}
+.article_box h5 {
+  margin: 10px;
 }
 
 .left {
@@ -451,7 +623,6 @@ button {
   text-align: center;
   text-decoration: none;
   font-size: 1em;
-
 }
 
 #valeurs_img {
@@ -513,11 +684,15 @@ ul {
 }
 
 footer {
+  position: absolute;
+  display: block;
+  width: 100%;
   text-align: center;
   color: white;
   background-color: var(--colorbg1);
   height: 200px;
   padding: 20px;
+  margin-bottom: 0px;
 }
 
 /* SLIDESHOW */
@@ -661,7 +836,7 @@ Third : 1920x1080 (desktop)
   }
   .shop h3 {
     text-align: center;
-    margin: auto ;
+    margin: auto;
   }
 }
 
@@ -672,7 +847,11 @@ Third : 1920x1080 (desktop)
 /* Desktops and laptops -----------*/
 
 @media only screen and (min-width: 1167px) and (max-width: 1753px) {}
+  .shop img {
 
+    max-width: 320px;
+
+  }
 /* Large screens -----------*/
 
 @media only screen and (min-width: 1600px) {}

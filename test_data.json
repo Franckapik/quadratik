@@ -1,0 +1,16 @@
+[
+    {
+        "model": "product",
+        "data": {
+            "name": "bar",
+            "price": 1
+        }
+    },
+    {
+        "model": "product",
+        "data": {
+            "name": "baz",
+            "price": 3
+        }
+    }
+]

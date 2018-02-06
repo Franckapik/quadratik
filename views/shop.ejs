@@ -7,461 +7,56 @@
   <title>Boutique Quadratik.fr</title>
 
   <link rel='stylesheet' href='/stylesheets/style.css' />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js">
+  </script>
   <script src="https://www.paypalobjects.com/api/checkout.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vue"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/zooming/1.2.7/zooming.js"></script>
-  <script type="text/javascript" src="js/paypal.js"></script>
   <script src="https://checkout.stripe.com/checkout.js"></script>
+
 
 </head>
 
 <body id="body_shop">
-
-
   <% include header.ejs %>
+
     <div id="app">
       <div class="shop_container">
-
-
-        <div class="cart_box">
-
-          <!-- PANIER-->
-
-          <button @click="showCart = !showCart" v-show="!order">
-        {{ articlesQty + (articlesQty > 1 ? " articles" : " article") }}
-      </button>
-
-
-
-          <div class="cart" v-show="showCart">
-            <div v-show="items.length > 0">
-              <ul>
-
-                <li v-for="item in items">
-                  <p><strong>{{ item.qty }}</strong> - {{ item.name }} <i class="fa fa-trash" @click="removeFromCart(item)"></i></p>
-                </li>
-              </ul>
-              <div><button @click="order = true, showCart = false, boutique = false" id="order_button">Commander</button></div>
-            </div>
-            <div v-show="items.length === 0">
-              <p>Votre panier est vide!</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="checkin" v-show="checkin">
-          <h2>Enregistrement de commande</h2>
-          <form class="" action="/order/user" method="post">
-
-            <!-- Nom-->
-            <div class="control-group">
-              <label class="control-label">Nom </label>
-              <div class="controls">
-                <input id="nom" name="nom" type="text" placeholder="Dupond" class="input-xlarge">
-
-              </div>
-            </div>
-            <!-- Prenom -->
-            <div class="control-group">
-              <label class="control-label">Prénom</label>
-              <div class="controls">
-                <input id="prenom" name="prenom" type="text" placeholder="Bernard" class="input-xlarge">
-
-              </div>
-            </div>
-            <!--Adresse-->
-            <div class="control-group">
-              <label class="control-label">Adresse</label>
-              <div class="controls">
-                <input id="adresse" name="adresse" type="text" placeholder="Rue des Camélias, Batiment C, Etage 2" class="input-xlarge">
-
-              </div>
-            </div>
-
-            Utiliser cette adresse pour la livraison
-
-            <!-- Ville-->
-            <div class="control-group">
-              <label class="control-label">Ville/Commune</label>
-              <div class="controls">
-                <input id="ville" name="ville" type="text" placeholder="Paris" class="input-xlarge">
-
-              </div>
-            </div>
-            <!-- Region-->
-            <div class="control-group">
-              <label class="control-label">Region</label>
-              <div class="controls">
-                <input id="region" name="region" type="text" placeholder="Ile de France" class="input-xlarge">
-
-              </div>
-            </div>
-            <!-- Code Postal-->
-            <div class="control-group">
-              <label class="control-label">Code Postal</label>
-              <div class="controls">
-                <input id="codepostal" name="codepostal" type="text" placeholder="95200" class="input-xlarge">
-
-              </div>
-            </div>
-            <!-- Mail-->
-            <div class="control-group">
-              <label class="control-label">Adresse E-mail</label>
-              <div class="controls">
-                <input id="mail" name="mail" type="text" placeholder="bernard.dupond@gmail.com" class="input-xlarge">
-
-              </div>
-            </div>
-            <!-- Telephone-->
-            <div class="control-group">
-              <label class="control-label">Téléphone</label>
-              <div class="controls">
-                <input id="telephone" name="telephone" type="text" placeholder="0631927480" class="input-xlarge">
-
-              </div>
-            </div>
-            <!-- Utilisation-->
-            <div class="control-group">
-              <label class="control-label">Contexte d'utilisation</label>
-              <div class="controls">
-                <input type="radio" name="utilisation" value="homestudio" checked> Home studio<br>
-                <input type="radio" name="utilisation" value="studiopro"> Studio professionnel<br>
-                <input type="radio" name="utilisation" value="homecinema"> Home cinema <br>
-                <input type="radio" name="utilisation" value="autre"> Autre <br>
-              </div>
-            </div>
-
-            <button type="submit"  @click="checkin = false, livraison=true">Suivant</button>
-
-          </form>
-        </div>
-
-        <div id="Orderlivraison" v-show="livraison">
-          <form class="order_form" action="/cart/checkin" method="post">
-          <h2>Livraison</h2>
-          Choisir un point relais
-          <p></p>
-           Envoyer à mon adresse personnelle
-           <p></p>
-           Choisir une autre adresse de livraison
-           <p></p>
-
-
-
-
-            <!-- Nom complet -->
-            <div class="control-group">
-              <label class="control-label">Nom complet</label>
-              <div class="controls">
-                <input id="livraison_nom" name="livraison_nom" type="text" placeholder="Mr Bernard Dupond" class="input-xlarge">
-
-              </div>
-            </div>
-            <!--Adresse-->
-            <div class="control-group">
-              <label class="control-label">Adresse</label>
-              <div class="controls">
-                <input id="livraison_adresse" name="livraison_adresse" type="text" placeholder="Rue des Camélias, Batiment C, Etage 2" class="input-xlarge">
-
-              </div>
-            </div>
-
-
-            <!-- Ville-->
-            <div class="control-group">
-              <label class="control-label">Ville/Commune</label>
-              <div class="controls">
-                <input id="livraison_ville" name="livraison_ville" type="text" placeholder="Paris" class="input-xlarge">
-
-              </div>
-            </div>
-            <!-- Region-->
-            <div class="control-group">
-              <label class="control-label">Region</label>
-              <div class="controls">
-                <input id="livraison_region" name="livraison_region" type="text" placeholder="Ile de France" class="input-xlarge">
-
-              </div>
-            </div>
-            <!-- Code Postal-->
-            <div class="control-group">
-              <label class="control-label">Code Postal</label>
-              <div class="controls">
-                <input id="livraison_codepostal" name="livraison_codepostal" type="text" placeholder="95200" class="input-xlarge">
-
-              </div>
-            </div>
-
-
-            <button type="submit" @click="livraison=false, paiement = true">Suivant</button>
-
-          </form>
-        </div>
-
-        <div class="paiement" v-show="paiement">
-          <h2>Paiement</h2>
-
-          <div class="payment_solutions flex_row">
-            <!--Stripe-->
-
-            <button id="customButton">Carte bancaire</button>
-
-
-            <!--Paypal-->
-            <a href="/buy"><button class="btn btn-warning btn-lg"> PayPal </button></a>
-
-            <!--Chèque-->
-            <button type="button" name="button_cheque" id="button_cheque"> Chèque Bancaire </button>
-
-          </div>
-        </div>
-
-        <div class="success" v-show="success">
-          FELICITATION Order n° X
-
-          Retour à l'accueil
-          Partage sur Facebook
-          Etc..
-        </div>
-
-
-        <!--  LISTE ARTICLES -->
-        <div class="container">
-          <div class="shop" v-show="boutique">
-              <h2>Boutique</h2>
-            <div class="collection">
-              <h3>Simple et efficace : Klassik-7</h3>
-              <ul class="flex_row">
-                <li v-for="item in shop[0]">
-                  <div class="article_box">
-                    <h5>{{ item.name }}</h5>
-                    <p>{{ item.price }} €</p>
-                    <img v-bind:src="item.img" alt="Affichage non disponible" data-action="zoom">
-                    <button @click="addToCart(item)">Ajouter au panier</button>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="collection">
-              <h3>Collection Organik</h3>
-              <hr>
-              <ul class="flex_row">
-                <li v-for="item in shop[1]">
-                  <div class="article_box">
-                    <h5>{{ item.name }}</h5>
-                    <p>{{ item.price }} €</p>
-                    <img v-bind:src="item.img" alt="Affichage non disponible" data-action="zoom">
-                    <button @click="addToCart(item)">Ajouter au panier</button>
-                    <!-- TO DO : view details-->
-                  </div>
-                </li>
-              </ul>
-            </div>
-
-            <div class="collection">
-              <h3>Collection Botanik</h3>
-              <ul class="flex_row">
-                <li v-for="item in shop[2]">
-                  <div class="article_box">
-                    <h5>{{ item.name }}</h5>
-                    <p>{{ item.price }} €</p>
-                    <img v-bind:src="item.img" alt="Affichage non disponible" data-action="zoom">
-                    <button @click="addToCart(item)">Ajouter au panier</button>
-                    <!-- TO DO : view details-->
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="collection">
-              <h3>Collection Minimalik</h3>
-              <ul class="flex_row">
-                <li v-for="item in shop[3]">
-                  <div class="article_box">
-                    <h5>{{ item.name }}</h5>
-                    <p>{{ item.price }} €</p>
-                    <img v-bind:src="item.img" alt="Affichage non disponible" data-action="zoom">
-                    <button @click="addToCart(item)">Ajouter au panier</button>
-                    <!-- TO DO : view details-->
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="collection">
-              <h3>Collection Gamik</h3>
-              <ul class="flex_row">
-                <li v-for="item in shop[4]">
-                  <div class="article_box">
-                    <h5>{{ item.name }}</h5>
-                    <p>{{ item.price }} €</p>
-                    <img v-bind:src="item.img" alt="Affichage non disponible" data-action="zoom">
-                    <button @click="addToCart(item)">Ajouter au panier</button>
-                    <!-- TO DO : view details-->
-                  </div>
-                </li>
-              </ul>
-            </div>
-
-          </div>
-
-          <!-- CHECKOUT -->
-          <div class="checkout" v-show="order">
-            <h3>Votre Panier</h3>
-            <h5 v-for="item in items"><strong>{{ item.name }}</strong> <span>{{ item.price }} €</span> {{ item.qty }} articles<span> <span><i class="fa fa-trash" @click="removeFromCart(item)"></i></span>    | {{ item.price * item.qty }} €</span></h5>
-            <hr />
-            <div class="row">
-              <div class="u-pull-right">
-                <h5>Total: <span>{{ total  }} €</span></h5>
-                <p></p>
-
-
-<button value="Suivant" @click="checkin = true, order=false">Continuer</button>
-
-                <p></p>
-                <p></p>
-                <a href="/shop">Retour en boutique</a>
-
+        <% include include_shop/articles.ejs %>
+          <% include include_shop/cartBox.ejs %>
+            <div class="commande_process">
+              <div class="w3-light-grey" v-show="progressionBar">
+                <div id="myBar" class="w3-green"></div>
               </div>
 
+              <% include include_shop/checkin.ejs %>
+                <% include include_shop/livraison.ejs %>
+                  <% include include_shop/paiement.ejs %>
+                    <% include include_shop/cheque.ejs %>
+                      <% include include_shop/success.ejs %>
             </div>
-          </div>
-        </div>
-
-
-
-
-
+            <% include include_shop/askLogin.ejs %>
+              <% include include_shop/cart_large.ejs %>
       </div>
     </div>
-
     <script>
-      const shop = [
-        [{
-          name: "Klassik-6",
-          price: 50,
+      function move() {
+        var elem = document.getElementById("myBar");
+        var width = 100;
+        var id = setInterval(frame, 10);
 
-          img: "/images/modeles/klassik/klassik-6.jpg"
-        }],
-
-        [{
-            name: "Woodik-7",
-            price: 55,
-
-            img: "/images/modeles/organik/woodik-7.jpg"
-          },
-          {
-            name: "Wenge-7",
-            price: 66,
-
-            img: "/images/modeles/organik/wenge-7.jpg"
-          },
-
-          {
-            name: "Teck-7",
-            price: 78,
-
-            img: "/images/modeles/organik/teck-7.jpg"
-          },
-          {
-            name: "Chêne-7",
-            price: 78,
-
-            img: "/images/modeles/organik/chene-7.jpg"
+        function frame() {
+          if (width >= 100) {
+            clearInterval(id);
+          } else {
+            width++;
+            elem.style.width = width + '%';
           }
-        ],
+        }
+      }
 
-        [{
-            name: "Anemone-7",
-            price: 85,
-
-            img: "/images/modeles/botanik/anemone-7.jpg"
-          },
-          {
-            name: "Aubergine-7",
-            price: 78,
-
-            img: "/images/modeles/botanik/aubergine-7.jpg"
-          },
-          {
-            name: "Lichen-7",
-            price: 85,
-
-            img: "/images/modeles/botanik/lichen-7.jpg"
-          },
-          {
-            name: "Liseron Bleu-7",
-            price: 85,
-
-            img: "/images/modeles/botanik/liseron_bleu-7.jpg"
-          }
-        ],
-
-        [{
-            name: "Gruk-7",
-            price: 78,
-
-            img: "/images/modeles/minimalik/gruk-7.jpg"
-          },
-          {
-            name: "Klio-7",
-            price: 85,
-
-            img: "/images/modeles/minimalik/klio-7.jpg"
-          },
-          {
-            name: "Orelo-7",
-            price: 78,
-
-            img: "/images/modeles/minimalik/orelo-7.jpg"
-          },
-          {
-            name: "Romal-7",
-            price: 78,
-
-            img: "/images/modeles/minimalik/romal-7.jpg"
-          }
-        ],
-
-        [{
-            name: "Invader-7",
-            price: 78,
-
-            img: "/images/modeles/gamik/invader-7.jpg"
-          },
-          {
-            name: "Mario-7",
-            price: 85,
-
-            img: "/images/modeles/gamik/mario-7.jpg"
-          },
-          {
-            name: "Spaceship-7",
-            price: 78,
-
-            img: "/images/modeles/gamik/spaceship-7.jpg"
-          },
-          {
-            name: "Snake-7",
-            price: 78,
-
-            img: "/images/modeles/gamik/snake-7.jpg"
-          }
-        ],
-        [{
-            name: "K7 - Pack 6 diffuseurs",
-            price: 420,
-
-            img: "/images/modeles/giantik/tape-dif6.jpg"
-          },
-          {
-            name: "Headphone - Pack 6 diffuseurs",
-            price: 420,
-
-            img: "/images/modeles/giantik/headphone-dif6.jpg"
-          }
-        ]
-
-      ];
+      const shop = <%-JSON.stringify(data)%>;
 
       const vm = new Vue({
         el: "#app",
@@ -469,12 +64,21 @@
           items: [],
           shop: shop,
           showCart: false,
-          order: false,
+          cart_large: false,
           checkin: false,
           livraison: false,
+          livraison_newAdress: false,
+          livraison_relais: false,
+          livraison_domicile: false,
           paiement: false,
+          cheque: false,
           boutique: true,
-          success:false
+          createPwd: false,
+          success: false,
+          askLogin: false,
+          progressionBar:false,
+          cart_box:true
+
 
         },
 
@@ -504,13 +108,23 @@
         },
 
         methods: {
+
+          moveBar(value) {
+            var elem = document.getElementById("myBar");
+            var width = value;
+
+            elem.style.width = width + '%';
+
+          },
+
           addToCart(item) {
             fetch('/cart', {
                 credentials: 'include',
                 method: 'post',
                 body: JSON.stringify({
                   item_name: item.name,
-                  item_price: item.price
+                  item_price: item.price,
+                  item_collection: item.collection.name
                 }),
                 headers: new Headers({
                   'Content-Type': 'application/json'
@@ -542,17 +156,26 @@
                 function(response) {
                   vm.items = response.cart;
                 });
+          },
+          emptyCart() {
+            fetch('/cart', {
+              credentials: 'include',
+              method: 'put'
+            });
+
+            this.updateCart();
           }
         }
       });
 
+      //stripe
       var handler = StripeCheckout.configure({
         key: 'pk_test_oaiyISu3eJI542wOXmZ0ePd4',
         image: '/images/logo_black.svg',
         locale: 'fr',
         token: function(token) {
 
-          fetch('/charge', {
+          fetch('/charge/stripe', {
             credentials: 'include',
             method: 'post',
             body: JSON.stringify({
@@ -566,7 +189,7 @@
 
             function(response) {
               console.log(response.res);
-              window.location = "/pay_success?charge_id=" + response.res;
+              window.location = "/pay_success?charge_id=" + response.chargeID;
               vm.success = true;
               var order_id = x;
             }
@@ -591,8 +214,10 @@
       window.addEventListener('popstate', function() {
         handler.close();
       });
-
     </script>
+
+<% include footer.ejs %>
+
 </body>
 
 </html>

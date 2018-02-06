@@ -4,6 +4,15 @@ var cart = [];
 //renvoie le contenu du panier
 router.get('/', function(req, res, next) {
 
+
+total = 0;
+for (var i = 0; i < cart.length; i++) {
+  total += cart[i].price * cart[i].qty;
+}
+
+req.session.cart_total = total;
+console.log(req.session.cart_total);
+
 res.json ({cart : cart});
 
 
@@ -13,31 +22,44 @@ res.json ({cart : cart});
 router.post('/', function(req, res, next) {
 
 
-  var product = {};
+var product = {};
 
   var index = cart.findIndex(x => x.name == req.body.item_name) //trouve l'index (0,1,2) du produit ajouté au panier
 
   if (index === -1) { //nouveau produit ajouté
+    product.collection = req.body.item_collection;
     product.name = req.body.item_name;
     product.price = req.body.item_price;
     product.qty = 1;
     cart.push(product);
-  } else {
-    cart[index].qty++
-      console.log('exist yet');
+    console.log('Produit ajouté :', req.body.item_name);
+    req.session.cart = cart; //session
+    res.json({
+      add: product
+    })
 
+  } else {
+
+    cart[index].qty++
+      console.log('Produit multiplié : ', cart[index].name,'x', cart[index].qty);
+      req.session.cart = cart; //session
+      res.json({
+        add: product
+      })
   }
 
-  req.session.cart = cart; //session
 
-  res.json({
-    add: product
-  })
+
+
 
 });
 
-//remplace Tout le contenu du panier
+//supprime Tout le contenu du panier
 router.put('/', function(req, res, next) {
+  console.log("Panier effacé");
+  cart = [];
+
+  req.session.cart = cart;
 
 });
 
@@ -66,12 +88,6 @@ router.delete('/:item', function(req, res, next) {
 
 });
 
-
-//commande le contenu du panier
-router.post('/checkin', function(req, res, next) {
-console.log( req.body);
-
-});
 
 router.get('/list', function(req, res, next) { //envoie le panier de la session
   var cart = req.session.cart;

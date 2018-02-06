@@ -1,0 +1,25 @@
+<div class="success" v-show="success">
+  FELICITATION Order n° X Retour à l'accueil Partage sur Facebook Etc..
+</div>
+
+<div id="createPwd" v-show="createPwd">
+
+  <h2>Suivi de votre commande</h2>
+  Suivre ma commande en saisissant un mot de passe :
+  <form action="/admin/createAccount" method="post">
+    <div class="control-group">
+      <label class="control-label">Mot de passe</label>
+      <div class="controls">
+        <input type="text" name="password" value="">
+      </div>
+    </div>
+    <div class="control-group">
+      <label class="control-label">Confirmation du mot de passe</label>
+      <div class="controls">
+        <input type="text" name="passwordCheck" value="">
+      </div>
+    </div>
+    <button type="submit" name="buttonCreateAccount">Suivre ma commande</button>
+  </form>
+
+</div>

@@ -1,0 +1,98 @@
+<div class="checkin" v-show="checkin">
+<h2>Enregistrement de commande</h2>
+  <form  action="/dbcreate/user" method="post">
+
+    <fieldset>
+ <legend> Coordonnées : </legend>
+    <div class="form_part">
+      <!-- Nom-->
+      <div class="form_box">
+        <i class="fas fa-user"></i><label class="form_label">Nom </label>
+        <div class="controls">
+          <input id="nom" name="nom" type="text" placeholder="Dupond" class="input-xlarge" required>
+
+        </div>
+      </div>
+      <!-- Prenom -->
+      <div class="form_box">
+        <i class="fas fa-user"></i><label class="form_label">Prénom</label>
+        <div class="controls">
+          <input id="prenom" name="prenom" type="text" placeholder="Bernard" class="input-xlarge" required>
+
+        </div>
+      </div>
+      <!--Adresse-->
+      <div class="form_box">
+        <i class="fas fa-address-book"></i><label class="form_label">Adresse</label>
+        <div class="controls">
+          <input id="adresse" name="adresse" type="text" placeholder="Rue des Camélias, Batiment C, Etage 2" class="input-xlarge" required>
+
+        </div>
+      </div>
+      <!-- Ville-->
+      <div class="form_box">
+        <i class="fas fa-building"></i></i><label class="form_label">Ville/Commune</label>
+        <div class="controls">
+          <input id="ville" name="ville" type="text" placeholder="Paris" class="input-xlarge" required>
+
+        </div>
+      </div>
+
+      <!-- Code Postal-->
+      <div class="form_box">
+        <i class="fas fa-home"></i><label class="form_label">Code Postal</label>
+        <div class="controls">
+          <input id="codepostal" name="codepostal" type="text" placeholder="95200" class="input-xlarge" required>
+
+        </div>
+      </div>
+    </div>
+</fieldset>
+
+<fieldset>
+ <legend>Suivre votre commande:</legend>
+    <div class="form_part">
+      <!-- Mail-->
+      <div class="form_box">
+        <i class="fas fa-at"></i><label class="form_label">Adresse E-mail</label>
+        <div class="controls">
+          <input id="mail" name="mail" type="email" placeholder="bernard.dupond@gmail.com" class="input-xlarge" required>
+
+        </div>
+      </div>
+
+      <div class="form_box">
+        <i class="fas fa-unlock"></i><label class="form_label">Mot de passe</label>
+        <div class="controls">
+          <input id="mail" name="pwd" type="text" placeholder="MonChatEstMignon90" class="input-xlarge" required>
+
+        </div>
+      </div>
+      <div class="form_box">
+        <i class="fas fa-unlock"></i><label class="form_label">Confirmation du mot de passe</label>
+        <div class="controls">
+          <input id="mail" name="pwdCheck" type="text" placeholder="MonChatEstMignon90" class="input-xlarge" required>
+
+        </div>
+      </div>
+
+      <!-- Utilisation-->
+      <div class="form_box">
+        <label class="form_label">Contexte d'utilisation</label>
+        <div class="controls">
+          <input type="radio" name="utilisation" value="homestudio" checked> Home studio<br>
+          <input type="radio" name="utilisation" value="studiopro"> Studio professionnel<br>
+          <input type="radio" name="utilisation" value="homecinema"> Home cinema <br>
+          <input type="radio" name="utilisation" value="autre"> Autre <br>
+        </div>
+      </div>
+    </div>
+
+</fieldset>
+<div class="form_part">
+  <button type="submit" @click="checkin = false, livraison=true, moveBar(50)">Suivant</button>
+
+
+    </form>
+  </div>
+</div>

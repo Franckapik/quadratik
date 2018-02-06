@@ -1,0 +1,24 @@
+<!-- Panier -->
+<div class="cart_large" v-show="cart_large">
+  <h2>Votre Panier</h2>
+  <div class="cart_articles">
+
+
+  <h3 v-for="item in items">
+  {{ item.collection }}  <strong>{{ item.name }}</strong> {{ item.qty }} article(s)<span>   {{ item.price * item.qty }} €</span> <i class="fas fa-plus-square" @click="addToCart(item)"></i> <i class="fa fa-trash" @click="removeFromCart(item)"></i>
+  </h3>
+
+  </div>
+  <hr />
+
+    <div class="cart_total">
+      <h5>Total: <span>{{ total  }} €</span></h5>
+        </div>
+        <p></p>
+        <p></p>
+<div class="cart_button">
+  <button value="Retour" @click="boutique=true, cart_large=false">Continuer mes achats</button>
+  <button class="accent" value="Suivant" @click="checkin=true, cart_large=false, cart_box=false,progressionBar=true,moveBar(25), showCart=false">Passer la commande</button>
+</div>
+
+</div>

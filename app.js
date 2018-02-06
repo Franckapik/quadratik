@@ -8,34 +8,43 @@ var config = require('./config');
 var paypal = require('paypal-rest-sdk');
 var sqlite3 = require('sqlite3').verbose();
 var session = require('express-session');
-var SQLiteStore = require('connect-sqlite3')(session);
+var cookieParser = require('cookie-parser');
+var SequelizeStore = require('connect-session-sequelize')(session.Store);
 const Sequelize = require('sequelize');
 
+const sequelize = new Sequelize('database', 'username', 'password', {
+  host: 'localhost',
+  dialect: 'sqlite',
+  logging: false, //affichage console pour les sessions
+  // SQLite only
+  storage: 'sessions.sqlite'
+});
+
+var myStore = new SequelizeStore({
+    db: sequelize
+})
+
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+  extended: false
+}));
+
+app.use(cookieParser());
 
 app.use(session({
   secret: 'mycatiscuteandyoudontcare',
   cookie: {
-    maxAge: 259200 //3 jours
+    maxAge: 1800000 // in ms
   },
-  store:new SQLiteStore,
+  store: myStore,
   resave: false,
-  saveUninitialized: true
+  saveUninitialized: true,
+  proxy: true
 }));
 
-//stripe configuration
-const keyPublishable = config.stripe_publishable;
-const keySecret = config.stripe_secret;
-var stripe = require("stripe")(keySecret);
+myStore.sync();
 
 app.use(logger('dev'));
-
-//STRIPE
-app.use(bodyParser.json());
-
-app.use(bodyParser.urlencoded({
-  extended: false
-}));
 
 //VIEW ENGINE
 app.set('views', path.join(__dirname, 'views'));
@@ -60,12 +69,14 @@ var quadralab = require('./routes/quadralab');
 var shop = require('./routes/shop');
 var pay_success = require('./routes/pay_success');
 var pay_err = require('./routes/pay_err');
-var buy = require('./routes/buy');
 var liste = require('./routes/liste');
 var cart = require('./routes/cart');
 var charge = require('./routes/charge');
 var sess = require('./routes/sessionObj');
-var order = require('./routes/order');
+var dbcreate = require('./routes/dbcreate');
+var admin = require('./routes/admin');
+var productCreate = require('./routes/productCreate');
+
 
 //ROUTES
 app.use('/', index);
@@ -75,12 +86,13 @@ app.use('/quadralab', quadralab);
 app.use('/shop', shop);
 app.use('/pay_success', pay_success);
 app.use('/pay_err', pay_err);
-app.use('/buy', buy); //paypal
 app.use('/liste', liste);
 app.use('/cart', cart);
-app.post('/charge', charge);//stripe
+app.use('/charge', charge);
 app.use('/sessionObj', sess);
-app.use('/order', order);
+app.use('/dbcreate', dbcreate);
+app.use('/admin', admin);
+app.use('/productCreate', productCreate);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -1,5 +1,3 @@
-
-module.exports = {
 const Sequelize = require('sequelize');
 //DATABASE with sequelize
 
@@ -28,19 +26,48 @@ sequelize
   });
 
 
-
-
 const Product = sequelize.define('product', {
 
+      //collectionId: Sequelize.STRING,
       name: Sequelize.STRING,
       price: Sequelize.DECIMAL,
       img: Sequelize.STRING,
+      //descriptionID: Sequelize.TEXT,
+      nbCouleurs: Sequelize.STRING,
+      //performanceId: Sequelize.STRING
+
+})
+
+const Description = sequelize.define('description', {
+
       description: Sequelize.TEXT
+})
+
+const Collection = sequelize.define('collection', {
+
+      name: Sequelize.STRING,
+      description: Sequelize.TEXT
+
+})
+
+const Performance = sequelize.define('performance', {
+
+      frequence: Sequelize.STRING,
+      classement: Sequelize.STRING,
+      graph: Sequelize.STRING
+
+})
+
+const Panier = sequelize.define('panier', {
+
+      item: Sequelize.STRING,
+      total: Sequelize.STRING
 
 })
 
 const User = sequelize.define('user', {
 
+      sessID: Sequelize.STRING,
       nom: Sequelize.STRING,
       prenom: Sequelize.STRING,
       adresse: Sequelize.STRING,
@@ -49,29 +76,64 @@ const User = sequelize.define('user', {
       postal: Sequelize.STRING,
       mail: Sequelize.STRING,
       telephone: Sequelize.STRING,
-      utilisation: Sequelize.STRING
+      utilisation: Sequelize.STRING,
+      hashPwd: Sequelize.STRING
+      //commandeId: Sequelize.STRING
+      //adminId: Sequelize.STRING,
 
 })
 
 const Livraison = sequelize.define('livraison', {
 
+      type: Sequelize.STRING,
       nomcomplet: Sequelize.STRING,
       adresse: Sequelize.STRING,
       ville: Sequelize.STRING,
       region: Sequelize.STRING,
       postal: Sequelize.STRING,
+      fdp: Sequelize.STRING
 
 })
 
-const Paiement = sequelize.define('paiement', {
+const Commande = sequelize.define('commande', {
 
       transaction: Sequelize.STRING,
       montant: Sequelize.STRING,
-      token: Sequelize.STRING,
+      tokenID: Sequelize.STRING,
+      chargeID: Sequelize.STRING,
       statut: Sequelize.STRING,
-      time: Sequelize.STRING,
+      time: Sequelize.DATE,
+      cardID: Sequelize.STRING,
+      typeCarte: Sequelize.STRING,
+      last4: Sequelize.STRING,
+      promo: Sequelize.STRING
 
 })
+
+const Admin = sequelize.define('admin', {
+
+      nomUtilisateur: Sequelize.STRING,
+      hashPwd: Sequelize.STRING
+})
+
+Product.belongsTo(Collection); //collectionId in Product
+Product.belongsTo(Description); //descriptionId in Product
+Product.belongsTo(Performance); //performanceId in Product
+User.belongsTo(Admin); //adminId in User
+User.belongsTo(Commande); //commandeId in User
+
+//creation des schemas dans la DB
+/*
+User.sync();
+Livraison.sync();
+Commande.sync();
+Product.sync();
+Description.sync();
+Collection.sync();
+Performance.sync();
+
+*/
+
 /*
 Product.sync({force: true}).then(() => {
   // Table created
@@ -83,4 +145,4 @@ Product.sync({force: true}).then(() => {
   });
 });*/
 
-};
+module.exports = {User, Livraison, Commande, Product, Description, Collection, Performance};

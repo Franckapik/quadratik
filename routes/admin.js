@@ -3,7 +3,7 @@ var router = express.Router();
 var model = require('../model');
 var User = model.User;
 var Livraison = model.Livraison;
-var Paiement = model.Paiement;
+var Commande = model.Commande;
 var Product = model.Product;
 var Description = model.Description;
 var Collection = model.Collection;
@@ -159,8 +159,8 @@ router.get('/livraison', function(req, res, next) {
 
 });
 
-router.get('/paiement', function(req, res, next) {
-  Paiement.findAll().then(paiement => {
+router.get('/commande', function(req, res, next) {
+  Commande.findAll().then(paiement => {
     res.json({
       paiement: paiement
     })

@@ -455,6 +455,7 @@ color: var(--main_color);
   text-align: right;
 }
 
+
 .right {
   width: 50%;
   min-width: 300px;
@@ -493,6 +494,7 @@ color: var(--main_color);
   background-color: var(--colorbg1);
 }
 
+
 #presentation {
   background-color: var(--colorbg2);
   color: black;
@@ -505,6 +507,16 @@ color: var(--main_color);
 
 #boutique {
   background-color: var(--colorbg2);
+  background-image: url("/images/collections/Organik.jpg");
+  background-size: cover;
+}
+
+#boutique button {
+  position: relative;
+  margin: auto;
+  top:50%;
+  padding: 30px;
+
 }
 
 #livraison {
@@ -582,11 +594,7 @@ color: var(--main_color);
 }
 
 #titre {
-  position: relative;
-  width: 15vw;
-  top: 20vh;
-  left: 10vw;
-  z-index: 1;
+  display: none;
 }
 
 #promo {
@@ -594,12 +602,12 @@ color: var(--main_color);
   border-color: var(--main_color);
   border-width: 3px;
   position: absolute;
-  width: 300px;
-  height: 170px;
+  width: 400px;
+  height: 200px;
   font-family: Oswald;
   font-size: 1.5em;
   text-align: center;
-  line-height: 0em;
+  line-height: 0.4em;
   color: white;
 }
 
@@ -837,6 +845,19 @@ Third : 1920x1080 (desktop)
   .shop h3 {
     text-align: center;
     margin: auto;
+  }
+
+  #titre {
+    display: block;
+    width: 60vw;
+  }
+
+  #main_dif {
+    width: 100vw;
+  }
+
+  #promo {
+    width: 80vw;
   }
 }
 

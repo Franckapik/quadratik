@@ -4,6 +4,7 @@ var model = require('../model');
 var User = model.User;
 var Livraison = model.Livraison;
 var Paiement = model.Paiement;
+var Admin = model.Admin;
 const Sequelize = require('sequelize');
 //DATABASE with sequelize
 
@@ -33,14 +34,21 @@ router.post('/user', function(req, res, next) {
         prenom: req.body.prenom,
         adresse: req.body.adresse,
         ville: req.body.ville,
-        region: req.body.region,
         postal: req.body.codepostal,
         mail: req.body.mail,
         telephone: req.body.telephone,
         utilisation: req.body.utilisation,
-        hashPwd: null
       });
     });
+
+    Admin.sync()
+      .then(() => {
+
+        return Admin.create({
+          nomUtilisateur: req.body.mail,
+          hashPwd: null
+        });
+      });
 
 
 
@@ -52,12 +60,12 @@ router.post('/livraison', function(req, res, next) {
     .then(() => {
 
       return Livraison.create({
-        TypeLivraison: req.body.typeLivraison,
+        type: req.body.typeLivraison,
         nomcomplet: req.body.livraison_nom,
         adresse: req.body.livraison_adresse,
         ville: req.body.livraison_ville,
-        region: req.body.livraison_region,
-        postal: req.body.livraison_codepostal
+        postal: req.body.livraison_codepostal,
+        fdp: null
       });
     });
 

@@ -72,12 +72,11 @@ const User = sequelize.define('user', {
       prenom: Sequelize.STRING,
       adresse: Sequelize.STRING,
       ville: Sequelize.STRING,
-      region: Sequelize.STRING,
       postal: Sequelize.STRING,
       mail: Sequelize.STRING,
       telephone: Sequelize.STRING,
-      utilisation: Sequelize.STRING,
-      hashPwd: Sequelize.STRING
+      utilisation: Sequelize.STRING
+
       //commandeId: Sequelize.STRING
       //adminId: Sequelize.STRING,
 
@@ -145,4 +144,4 @@ Product.sync({force: true}).then(() => {
   });
 });*/
 
-module.exports = {User, Livraison, Commande, Product, Description, Collection, Performance};
+module.exports = {User, Livraison, Commande, Product, Description, Collection, Performance, Admin};

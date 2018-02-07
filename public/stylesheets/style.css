@@ -837,6 +837,10 @@ Third : 1920x1080 (desktop)
   .hamburger {
     display: block;
   }
+  section {
+    padding: 2px;
+    font-size: 0.8em;
+  }
   section img {
     padding: 15px;
     display: block;
@@ -849,14 +853,34 @@ Third : 1920x1080 (desktop)
 
   #titre {
     display: block;
-    width: 60vw;
+    position: relative;
+    top: -30px;
+    padding: 0px;
+    width: 50vw;
+  }
+
+  #banner .left {
+    display: none;
+
+  }
+
+  #boutique button {
+    background-color: var(--accentcolor);
+  }
+
+
+  #presentation .left {
+    display: none;
   }
 
   #main_dif {
+    display: none;
     width: 100vw;
   }
 
+
   #promo {
+
     width: 80vw;
   }
 }

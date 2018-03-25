@@ -13,6 +13,15 @@
     <p></p>
     <div class="collection">
       <ul class="flex_row">
+        <li v-for="(item, index) in collections">
+        <h5>{{index}} ---- {{item}}</h5>
+      </li>
+      </ul>
+
+
+    </div>
+    <div class="collection">
+      <ul class="flex_row">
         <li v-for="value in shop">
           <div class="article_box">
             <div v-if="value.collectionId == 1">

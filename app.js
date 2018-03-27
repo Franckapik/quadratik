@@ -1,28 +1,24 @@
 var express = require('express');
 var app = express();
+
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
 var config = require('./config');
 var paypal = require('paypal-rest-sdk');
-var sqlite3 = require('sqlite3').verbose();
-var session = require('express-session');
-var cookieParser = require('cookie-parser');
-var SequelizeStore = require('connect-session-sequelize')(session.Store);
-const Sequelize = require('sequelize');
 
-const sequelize = new Sequelize('database', 'username', 'password', {
-  host: 'localhost',
-  dialect: 'sqlite',
-  logging: false, //affichage console pour les sessions
-  // SQLite only
-  storage: 'sessions.sqlite'
+
+const session = require('express-session');
+const KnexSessionStore = require('connect-session-knex')(session);
+
+var knex = require('knex')({
+  client: 'pg',
+  version: '9.6',
+  connection: config.connection
 });
 
-var myStore = new SequelizeStore({
-    db: sequelize
-})
+var cookieParser = require('cookie-parser');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -31,18 +27,23 @@ app.use(bodyParser.urlencoded({
 
 app.use(cookieParser());
 
+const store = new KnexSessionStore({
+  knex: knex,
+  tablename: 'sessions' // optional. Defaults to 'sessions'
+
+});
+
+
 app.use(session({
   secret: 'mycatiscuteandyoudontcare',
   cookie: {
-    maxAge: 1800000 // in ms
+    maxAge: 10000 // ten seconds, for testing
   },
-  store: myStore,
-  resave: false,
-  saveUninitialized: true,
-  proxy: true
+  store: store,
+  resave: true,
+  saveUninitialized: true
 }));
 
-myStore.sync();
 
 app.use(logger('dev'));
 
@@ -73,9 +74,9 @@ var liste = require('./routes/liste');
 var cart = require('./routes/cart');
 var charge = require('./routes/charge');
 var sess = require('./routes/sessionObj');
-var dbcreate = require('./routes/dbcreate');
+
 var admin = require('./routes/admin');
-var productCreate = require('./routes/productCreate');
+
 
 
 //ROUTES
@@ -90,9 +91,9 @@ app.use('/liste', liste);
 app.use('/cart', cart);
 app.use('/charge', charge);
 app.use('/sessionObj', sess);
-app.use('/dbcreate', dbcreate);
-app.use('/admin', admin);
-app.use('/productCreate', productCreate);
+
+//app.use('/admin', admin);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

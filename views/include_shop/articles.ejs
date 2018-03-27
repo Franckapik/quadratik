@@ -12,152 +12,38 @@
     Modèles 19 x 19 cellules : 98cm x 98cm x 10 cm
     <p></p>
     <div class="collection">
-      <ul class="flex_row">
-        <li v-for="(item, index) in collections">
-        <h5>{{index}} ---- {{item}}</h5>
-      </li>
-      </ul>
+
+      <ul v-for="(item, index) in collections" class="flex_row">
+
+          Collection
+
+          <li v-for="(item, index) in collections[index]">
+
+            <div class="article_box">
+
+              <!--<h5>{{item}}</h5>-->
+              <h5>{{ item.nom }}</h5>
+              <p>{{ item.prix }} €</p>
 
 
-    </div>
-    <div class="collection">
-      <ul class="flex_row">
-        <li v-for="value in shop">
-          <div class="article_box">
-            <div v-if="value.collectionId == 1">
-
-              <h5>{{ value.name }}</h5>
-              <p>{{ value.price }} €</p>
-
-              <img v-bind:src="'images/modeles/'+value.collection.name+'/'+value.name+'.jpg'" alt="Affichage non disponible" data-action="zoom">
-              <p> <i class="fas fa-chart-bar"></i><span> {{ value.performance.frequence}} Hz</span>
-                <i class="fas fa-star"></i><span>{{value.performance.classement}}</span>
-                <i class="fas fa-tint"></i><span> {{value.nbCouleurs}}</span> </p>
+              <img v-bind:src="'images/modeles/'+item.name+'/'+item.nom+'.jpg'" alt="Affichage non disponible" data-action="zoom">
+              <p> <i class="fas fa-chart-bar"></i><span> {{ item.frequence}} Hz</span>
+                <i class="fas fa-star"></i><span>{{item.classement}}</span>
+                <i class="fas fa-tint"></i><span> {{item.nbColors}}</span> </p>
 
 
 
-              <button @click="addToCart(value)">Ajouter au panier</button>
+              <button @click="addToCart(item)">Ajouter au panier</button>
               <!-- TO DO : view details-->
 
-            </div>
-          </div>
-        </li>
-      </ul>
-    </div>
-    <div class="collection">
-      <h3>Collection Organik</h3>
-      <ul class="flex_row">
-        <li v-for="value in shop">
-          <div class="article_box">
-            <div v-if="value.collectionId == 2">
-
-              <h5>{{ value.name }}</h5>
-              <p>{{ value.price }} €</p>
-
-              <img v-bind:src="'images/modeles/'+value.collection.name+'/'+value.name+'.jpg'" alt="Affichage non disponible" data-action="zoom">
-              <p> <i class="fas fa-chart-bar"></i><span> {{ value.performance.frequence}} Hz</span>
-                <i class="fas fa-star"></i><span>{{value.performance.classement}}</span>
-                <i class="fas fa-tint"></i><span> {{value.nbCouleurs}}</span> </p>
-
-              <button @click="addToCart(value)">Ajouter au panier</button>
-              <!-- TO DO : view details-->
 
             </div>
-          </div>
-        </li>
+          </li>
+
       </ul>
     </div>
-    <div class="collection">
-      <h3>Collection Botanik</h3>
-      <ul class="flex_row">
-        <li v-for="value in shop">
-          <div class="article_box">
-            <div v-if="value.collectionId == 3">
 
-              <h5>{{ value.name }}</h5>
-              <p>{{ value.price }} €</p>
 
-              <img v-bind:src="'images/modeles/'+value.collection.name+'/'+value.name+'.jpg'" alt="Affichage non disponible" data-action="zoom">
-              <p> <i class="fas fa-chart-bar"></i><span> {{ value.performance.frequence}} Hz</span>
-                <i class="fas fa-star"></i><span>{{value.performance.classement}}</span>
-                <i class="fas fa-tint"></i><span> {{value.nbCouleurs}}</span> </p>
 
-              <button @click="addToCart(value)">Ajouter au panier</button>
-              <!-- TO DO : view details-->
-
-            </div>
-          </div>
-        </li>
-      </ul>
-    </div>
-    <div class="collection">
-      <h3>Collection Minimalik</h3>
-      <ul class="flex_row">
-        <li v-for="value in shop">
-          <div class="article_box">
-            <div v-if="value.collectionId == 4">
-
-              <h5>{{ value.name }}</h5>
-              <p>{{ value.price }} €</p>
-
-              <img v-bind:src="'images/modeles/'+value.collection.name+'/'+value.name+'.jpg'" alt="Affichage non disponible" data-action="zoom">
-              <p> <i class="fas fa-chart-bar"></i><span> {{ value.performance.frequence}} Hz</span>
-                <i class="fas fa-star"></i><span>{{value.performance.classement}}</span>
-                <i class="fas fa-tint"></i><span> {{value.nbCouleurs}}</span> </p>
-
-              <button @click="addToCart(value)">Ajouter au panier</button>
-              <!-- TO DO : view details-->
-
-            </div>
-          </div>
-        </li>
-      </ul>
-    </div>
-    <div class="collection">
-      <h3>Collection Gamik</h3>
-      <ul class="flex_row">
-        <li v-for="value in shop">
-          <div class="article_box">
-            <div v-if="value.collectionId == 5">
-
-              <h5>{{ value.name }}</h5>
-              <p>{{ value.price }} €</p>
-
-              <img v-bind:src="'images/modeles/'+value.collection.name+'/'+value.name+'.jpg'" alt="Affichage non disponible" data-action="zoom">
-              <p> <i class="fas fa-chart-bar"></i><span> {{ value.performance.frequence}} Hz</span>
-                <i class="fas fa-star"></i><span>{{value.performance.classement}}</span>
-                <i class="fas fa-tint"></i><span> {{value.nbCouleurs}}</span> </p>
-
-              <button @click="addToCart(value)">Ajouter au panier</button>
-              <!-- TO DO : view details-->
-
-            </div>
-          </div>
-        </li>
-      </ul>
-    </div>
-    <div class="collection">
-      <h3>Collection GiantiK</h3>
-      <ul class="flex_row">
-        <li v-for="value in shop">
-          <div class="article_box">
-            <div v-if="value.collectionId == 6">
-
-              <h5>{{ value.name }}</h5>
-              <p>{{ value.price }} €</p>
-
-              <img v-bind:src="'images/modeles/'+value.collection.name+'/'+value.name+'.jpg'" alt="Affichage non disponible" data-action="zoom">
-              <p> <i class="fas fa-chart-bar"></i><span> {{ value.performance.frequence}} Hz</span>
-                <i class="fas fa-star"></i><span>{{value.performance.classement}}</span>
-                <i class="fas fa-tint"></i><span> {{value.nbCouleurs}}</span> </p>
-
-              <button @click="addToCart(value)">Ajouter au panier</button>
-              <!-- TO DO : view details-->
-
-            </div>
-          </div>
-        </li>
-      </ul>
-    </div>
   </div>
 </div>

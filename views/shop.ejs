@@ -60,11 +60,43 @@
 
       const shop = <%-JSON.stringify(data)%>;
 
+      //Tri des éléments
+
+console.log('SHOP ARRAY', shop);
+
+
+var collections = new Map();
+
+shop.forEach( product =>
+{
+		//Get the array associated with this collection id
+		var currentCollection = collections.get(product.collectionId);
+
+    //If there is no array for this value yet, create it.
+    if (currentCollection == null)
+    {
+    	currentCollection = [];
+      collections.set(product.collectionId, currentCollection);
+    }
+
+		//Place the current product into the array
+		currentCollection.push(product);
+} )
+
+//The map will now contain an array for each collectionid, which again contains an array with its items
+var collectionsArray = [];
+collections.forEach( (products, collectionid, map) => {
+		collectionsArray.push(products);
+} )
+
+console.log('Array-collection', collectionsArray);
+
       const vm = new Vue({
         el: "#app",
         data: {
           items: [],
           shop: shop,
+          collections: collectionsArray,
           showCart: false,
           cart_large: false,
           checkin: false,
@@ -125,8 +157,8 @@
                 method: 'post',
                 body: JSON.stringify({
                   item_name: item.name,
-                  item_price: item.price,
-                  item_collection: item.collection.name
+                  item_price: item.prix,
+                  //item_collection: item.collection.name
                 }),
                 headers: new Headers({
                   'Content-Type': 'application/json'

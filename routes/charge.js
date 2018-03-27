@@ -2,24 +2,7 @@ var express = require('express');
 var router = express.Router();
 var config = require('../config');
 var paypal = require('paypal-rest-sdk');
-var model = require('../model');
-var Commande = model.Commande;
-const Sequelize = require('sequelize');
 
-const sequelize = new Sequelize('database', 'username', 'password', {
-  host: 'localhost',
-  dialect: 'sqlite',
-
-  pool: {
-    max: 5,
-    min: 0,
-    acquire: 30000,
-    idle: 10000
-  },
-
-  // SQLite only
-  storage: 'db.sqlite'
-});
 
 
 //*********************Configuration

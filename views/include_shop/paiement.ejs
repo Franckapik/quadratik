@@ -1,29 +1,10 @@
 <div class="paiement" v-show="paiement">
   <h2>Réglement de la commande</h2>
 
-  <div class="payment_solutions flex_row">
-    <!--Stripe-->
-    <div class="paiement_box">
-      <i class="far fa-credit-card fa-5x"></i>
-      <p></p>
-      <button id="customButton">Carte bancaire</button>
-    </div>
+  <div id="dropin-wrapper">
+  <div id="checkout-message"></div>
+  <div id="dropin-container"></div>
+  <button id="submit-button">Régler ma commande</button>
+</div>
 
-    <!--Paypal-->
-    <div class="paiement_box">
-
-      <i class="fab fa-cc-paypal fa-5x"></i>
-      <p></p>
-      <a href="/charge/paypal"><button> PayPal </button></a>
-    </div>
-    <!--Chèque-->
-    <div class="paiement_box">
-      <i class="fas fa-pencil-alt fa-5x"></i>
-      <p></p>
-      <button type="button" name="button_cheque" id="button_cheque" @click="paiement=false, cheque=true, createPwd=false, moveBar(100)"> Chèque Bancaire </button>
-
-    </div>
-
-
-  </div>
 </div>

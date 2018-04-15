@@ -3,6 +3,42 @@ var router = express.Router();
 var config = require('../config');
 var paypal = require('paypal-rest-sdk');
 
+var braintree = require("braintree");
+
+//**********************BRAINTREE
+var gateway = braintree.connect({
+  environment: braintree.Environment.Sandbox,
+  merchantId: config.brain_merchant,
+  publicKey: config.brain_pub,
+  privateKey: config.brain_private
+});
+
+//***********************************
+
+//*********************braintree
+
+//get a token
+router.get("/client_token", function (req, res) {
+  gateway.clientToken.generate({}, function (err, response) {
+    res.send(response.clientToken);
+  });
+});
+
+router.post("/checkout", function (req, res) {
+  var nonceFromTheClient = req.body.payment_method_nonce;
+  // Use payment method nonce here
+  gateway.transaction.sale({
+    amount: "10.00",
+    paymentMethodNonce: "fake-valid-nonce",
+    options: {
+      submitForSettlement: true
+    }
+  }, function (err, result) {
+  });
+
+});
+
+
 
 
 //*********************Configuration

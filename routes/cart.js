@@ -1,9 +1,17 @@
 var express = require('express');
 var router = express.Router();
+
+var config = require('../config');
+var knex = require('knex')({
+  client: 'pg',
+  version: '9.6',
+  connection: config.connection
+});
+
 var cart = [];
+
 //renvoie le contenu du panier
 router.get('/', function(req, res, next) {
-
 
 total = 0;
 for (var i = 0; i < cart.length; i++) {
@@ -30,6 +38,7 @@ var product = {};
     product.collection = req.body.item_collection;
     product.name = req.body.item_name;
     product.price = req.body.item_price;
+    product.fdp = req.body.item_packaging;
     product.qty = 1;
     cart.push(product);
     console.log('Produit ajouté :', req.body.item_name);
@@ -88,12 +97,21 @@ router.delete('/:item', function(req, res, next) {
 
 });
 
+//ajoute le panier à la base de donnée
+router.post('/cartToDB', function(req, res, next) {
 
-router.get('/list', function(req, res, next) { //envoie le panier de la session
-  var cart = req.session.cart;
-  res.json({cart : cart});
+knex('cart')
+.returning('products')
+.insert({
+  products: cart,
+  total: req.session.cart_total,
+  sessid: req.session.id
+})
+.then(products => console.log('Commande en cours: ', products) );
+
 });
 
+//using a writable CTE, which would look like this: WITH ins_user AS (INSERT INTO users (username) VALUES ('John') RETURNING id), ins_cart AS (INSERT INTO carts (user_id, data) SELECT id, 'cart data' FROM ins_user RETURNING *) SELECT * FROM ins_cart;
 
 
 

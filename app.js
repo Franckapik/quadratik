@@ -59,7 +59,7 @@ app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'quadralab')));
 app.use(express.static(path.join(__dirname, 'views')));
-app.use(express.static(path.join(__dirname, 'db')));
+
 
 //ROUTES VARIABLES
 
@@ -74,8 +74,10 @@ var liste = require('./routes/liste');
 var cart = require('./routes/cart');
 var charge = require('./routes/charge');
 var sess = require('./routes/sessionObj');
-
 var admin = require('./routes/admin');
+var dbcreate = require('./routes/dbcreate');
+var brain = require('./routes/brain');
+var checkout = require('./routes/checkout');
 
 
 
@@ -91,8 +93,10 @@ app.use('/liste', liste);
 app.use('/cart', cart);
 app.use('/charge', charge);
 app.use('/sessionObj', sess);
-
-//app.use('/admin', admin);
+app.use('/dbcreate', dbcreate);
+app.use('/admin', admin);
+app.use('/brain', brain);
+app.use('/checkout', checkout);
 
 
 // catch 404 and forward to error handler

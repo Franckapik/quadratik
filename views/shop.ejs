@@ -3,20 +3,18 @@
 
 <head>
   <meta charset="utf-8">
-  <meta http-equiv="Content-Security-Policy" content="default-src *; style-src * 'checkout.stripe.com' ; script-src * 'self' 'unsafe-inline' localhost:* checkout.stripe.com 'unsafe-eval';">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   <title>Boutique Quadratik.fr</title>
 
   <link rel='stylesheet' href='/stylesheets/style.css' />
   <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js">
+
   </script>
   <script src="https://www.paypalobjects.com/api/checkout.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vue"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/zooming/1.2.7/zooming.js"></script>
   <script src="https://checkout.stripe.com/checkout.js"></script>
-
 
 </head>
 
@@ -25,6 +23,19 @@
 
     <div id="app">
       <div class="shop_container">
+
+        <script src="https://js.braintreegateway.com/web/dropin/1.10.0/js/dropin.min.js"></script>
+        <script src="http://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
+
+
+    <div id="dropin-wrapper">
+      <div id="checkout-message"></div>
+      <div id="dropin-container"></div>
+      <button id="submit-button">Submit payment</button>
+    </div>
+    <script src="/js/braintreeClient.js"></script>
+
+
         <% include include_shop/articles.ejs %>
           <% include include_shop/cartBox.ejs %>
             <div class="commande_process">
@@ -32,16 +43,18 @@
                 <div id="myBar" class="w3-green"></div>
               </div>
 
-              <% include include_shop/checkin.ejs %>
+              <% include include_shop/enregistrement.ejs %>
                 <% include include_shop/livraison.ejs %>
-                  <% include include_shop/paiement.ejs %>
-                    <% include include_shop/cheque.ejs %>
-                      <% include include_shop/success.ejs %>
+
             </div>
             <% include include_shop/askLogin.ejs %>
               <% include include_shop/cart_large.ejs %>
+
+
+
       </div>
     </div>
+
     <script>
       function move() {
         var elem = document.getElementById("myBar");
@@ -58,11 +71,9 @@
         }
       }
 
-      const shop = <%-JSON.stringify(data)%>;
+      var shop = <%-JSON.stringify(products)%>;
 
       //Tri des éléments
-
-console.log('SHOP ARRAY', shop);
 
 
 var collections = new Map();
@@ -89,17 +100,18 @@ collections.forEach( (products, collectionid, map) => {
 		collectionsArray.push(products);
 } )
 
-console.log('Array-collection', collectionsArray);
+
 
       const vm = new Vue({
         el: "#app",
         data: {
           items: [],
           shop: shop,
+          details:false,
           collections: collectionsArray,
           showCart: false,
           cart_large: false,
-          checkin: false,
+          enregistrement: false,
           livraison: false,
           livraison_newAdress: false,
           livraison_relais: false,
@@ -156,9 +168,10 @@ console.log('Array-collection', collectionsArray);
                 credentials: 'include',
                 method: 'post',
                 body: JSON.stringify({
-                  item_name: item.name,
+                  item_name: item.nom,
                   item_price: item.prix,
-                  //item_collection: item.collection.name
+                  item_packaging: item.packaging
+
                 }),
                 headers: new Headers({
                   'Content-Type': 'application/json'

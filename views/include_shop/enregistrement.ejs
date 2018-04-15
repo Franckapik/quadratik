@@ -1,4 +1,4 @@
-<div class="checkin" v-show="checkin">
+<div class="enregistrement" v-show="enregistrement">
 <h2>Enregistrement de commande</h2>
   <form  action="/dbcreate/user" method="post">
 
@@ -98,7 +98,7 @@
 
 </fieldset>
 <div class="form_part">
-  <button type="submit" @click="checkin = false, livraison=true, moveBar(50)">Suivant</button>
+  <button type="submit" @click="enregistrement = false, livraison=true, moveBar(50)">Suivant</button>
 
 
     </form>

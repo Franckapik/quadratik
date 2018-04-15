@@ -5,7 +5,7 @@ var router = express.Router();
 router.get('/', function(req, res, next) {
   //req.session.cart_total = null;
   //req.session.cart_items = null;
-  res.render('index');
+  res.render('braintree');
 });
 
 module.exports = router;

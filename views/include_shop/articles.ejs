@@ -3,25 +3,17 @@
   <div class="shop" v-show="boutique">
     <h2>Boutique</h2>
 
-    <p></p>
-    <p></p>
-    Modèles 7 x 7 cellules : 50cm x 50cm x 10 cm
-    <p></p>
-    Modèles 11 x 11 cellules : 50cm x 50cm x 10 cm
-    <p></p>
-    Modèles 19 x 19 cellules : 98cm x 98cm x 10 cm
-    <p></p>
     <div class="collection">
 
       <ul v-for="(item, index) in collections" class="flex_row">
 
-          Collection
+
 
           <li v-for="(item, index) in collections[index]">
 
             <div class="article_box">
 
-              <!--<h5>{{item}}</h5>-->
+
               <h5>{{ item.nom }}</h5>
               <p>{{ item.prix }} €</p>
 
@@ -29,10 +21,19 @@
               <img v-bind:src="'images/modeles/'+item.name+'/'+item.nom+'.jpg'" alt="Affichage non disponible" data-action="zoom">
               <p> <i class="fas fa-chart-bar"></i><span> {{ item.frequence}} Hz</span>
                 <i class="fas fa-star"></i><span>{{item.classement}}</span>
-                <i class="fas fa-tint"></i><span> {{item.nbColors}}</span> </p>
+                <i class="fas fa-tint"></i><span> {{item.nbColors}}</span>  </p>
+                <i class="fas fa-th-large"></i><span> {{item.cellules}} cellules</span>
+                <i class="fab fa-codepen"></i><span> {{item.longueur}} x  {{item.largeur}} cm</span></p>
+                <div class="details" v-show="details">
+                    {{item.nom}} {{item.nbColors}}
 
 
 
+                  <p><button @click="details = false">CLICK LA</button></p>
+                </div>
+
+
+                 <p><button @click="details = true">CLICK LA</button></p>
               <button @click="addToCart(item)">Ajouter au panier</button>
               <!-- TO DO : view details-->
 

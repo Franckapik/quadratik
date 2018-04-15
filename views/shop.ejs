@@ -3,18 +3,14 @@
 
 <head>
   <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <title>Boutique Quadratik.fr</title>
-
   <link rel='stylesheet' href='/stylesheets/style.css' />
   <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
-
-  </script>
-  <script src="https://www.paypalobjects.com/api/checkout.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vue"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/zooming/1.2.7/zooming.js"></script>
-  <script src="https://checkout.stripe.com/checkout.js"></script>
+  <script src="https://js.braintreegateway.com/web/dropin/1.10.0/js/dropin.min.js"></script>
+  <script src="http://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
 
 </head>
 
@@ -24,16 +20,10 @@
     <div id="app">
       <div class="shop_container">
 
-        <script src="https://js.braintreegateway.com/web/dropin/1.10.0/js/dropin.min.js"></script>
-        <script src="http://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
 
 
-    <div id="dropin-wrapper">
-      <div id="checkout-message"></div>
-      <div id="dropin-container"></div>
-      <button id="submit-button">Submit payment</button>
-    </div>
-    <script src="/js/braintreeClient.js"></script>
+
+
 
 
         <% include include_shop/articles.ejs %>
@@ -45,6 +35,7 @@
 
               <% include include_shop/enregistrement.ejs %>
                 <% include include_shop/livraison.ejs %>
+                <% include include_shop/paiement.ejs %>
 
             </div>
             <% include include_shop/askLogin.ejs %>
@@ -56,49 +47,32 @@
     </div>
 
     <script>
-      function move() {
-        var elem = document.getElementById("myBar");
-        var width = 100;
-        var id = setInterval(frame, 10);
-
-        function frame() {
-          if (width >= 100) {
-            clearInterval(id);
-          } else {
-            width++;
-            elem.style.width = width + '%';
-          }
-        }
-      }
-
-      var shop = <%-JSON.stringify(products)%>;
+        var shop = <%-JSON.stringify(products)%>;
 
       //Tri des éléments
 
 
-var collections = new Map();
+      var collections = new Map();
 
-shop.forEach( product =>
-{
-		//Get the array associated with this collection id
-		var currentCollection = collections.get(product.collectionId);
+      shop.forEach(product => {
+        //Get the array associated with this collection id
+        var currentCollection = collections.get(product.collectionId);
 
-    //If there is no array for this value yet, create it.
-    if (currentCollection == null)
-    {
-    	currentCollection = [];
-      collections.set(product.collectionId, currentCollection);
-    }
+        //If there is no array for this value yet, create it.
+        if (currentCollection == null) {
+          currentCollection = [];
+          collections.set(product.collectionId, currentCollection);
+        }
 
-		//Place the current product into the array
-		currentCollection.push(product);
-} )
+        //Place the current product into the array
+        currentCollection.push(product);
+      })
 
-//The map will now contain an array for each collectionid, which again contains an array with its items
-var collectionsArray = [];
-collections.forEach( (products, collectionid, map) => {
-		collectionsArray.push(products);
-} )
+      //The map will now contain an array for each collectionid, which again contains an array with its items
+      var collectionsArray = [];
+      collections.forEach((products, collectionid, map) => {
+        collectionsArray.push(products);
+      })
 
 
 
@@ -107,7 +81,7 @@ collections.forEach( (products, collectionid, map) => {
         data: {
           items: [],
           shop: shop,
-          details:false,
+          details: false,
           collections: collectionsArray,
           showCart: false,
           cart_large: false,
@@ -122,8 +96,8 @@ collections.forEach( (products, collectionid, map) => {
           createPwd: false,
           success: false,
           askLogin: false,
-          progressionBar:false,
-          cart_box:true
+          progressionBar: false,
+          cart_box: true
 
 
         },
@@ -215,56 +189,12 @@ collections.forEach( (products, collectionid, map) => {
         }
       });
 
-      //stripe
-      var handler = StripeCheckout.configure({
-        key: 'pk_test_oaiyISu3eJI542wOXmZ0ePd4',
-        image: '/images/logo_black.svg',
-        locale: 'fr',
-        token: function(token) {
 
-          fetch('/charge/stripe', {
-            credentials: 'include',
-            method: 'post',
-            body: JSON.stringify({
-              token: token,
-              amount: vm.total
-            }),
-            headers: new Headers({
-              'Content-Type': 'application/json'
-            })
-          }).then(res => res.json()).then(
-
-            function(response) {
-              console.log(response.res);
-              window.location = "/pay_success?charge_id=" + response.chargeID;
-              vm.success = true;
-              var order_id = x;
-            }
-
-          );
-
-        }
-      });
-
-      document.getElementById('customButton').addEventListener('click', function(e) {
-        // Open Checkout with further options:
-        handler.open({
-          name: 'Quadratik.fr',
-          description: 'Spécialiste du diffuseur acoustique',
-          currency: 'eur',
-          amount: vm.total * 100
-        });
-        e.preventDefault();
-      });
-
-      // Close Checkout on page navigation:
-      window.addEventListener('popstate', function() {
-        handler.close();
-      });
     </script>
 
-<% include footer.ejs %>
-
+    <% include footer.ejs %>
+<script src="/js/progressBar.js"></script>
+<script src="/js/braintreeClient.js"></script>
 </body>
 
 </html>

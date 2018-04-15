@@ -72,11 +72,9 @@ var pay_success = require('./routes/pay_success');
 var pay_err = require('./routes/pay_err');
 var liste = require('./routes/liste');
 var cart = require('./routes/cart');
-var charge = require('./routes/charge');
 var sess = require('./routes/sessionObj');
 var admin = require('./routes/admin');
 var dbcreate = require('./routes/dbcreate');
-var brain = require('./routes/brain');
 var checkout = require('./routes/checkout');
 
 
@@ -91,11 +89,9 @@ app.use('/pay_success', pay_success);
 app.use('/pay_err', pay_err);
 app.use('/liste', liste);
 app.use('/cart', cart);
-app.use('/charge', charge);
 app.use('/sessionObj', sess);
 app.use('/dbcreate', dbcreate);
 app.use('/admin', admin);
-app.use('/brain', brain);
 app.use('/checkout', checkout);
 
 

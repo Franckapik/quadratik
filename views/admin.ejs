@@ -14,44 +14,11 @@
     <div class="order_bar"></div>
     <div class="order_content">
       ADMIN
+      <p></p>
       <div class="order_bar"> </div>
-      <form class="" action="/admin/productCreate" method="post">
-        collection
-        <p></p>
-        <input type="text" name="collectionId" value="">
-        <p></p>
-        name
-        <p></p>
-        <input type="text" name="name" value="">
-        <p></p>
-        price
-        <p></p>
-        <input type="text" name="price" value="">
-        <p></p>
-        img
-        <p></p>
-        <input type="text" name="img" value="">
-        <p></p>
-        Nombre de couleurs
-        <p></p>
-        <input type="text" name="nbCouleurs" value="">
-        <p></p>
-        description
-        <p></p>
-        <input type="text" name="descriptionId" value="">
-        <p></p>
-        performance
-        <p></p>
-        <input type="text" name="performanceid" value="">
-        <p></p>
-        update(put name)
-        <p></p>
-        <input type="text" name="update" value="">
-        <p></p>
-        <input type="submit" name="" value="Envoyer">
-      </form>
 
 
+Liste des produits disponibles
       <hr>
 
         <% for(var i=0; i<product.length; i++) {%>
@@ -62,11 +29,32 @@
           <li><%= product[i].prix %> €</li>
           <li><%= product[i].frequence %> Hz</li>
           <li>Top <%= product[i].classement %> </li>
-          <li>Modèle : <%= product[i].modeletype %></li>
+          <li>Modèle : <%= product[i].modele %></li>
           <li><%= product[i].nbColors %> couleur(s) </li>
           </ul>
         <% } %>
 <%= essence[1].essence %>
+
+<p></p>
+Liste des utilisateurs
+      <hr>
+
+        <% for(var i=0; i<user.length; i++) {%>
+          <ul class="admin_ul3">
+
+          <li><%= user[i].nom %> <%= user[i].prenom %> </li>
+          <li><%= user[i].adresse %> </li>
+          <li><%= user[i].ville %> - <%= user[i].postal %> </li>
+          <li><%= user[i].mail %> </li>
+          <li><%= user[i].telephone %> </li>
+          <li><%= user[i].contexte %> </li>
+          <li>Lien commande</li>
+          <li>Lien livraison </li>
+          <li>Lien admin </li>
+
+          </ul>
+        <% } %>
 </body>
+
 
 </html>

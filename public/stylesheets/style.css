@@ -30,7 +30,7 @@ body {
   background-color: red;
   font-size: 20px;
 }
-browser-sync start --proxy 'localhost:3000' --serveStatic 'public' --files 'public'
+
 .admin_ul3 {
   -webkit-column-count: 3;
   -moz-column-count: 3;

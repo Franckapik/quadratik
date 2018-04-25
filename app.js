@@ -37,7 +37,7 @@ const store = new KnexSessionStore({
 app.use(session({
   secret: 'mycatiscuteandyoudontcare',
   cookie: {
-    maxAge: 10000 // ten seconds, for testing
+    maxAge: 1800000 // 30min
   },
   store: store,
   resave: true,
@@ -68,8 +68,6 @@ var users = require('./routes/users');
 var guide = require('./routes/guide');
 var quadralab = require('./routes/quadralab');
 var shop = require('./routes/shop');
-var pay_success = require('./routes/pay_success');
-var pay_err = require('./routes/pay_err');
 var liste = require('./routes/liste');
 var cart = require('./routes/cart');
 var sess = require('./routes/sessionObj');
@@ -85,8 +83,6 @@ app.use('/guide', guide);
 app.use('/users', users);
 app.use('/quadralab', quadralab);
 app.use('/shop', shop);
-app.use('/pay_success', pay_success);
-app.use('/pay_err', pay_err);
 app.use('/liste', liste);
 app.use('/cart', cart);
 app.use('/sessionObj', sess);

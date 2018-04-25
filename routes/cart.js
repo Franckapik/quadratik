@@ -10,51 +10,82 @@ var knex = require('knex')({
 
 var cart = [];
 
-//renvoie le contenu du panier
+//*******CONTENU PANIER***********
 router.get('/', function(req, res, next) {
 
-total = 0;
-for (var i = 0; i < cart.length; i++) {
-  total += cart[i].price * cart[i].qty;
-}
+  total_produits = 0; //variables globales
+  total_fdp = 0;
+  total=0;
 
-req.session.cart_total = total;
-console.log(req.session.cart_total);
+  for (var i = 0; i < cart.length; i++) {
+    total_produits += cart[i].price * cart[i].qty;
+    total_fdp += cart[i].fdp * cart[i].qty;
+    total = total_produits + total_fdp;
+  }
 
-res.json ({cart : cart});
+  //enregistrement dans la session
+  req.session.cart_total_produits = total_produits;
+  req.session.cart_total_fdp = total_fdp;
+  req.session.cart_total = total;
+
+  res.json({
+    cart: cart,
+    total_produits :total_produits,
+    total_FraisDePorts : total_fdp,
+    amount : total // 10.00 formatter pour le amount?
+  }); //renvoie le contenu du panier.
 
 
 });
 
-//ajoute un article au panier
+router.get('/DBtocart', function(req, res, next) {
+
+  knex('cart')
+  .where('sessid', req.session.id)
+    .then(DBcart => res.json({panier : DBcart}));
+
+
+
+});
+
+//*********AJOUT******
 router.post('/', function(req, res, next) {
 
 
-var product = {};
+  var product = {};
 
   var index = cart.findIndex(x => x.name == req.body.item_name) //trouve l'index (0,1,2) du produit ajouté au panier
 
-  if (index === -1) { //nouveau produit ajouté
+  if (index === -1) { //produit inexistant dans le panier
     product.collection = req.body.item_collection;
     product.name = req.body.item_name;
     product.price = req.body.item_price;
     product.fdp = req.body.item_packaging;
     product.qty = 1;
+
     cart.push(product);
+
     console.log('Produit ajouté :', req.body.item_name);
-    req.session.cart = cart; //session
+
+    //enregistrement dans la session
+    req.session.cart = cart;
+
+
     res.json({
       add: product
     })
 
-  } else {
+  } else { //produit multiplié
 
     cart[index].qty++
-      console.log('Produit multiplié : ', cart[index].name,'x', cart[index].qty);
-      req.session.cart = cart; //session
-      res.json({
-        add: product
-      })
+      console.log('Produit multiplié : ', cart[index].name, 'x', cart[index].qty);
+
+    //enregistrement dans la session
+    req.session.cart = cart;
+
+    res.json({
+      add: product
+    })
   }
 
 
@@ -97,19 +128,7 @@ router.delete('/:item', function(req, res, next) {
 
 });
 
-//ajoute le panier à la base de donnée
-router.post('/cartToDB', function(req, res, next) {
 
-knex('cart')
-.returning('products')
-.insert({
-  products: cart,
-  total: req.session.cart_total,
-  sessid: req.session.id
-})
-.then(products => console.log('Commande en cours: ', products) );
-
-});
 
 //using a writable CTE, which would look like this: WITH ins_user AS (INSERT INTO users (username) VALUES ('John') RETURNING id), ins_cart AS (INSERT INTO carts (user_id, data) SELECT id, 'cart data' FROM ins_user RETURNING *) SELECT * FROM ins_cart;
 

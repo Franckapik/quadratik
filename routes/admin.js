@@ -13,16 +13,20 @@ router.get('/', function(req, res, next) {
 
   knex('product')
     .leftJoin('collection', 'product.collectionId', 'collection.id')
-    .innerJoin('product_performances', 'product.modeletype', 'product_performances.type')
+    .innerJoin('product_performances', 'product.performance', 'product_performances.type')
     .then(function(productData) {
       knex('product_essences')
-      .then(function(essencesData){
-        res.render('admin', {
-          product : productData,
-          essence : essencesData
-        });
+        .then(function(essencesData) {
+          knex('user')
+            .then(function(userData) {
+              res.render('admin', {
+                product: productData,
+                essence: essencesData,
+                user: userData
+              });
+            })
+        })
     })
-  })
 
 });
 

@@ -67,8 +67,12 @@ currency: 'EUR'
 
         if (result.success) {
           var transactionOK = JSON.stringify(result);
-          $('#checkout-message').html('<h1>Success</h1><p>Your Drop-in UI is working! Check your <a href="https://sandbox.braintreegateway.com/login">sandbox Control Panel</a> for your test transactions.</p><p>Refresh to try another transaction.</p>');
-console.log('ok', result);
+          $('#checkout-message').html('<h1>Commande Terminée !</h1><p>Nous vous remercions pour la confiance que vous nous accordez ! <p> Retour à l&#39;Accueil</p>');
+          var elem = document.getElementById("myBar");
+          var width = 100;
+
+          elem.style.width = width + '%';
+
           $.ajax({
             type: 'POST',
             url: '/checkout/success',

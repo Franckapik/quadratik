@@ -19,9 +19,10 @@ router.post('/', function(req, res, next) {
 
   // Use the payment method nonce here
   var nonceFromTheClient = req.body.paymentMethodNonce;
-  // Create a new transaction for $10
+  var amount = "'" + req.session.cart_total + "'";
+  // Create a new transaction
   var newTransaction = gateway.transaction.sale({
-    amount: '10.00',
+    amount: amount,
     paymentMethodNonce: nonceFromTheClient,
     options: {
       // This option requests the funds from the transaction
@@ -34,6 +35,7 @@ router.post('/', function(req, res, next) {
 
         knex('commande')
         .insert({
+          userid : req.session.userid,
           status : result.transaction.status,
           mode : result.transaction.paymentInstrumentType,
           amount : result.transaction.amount,

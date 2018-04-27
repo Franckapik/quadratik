@@ -1,14 +1,25 @@
-Vue.component('liste', {
-    props : ['title','nom'],
-    template: '<p>Ici sera ma liste {{title}} {{nom}}</p>',
-    data: function() {
-        return {
-            password: '',
-            visible: false
-        }
-    }
-});
-
 var app = new Vue({
-    el: '#app'
+    el: '#app',
+    data : {
+
+    },
+    methods : {
+      getAPI() {fetch('/cart', {
+          credentials: 'include',
+          method: 'get',
+          headers: new Headers({
+            'Content-Type': 'application/json'
+          })
+        }).then(res => res.json())
+        .catch(error => console.error('Error:', error))
+        .then(
+          function(response) {
+          
+
+          });
+    }
+
+
+    }
+
 })

@@ -110,50 +110,85 @@ router.post('/cartToDB', function(req, res, next) {
 
 
 router.post('/livraison', function(req, res, next) {
+  console.log('Livraison choisie :', req.body.livr_choice);
+
+
   var errorType = [];
+  if (req.body.livr_choice === 'domicile') {
+    knex('user')
+      .where('id', req.session.userid)
+      .then(user => {
 
-  var validPostal = function(postal) {
-    var regex = /^[0-9]{5,5}$/;
-    return regex.test(postal);
-  };
-
-  if (!validPostal(req.body.livr_postal)) {
-    errorType.push('Code Postal non-valide');
-  }
-
-  if (!req.body.livr_choice || !req.body.livr_nom || !req.body.livr_adresse || !req.body.livr_ville || !req.body.livr_postal) {
-    errorType.push('Une donnée du formulaire est manquante');
-  }
-
-  if (!errorType.length) {
-
-    console.log('Formulaire Livraison validé || userid:', req.session.userid);
-
-    knex('livraison')
-      .returning('id')
-      .insert({
-        userid: req.session.userid,
-        mode: req.body.livr_choice,
-        nom: req.body.livr_nom,
-        adresse: req.body.livr_adresse,
-        ville: req.body.livr_ville,
-        postal: req.body.livr_postal
-      })
-      .then(id => {
-          console.log('Formulaire Livraison validé || userid:', req.session.userid, 'livraison [id]', id);
-
-          res.json({
-            success: '[Serveur] Formulaire Livraison validé'
+        knex('livraison')
+          .returning('id')
+          .insert({
+            userid: req.session.userid,
+            mode: req.body.livr_choice,
+            nom: user[0].nom + user[0].prenom,
+            adresse: user[0].adresse,
+            ville: user[0].ville,
+            postal: user[0].postal
           })
-        }
+          .then(id => {
+              console.log('[Domicile] Formulaire Livraison validé || userid:', req.session.userid, 'livraison [id]', id);
+              res.json({
+                success: '[Serveur] [Domicile] Formulaire Livraison validé'
+              })
+            }
 
-      );
+          );
 
-  } else {
-    res.json({
-      error: errorType
-    })
+      })
   }
+
+
+  if (req.body.livr_choice === 'autreAdresse') {
+
+    var validPostal = function(postal) {
+      var regex = /^[0-9]{5,5}$/;
+      return regex.test(postal);
+    };
+
+    if (!validPostal(req.body.livr_postal)) {
+      errorType.push('Code Postal non-valide');
+    }
+
+    if (!req.body.livr_choice || !req.body.livr_nom || !req.body.livr_adresse || !req.body.livr_ville || !req.body.livr_postal) {
+      errorType.push('Une donnée du formulaire est manquante');
+    }
+
+    if (!errorType.length) {
+
+      console.log('Formulaire Livraison validé || userid:', req.session.userid);
+
+      knex('livraison')
+        .returning('id')
+        .insert({
+          userid: req.session.userid,
+          mode: req.body.livr_choice,
+          nom: req.body.livr_nom,
+          adresse: req.body.livr_adresse,
+          ville: req.body.livr_ville,
+          postal: req.body.livr_postal
+        })
+        .then(id => {
+            console.log('Formulaire Livraison validé || userid:', req.session.userid, 'livraison [id]', id);
+
+            res.json({
+              success: '[Serveur] Formulaire Livraison validé'
+            })
+          }
+
+        );
+
+    } else {
+      res.json({
+        error: errorType
+      })
+    }
+  }
+
+
 
 });
 

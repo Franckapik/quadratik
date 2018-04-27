@@ -30,22 +30,23 @@
         </div>
       </fieldset>
       <div class="form_livraison_choosed">
-        <div id="relais" v-show="livraison_relais">
+        <div class="error_box">
+          <p v-if="errors.length">
+            <b>Certains champs du formulaire sont invalides :  </b>
+            <ul>
+              <li v-for="error in errors">{{ error }}</li>
+            </ul>
+          </p>
+        </div>
+        <div id="relais" v-if="livraison_relais">
           MONDIAL RELAY
         </div>
-        <div id="domicile" v-show="livraison_domicile">
+        <div id="domicile" v-if="livraison_domicile">
           Adresse renseignée auparavant.
         </div>
 
-        <div id="autreAdresse" v-show="livraison_newAdress">
-          <div class="error_box">
-            <p v-if="errors.length">
-              <b>Certains champs du formulaire sont invalides :  </b>
-              <ul>
-                <li v-for="error in errors">{{ error }}</li>
-              </ul>
-            </p>
-          </div>
+        <div id="autreAdresse" v-if="livraison_newAdress">
+
           <!-- Nom complet -->
           <div class="form_box">
             <label class="control-label">Nom complet</label>

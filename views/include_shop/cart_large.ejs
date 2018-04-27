@@ -25,10 +25,9 @@
         <p></p>
         <p></p>
 <form id="cartform" @submit="cartForm" method="post">
-<!--<form action="/dbcreate/cartToDB" method="post">-->
 <div class="cart_button">
   <button value="Retour" @click="boutique=true, cart_large=false">Continuer mes achats</button>
-  <button type="submit" class="accent" value="Suivant" @click="moveBar(25), showCart=false">Passer la commande</button>
+  <button type="submit" class="accent" value="Suivant" @click="moveBar(25)">Passer la commande</button>
 </div>
 </form>
 

@@ -7,8 +7,6 @@
 
       <ul v-for="(item, index) in collections" class="flex_row">
 
-
-
           <li v-for="(item, index) in collections[index]">
 
             <div class="article_box">
@@ -24,16 +22,8 @@
                 <i class="fas fa-tint"></i><span> {{item.nbColors}}</span>  </p>
                 <i class="fas fa-th-large"></i><span> {{item.cellules}} cellules</span>
                 <i class="fab fa-codepen"></i><span> {{item.longueur}} x  {{item.largeur}} cm</span></p>
-                <div class="details" v-show="details">
-                    {{item.nom}} {{item.nbColors}}
 
-
-
-                  <p><button @click="details = false">CLICK LA</button></p>
-                </div>
-
-
-                 <p><button @click="details = true">CLICK LA</button></p>
+                 <p> <button @click="showDetails(item)">CLICK LA</button></p>
               <button @click="addToCart(item)">Ajouter au panier</button>
               <!-- TO DO : view details-->
 

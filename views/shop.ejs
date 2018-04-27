@@ -18,6 +18,8 @@
   <% include header.ejs %>
     <div class="shop_container">
       <div id="app">
+
+
         <% include include_shop/articles.ejs %>
           <% include include_shop/cartBox.ejs %>
             <div class="commande_process">
@@ -30,7 +32,16 @@
             </div>
             <% include include_shop/askLogin.ejs %>
               <% include include_shop/cart_large.ejs %>
+                <div id="loadMore" class="details" v-if="details">
+                  <button @click="details=false"><i class="fa fa-window-close" aria-hidden="true"></i></button>
 
+
+                  <img width="20%" v-bind:src="'images/modeles/'+detailsItem[0].name+'/'+detailsItem[0].nom+'.jpg'" alt="Affichage non disponible" data-action="zoom">
+                  <h3>{{detailsItem[0].nom}}</h3> {{detailsItem[0]}}
+                  <button @click="addToCart(detailsItem[0])">Ajouter au panier</button>
+
+
+                </div>
       </div>
 
     </div>
@@ -68,6 +79,7 @@
         el: "#app",
         data: {
           items: [],
+          detailsItem: [],
           shop: shop,
           details: false,
           collections: collectionsArray,
@@ -331,6 +343,15 @@
 
             elem.style.width = width + '%';
             console.log(elem.style.width);
+          },
+
+          showDetails(item) {
+            vm.detailsItem.pop();
+            vm.detailsItem.push(item);
+            console.log(item.nom);
+            this.details = true;
+            $('#details_contenu').html(item.nom + item.prix + item.frequence);
+
           },
 
           addToCart(item) {

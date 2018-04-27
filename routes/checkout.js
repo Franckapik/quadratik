@@ -10,6 +10,7 @@ var knex = require('knex')({
 
 
 router.post('/', function(req, res, next) {
+  //Connection avec Braintree
   var gateway = braintree.connect({
     environment: braintree.Environment.Sandbox,
     merchantId: config.brain_merchant,
@@ -17,39 +18,72 @@ router.post('/', function(req, res, next) {
     privateKey: config.brain_private
   });
 
-  // Use the payment method nonce here
+  // Methode de paiement
   var nonceFromTheClient = req.body.paymentMethodNonce;
-  var amount = "'" + req.session.cart_total + "'";
+  //Montant de la transaction
+  var amount = parseInt(req.session.cart_total, 10).toFixed(2);
+
+  //Creation du client Braintree
+  knex('user')
+    .where('id', req.session.userid)
+    .then(user => {
+
+        gateway.customer.create({
+          firstName: user[0].prenom,
+          lastName: user[0].nom,
+          email: user[0].mail,
+          phone: user[0].telephone
+        }, function(err, result) {
+          if (result.success) {
+            console.log(result.success);
+            console.log(result.customer.id);
+          } else {
+            console.log(err);
+          }
+
+        });
+      }
+
+    );
+
   // Create a new transaction
   var newTransaction = gateway.transaction.sale({
     amount: amount,
     paymentMethodNonce: nonceFromTheClient,
     options: {
-      // This option requests the funds from the transaction
-      // once it has been authorized successfully
       submitForSettlement: true
     }
   }, function(error, result) {
-      if (result) {
-        console.log('transaction', result.transaction);
+    if (result) {
+      console.log('transaction', result.transaction);
 
-        knex('commande')
+  //Enregistrement Base de donnée
+      knex('commande')
+        .returning('reference')
         .insert({
-          userid : req.session.userid,
-          status : result.transaction.status,
-          mode : result.transaction.paymentInstrumentType,
-          amount : result.transaction.amount,
-          cardtype : result.transaction.creditCard.cardType,
-          number : result.transaction.creditCard.maskedNumber,
-          expirationdate : result.transaction.creditCard.expirationDate,
-          transactionid : result.transaction.id
+          userid: req.session.userid,
+          status: result.transaction.status,
+          mode: result.transaction.paymentInstrumentType,
+          amount: result.transaction.amount,
+          cardtype: result.transaction.creditCard.cardType,
+          number: result.transaction.creditCard.maskedNumber,
+          expirationdate: result.transaction.creditCard.expirationDate,
+          reference: 532456 + parseInt(req.session.userid),
+          transactionid: result.transaction.id
         })
-        .then(res.send(result));
+        .then(reference => {
+          req.session.cart_total_produits = 0;
+          req.session.cart_total_fdp = 0;
+          req.session.cart_total = 0;
+          res.json({
+            result: result,
+            reference: reference
+          })
+        });
 
-
-      } else {
-        res.status(500).send(error);
-      }
+    } else {
+      res.status(500).send(error);
+    }
   });
 });
 

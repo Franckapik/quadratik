@@ -74,6 +74,7 @@ var sess = require('./routes/sessionObj');
 var admin = require('./routes/admin');
 var dbcreate = require('./routes/dbcreate');
 var checkout = require('./routes/checkout');
+var essai = require('./routes/essai');
 
 
 
@@ -89,6 +90,7 @@ app.use('/sessionObj', sess);
 app.use('/dbcreate', dbcreate);
 app.use('/admin', admin);
 app.use('/checkout', checkout);
+app.use('/essai', essai);
 
 
 // catch 404 and forward to error handler

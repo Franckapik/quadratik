@@ -15,17 +15,20 @@
 
     <div class="cart_total">
       <h5>Nombre d'article(s): <span>{{articlesQty}}</span></h5>
+      <h5>Total des produits: <span>{{totalProduits}}  €</span></h5>
+      <h5>Frais de ports: <span>{{totalFdp}}  €</span></h5>
 
-      <h5>Total: <span>{{ total  }} €</span></h5>
+      <h5>Total: <span>{{ amount }} €</span></h5>
 
 
         </div>
         <p></p>
         <p></p>
-<form action="/dbcreate/cartToDB" method="post">
+<form id="cartform" @submit="cartForm" method="post">
+<!--<form action="/dbcreate/cartToDB" method="post">-->
 <div class="cart_button">
   <button value="Retour" @click="boutique=true, cart_large=false">Continuer mes achats</button>
-  <button type="submit" class="accent" value="Suivant" @click="enregistrement=true, cart_large=false, cart_box=false,progressionBar=true,moveBar(25), showCart=false">Passer la commande</button>
+  <button type="submit" class="accent" value="Suivant" @click="moveBar(25), showCart=false">Passer la commande</button>
 </div>
 </form>
 

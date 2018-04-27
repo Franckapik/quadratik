@@ -53,7 +53,11 @@ currency: 'EUR'
         type: 'POST',
         url: '/checkout',
         data: {'paymentMethodNonce': payload.nonce}
-      }).done(function(result) {
+      }).done(function(response) {
+        console.log(response);
+        console.log(response.reference);
+        var ref = parseInt(response.reference, 10);
+        console.log(ref);
         // Tear down the Drop-in UI
         instance.teardown(function (teardownErr) {
           if (teardownErr) {
@@ -65,9 +69,9 @@ currency: 'EUR'
           }
         });
 
-        if (result.success) {
-          var transactionOK = JSON.stringify(result);
-          $('#checkout-message').html('<h1>Commande Terminée !</h1><p>Nous vous remercions pour la confiance que vous nous accordez ! <p> Retour à l&#39;Accueil</p>');
+        if (response.result.success) {
+          var transactionOK = JSON.stringify(response.result.success);
+          $('#checkout-message').html('<h1>Commande n° ' + ref +' Terminée !</h1><p>Nous vous remercions pour la confiance que vous nous accordez ! <p> Retour à l&#39;Accueil</p>');
           var elem = document.getElementById("myBar");
           var width = 100;
 
@@ -79,8 +83,8 @@ currency: 'EUR'
             data: {'transactionOK':  transactionOK}
           })
         } else {
-          console.log(result);
-          $('#checkout-message').html('<h1>Error</h1><p>Check your console.</p>');
+          console.log(response);
+          $('#checkout-message').html('<h1>Error</h1><p>Une erreur est survenue pendant la commande. Nous somme alertés pour pouvoir remédier à cette situation.</p>');
         }
       });
     });

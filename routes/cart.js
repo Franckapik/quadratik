@@ -32,7 +32,7 @@ router.get('/', function(req, res, next) {
     cart: cart,
     total_produits :total_produits,
     total_FraisDePorts : total_fdp,
-    amount : total // 10.00 formatter pour le amount?
+    amount : total 
   }); //renvoie le contenu du panier.
 
 
@@ -81,6 +81,7 @@ router.post('/', function(req, res, next) {
       console.log('Produit multiplié : ', cart[index].name, 'x', cart[index].qty);
 
     //enregistrement dans la session
+    console.log('cart:', cart);
     req.session.cart = cart;
 
     res.json({

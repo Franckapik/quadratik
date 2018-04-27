@@ -1,7 +1,8 @@
 <div id="Orderlivraison" v-show="livraison">
 
   <h2>Livraison</h2>
-  <form class="" action="/dbcreate/livraison" method="post">
+  <form id="deliveryform" @submit="deliveryForm" method="post">
+
     <div class="form_livraison_container flex">
       <fieldset>
         <legend>Choix de la livraison : </legend>
@@ -10,19 +11,19 @@
           <div class="form_choice_block">
             Point Relais (Mondial relay)
             <p></p>
-            <input type="radio" name="typeLivraison" value="relais" checked @change="livraison_relais=true, livraison_domicile=false, livraison_newAdress=false">
+            <input type="radio" name="typeLivraison" v-model="livr_choice" value="relais" checked @change="livraison_relais=true, livraison_domicile=false, livraison_newAdress=false">
             <p></p>
           </div>
           <div class="form_choice_block">
             Domicile Personnel
             <p></p>
-            <input type="radio" name="typeLivraison" value="domicile" @change="livraison_relais=false, livraison_domicile=true, livraison_newAdress=false">
+            <input type="radio" name="typeLivraison" v-model="livr_choice" value="domicile" @change="livraison_relais=false, livraison_domicile=true, livraison_newAdress=false">
             <p></p>
           </div>
           <div class="form_choice_block">
             Autre adresse
             <p></p>
-            <input type="radio" name="typeLivraison" value="autreAdresse" @change="livraison_relais=false, livraison_domicile=false, livraison_newAdress=true">
+            <input type="radio" name="typeLivraison" v-model="livr_choice" value="autreAdresse" @change="livraison_relais=false, livraison_domicile=false, livraison_newAdress=true">
             <p></p>
           </div>
 
@@ -37,11 +38,19 @@
         </div>
 
         <div id="autreAdresse" v-show="livraison_newAdress">
+          <div class="error_box">
+            <p v-if="errors.length">
+              <b>Certains champs du formulaire sont invalides :  </b>
+              <ul>
+                <li v-for="error in errors">{{ error }}</li>
+              </ul>
+            </p>
+          </div>
           <!-- Nom complet -->
           <div class="form_box">
             <label class="control-label">Nom complet</label>
             <div class="controls">
-              <input id="livraison_nom" name="livraison_nom" type="text" placeholder="Mr Bernard Dupond" class="input-xlarge">
+              <input id="livraison_nom" v-model="livr_nom" name="livraison_nom" type="text" placeholder="Mr Bernard Dupond" class="input-xlarge">
 
             </div>
           </div>
@@ -50,7 +59,7 @@
           <div class="form_box">
             <label class="control-label">Adresse</label>
             <div class="controls">
-              <input id="livraison_adresse" name="livraison_adresse" type="text" placeholder="Rue des Camélias, Batiment C, Etage 2" class="input-xlarge">
+              <input id="livraison_adresse" v-model="livr_adresse" name="livraison_adresse" type="text" placeholder="Rue des Camélias, Batiment C, Etage 2" class="input-xlarge">
 
             </div>
           </div>
@@ -60,7 +69,7 @@
           <div class="form_box">
             <label class="control-label">Ville/Commune</label>
             <div class="controls">
-              <input id="livraison_ville" name="livraison_ville" type="text" placeholder="Paris" class="input-xlarge">
+              <input id="livraison_ville" v-model="livr_ville" name="livraison_ville" type="text" placeholder="Paris" class="input-xlarge">
 
             </div>
           </div>
@@ -69,13 +78,13 @@
           <div class="form_box">
             <label class="control-label">Code Postal</label>
             <div class="controls">
-              <input id="livraison_codepostal" name="livraison_codepostal" type="text" placeholder="95200" class="input-xlarge">
+              <input id="livraison_codepostal" v-model="livr_postal" name="livraison_codepostal" type="text" placeholder="95200" class="input-xlarge">
 
             </div>
           </div>
         </div>
       </div>
-      <button type="submit" @click="livraison=false, paiement=true, moveBar(75)">Suivant</button>
+      <button type="submit" @click="moveBar(75)">Suivant</button>
 
     </div>
 

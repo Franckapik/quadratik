@@ -14,7 +14,7 @@ var app = new Vue({
         .catch(error => console.error('Error:', error))
         .then(
           function(response) {
-          
+          console.log(response);
 
           });
     }

@@ -1,12 +1,10 @@
 var express = require('express');
 var app = express();
-
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
 var config = require('./config');
-var paypal = require('paypal-rest-sdk');
 
 
 const session = require('express-session');

@@ -123,11 +123,11 @@ router.post('/livraison', function(req, res, next) {
           .returning('id')
           .insert({
             userid: req.session.userid,
-            mode: req.body.livr_choice,
-            nom: user[0].nom + user[0].prenom,
-            adresse: user[0].adresse,
-            ville: user[0].ville,
-            postal: user[0].postal
+            livr_mode: req.body.livr_choice,
+            livr_nom: user[0].nom + user[0].prenom,
+            livr_adresse: user[0].adresse,
+            livr_ville: user[0].ville,
+            livr_postal: user[0].postal
           })
           .then(id => {
               console.log('[Domicile] Formulaire Livraison validé || userid:', req.session.userid, 'livraison [id]', id);

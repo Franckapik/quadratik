@@ -31,9 +31,13 @@ Liste des produits disponibles
           <li>Top <%= product[i].classement %> </li>
           <li>Modèle : <%= product[i].modele %></li>
           <li><%= product[i].nbColors %> couleur(s) </li>
+          <li>ici <%= product[i].coef %></li>
+          <li><%= product[i].prof %></li>
+          <li><%= product[i].prixessencem2 %></li>
+          <li><%= product[i].prixcolors %></li>
           </ul>
         <% } %>
-<%= essence[1].essence %>
+
 
 <p></p>
 Liste des utilisateurs
@@ -41,16 +45,42 @@ Liste des utilisateurs
 
         <% for(var i=0; i<user.length; i++) {%>
           <ul class="admin_ul3">
-
           <li><%= user[i].nom %> <%= user[i].prenom %> </li>
           <li><%= user[i].adresse %> </li>
           <li><%= user[i].ville %> - <%= user[i].postal %> </li>
           <li><%= user[i].mail %> </li>
           <li><%= user[i].telephone %> </li>
           <li><%= user[i].contexte %> </li>
-          <li>Lien commande</li>
-          <li>Lien livraison </li>
-          <li>Lien admin </li>
+
+          //COMMANDE
+
+          <li><%= user[i].reference %> </li>
+          <li><%= user[i].mode %> </li>
+          <li><%= user[i].amount %> </li>
+          <li><%= user[i].cardtype %> </li>
+          <li><%= user[i].number %> </li>
+          <li><%= user[i].expirationdate %> </li>
+          <li><%= user[i].transactionid %> </li>
+          <li><%= user[i].status %> </li>
+
+          //LIVRAISON
+
+          <li><%= user[i].livr_mode %> </li>
+          <li><%= user[i].livr_nom %> </li>
+          <li><%= user[i].livr_ville %> </li>
+          <li><%= user[i].livr_postal %> </li>
+          <li><%= user[i].livr_adresse %> </li>
+
+          //PANIER
+
+          <li><%= user[i].total_produits %> </li>
+          <li><%= user[i].total_fdp %> </li>
+          <li><%= user[i].total %> </li>
+          <li><%= user[i].products %> </li>
+          <li><%= user[i].sessid %> </li>
+
+
+        <!--  <li><%= user[i].coef * (user[i].prof * user[i].prixessencem2 + user[i].prixcolors ) %></li> -->
 
           </ul>
         <% } %>

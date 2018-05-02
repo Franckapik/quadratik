@@ -12,12 +12,27 @@ var cart = [];
 var promo = 0;
 
 //*******CONTENU PANIER***********
-router.get('/', function(req, res, next) {
+router.get('/update', function(req, res, next) {
 
-  total_produits = 0; //variables globales
-  total_fdp = 0;
-  total = 0;
+console.log(req.session.cart);
 
+if (!req.session.cart || req.session.cart.length == 0 ) {
+  req.session.cart_total_produits = 0;
+  req.session.cart_total_fdp = 0;
+  req.session.cart_promo = 0;
+  req.session.cart_total = 0;
+  req.session.cart = [];
+  console.log('Panier créé', req.session.cart.length);
+}
+
+  for (var i = 0; i < req.session.cart.length; i++) {
+    req.session.cart_total_produits += req.session.cart[i].price * req.session.cart[i].qty;
+    req.session.cart_total_fdp += req.session.cart[i].fdp * req.session.cart[i].qty;
+    req.session.cart_total = req.session.cart_total_produits + req.session.cart_total_fdp - req.session.cart_promo;
+  }
+
+
+/*
   if (req.session.cart_promo) {
     promo = req.session.cart_promo
   }
@@ -32,12 +47,12 @@ router.get('/', function(req, res, next) {
   req.session.cart_total_produits = total_produits;
   req.session.cart_total_fdp = total_fdp;
   req.session.cart_total = total;
-
+*/
   res.json({
-    cart: cart,
-    total_produits: total_produits,
-    total_FraisDePorts: total_fdp,
-    amount: total
+    cart: req.session.cart,
+    total_produits: req.session.cart_total_produits,
+    total_FraisDePorts: req.session.cart_total_fdp,
+    amount: req.session.cart_total
   }); //renvoie le contenu du panier.
 
 
@@ -114,7 +129,8 @@ router.post('/add', function(req, res, next) {
 
   var product = {};
 
-  var index = cart.findIndex(x => x.name == req.body.item_name) //trouve l'index (0,1,2) du produit ajouté au panier
+  var index = req.session.cart.findIndex(x => x.name == req.body.item_name) //trouve l'index (0,1,2) du produit ajouté au panier
+  console.log(index);
 
   if (index === -1) { //produit inexistant dans le panier
     product.name = req.body.item_name;
@@ -122,13 +138,13 @@ router.post('/add', function(req, res, next) {
     product.fdp = req.body.item_packaging;
     product.qty = 1;
 
-    cart.push(product);
-    console.log(cart);
+    console.log('product', product);
+    req.session.cart.push(product);
+    console.log('panier', req.session.cart);
     console.log('Produit ajouté :', req.body.item_name);
 
     //enregistrement dans la session
-    req.session.cart = cart;
-
+    //req.session.cart = cart;
 
     res.json({
       add: product
@@ -136,12 +152,12 @@ router.post('/add', function(req, res, next) {
 
   } else { //produit multiplié
 
-    cart[index].qty++
-      console.log('Produit multiplié : ', cart[index].name, 'x', cart[index].qty);
+    req.session.cart[index].qty++
+      console.log('Produit multiplié : ', req.session.cart[index].name, 'x', req.session.cart[index].qty);
 
     //enregistrement dans la session
-    console.log('cart:', cart);
-    req.session.cart = cart;
+    console.log('cart:', req.session.cart);
+    //req.session.cart = cart;
 
     res.json({
       add: product

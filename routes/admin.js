@@ -28,8 +28,7 @@ router.get('/', function(req, res, next) {
                 product: productData,
                 essence: essencesData,
                 user: userData
-              })
-              .catch(error => console.error('Error:', error));
+              });
             })
         })
     })

@@ -31,10 +31,19 @@ Liste des produits disponibles
           <li>Top <%= product[i].classement %> </li>
           <li>Modèle : <%= product[i].modele %></li>
           <li><%= product[i].nbColors %> couleur(s) </li>
-          <li>ici <%= product[i].coef %></li>
-          <li><%= product[i].prof %></li>
-          <li><%= product[i].prixessencem2 %></li>
-          <li><%= product[i].prixcolors %></li>
+          <li>Nombre pièces <%= product[i].nbpieces %></li>
+          <li>Nombre carreaux <%= product[i].nbcarreaux %></li>
+          <li>Surface (m²) <%= product[i].surface %></li>
+          <li>Prix couleurs client <%= product[i].prixcolorsclient %></li>
+
+
+          <li>prof <%= product[i].prof %></li>
+          <li>prix/couleur<%= product[i].prixcolors %></li>
+          <li>prix tot [Peuplier] <%=(product[i].surface * essence[0].prixessence + product[i].prixcolors).toFixed(2) %>  € </li>
+          <li>prix conseillé [Peuplier] <%= Math.round(product[i].surface * essence[0].prixessenceclient + Number(product[i].prixcolorsclient)) %>  € </li>
+          <li>prix affiché <%= product[i].prix %>  €</li>
+          <li>poids <%=(product[i].surface * essence[1].poidsessencem2 ).toFixed(2)%>  kg </li>
+          <li>marge : <%=( product[i].prix - (product[i].surface * essence[0].prixessence + Number(product[i].prixcolors) )).toFixed(2) %>  €</li>
           </ul>
         <% } %>
 
@@ -80,7 +89,7 @@ Liste des utilisateurs
           <li><%= user[i].sessid %> </li>
 
 
-        <!--  <li><%= user[i].coef * (user[i].prof * user[i].prixessencem2 + user[i].prixcolors ) %></li> -->
+        <!--  <li><%= user[i].coef * (user[i].prof * user[i].prixessence + user[i].prixcolors ) %></li> -->
 
           </ul>
         <% } %>

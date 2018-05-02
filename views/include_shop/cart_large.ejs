@@ -20,6 +20,12 @@
 
       <h5>Total: <span>{{ amount }} €</span></h5>
 
+      <form id="promoform" @submit="promoForm" method="post">
+      <input type="text" name="code" v-model="promo" >Code promo</input>
+      <button type="submit" class="accent">Mettre à jour</button>
+      </form>
+
+
 
         </div>
         <p></p>

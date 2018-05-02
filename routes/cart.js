@@ -9,9 +9,67 @@ var knex = require('knex')({
 });
 
 var cart = [];
+var promo = 0;
 
 //*******CONTENU PANIER***********
 router.get('/', function(req, res, next) {
+
+  total_produits = 0; //variables globales
+  total_fdp = 0;
+  total = 0;
+
+  if (req.session.cart_promo) {
+    promo = req.session.cart_promo
+  }
+
+  for (var i = 0; i < cart.length; i++) {
+    total_produits += cart[i].price * cart[i].qty;
+    total_fdp += cart[i].fdp * cart[i].qty;
+    total = total_produits + total_fdp - promo;
+  }
+
+  //enregistrement dans la session
+  req.session.cart_total_produits = total_produits;
+  req.session.cart_total_fdp = total_fdp;
+  req.session.cart_total = total;
+
+  res.json({
+    cart: cart,
+    total_produits: total_produits,
+    total_FraisDePorts: total_fdp,
+    amount: total
+  }); //renvoie le contenu du panier.
+
+
+});
+
+//*******PROMO***********
+router.post('/promoCart', function(req, res, next) {
+
+  console.log('ici', req.body.promo);
+
+  knex('promo')
+    .where('code', req.body.promo)
+    .then(reduc => {
+      console.log(reduc);
+        if (reduc.length != 1) {
+          res.json({
+            error: "Code non valide"
+          })
+        } else {
+          console.log(promo);
+          req.session.cart_promo = req.session.cart_total_produits * Number(reduc[0].reduction) / 100;
+
+          console.log('promo', req.session.cart_promo);
+          console.log(reduc[0].reduction);
+          res.json({
+            success: reduc
+          })
+        }
+      })
+
+
+/*
 
   total_produits = 0; //variables globales
   total_fdp = 0;
@@ -32,24 +90,26 @@ router.get('/', function(req, res, next) {
     cart: cart,
     total_produits :total_produits,
     total_FraisDePorts : total_fdp,
-    amount : total 
+    amount : total
   }); //renvoie le contenu du panier.
 
-
+*/
 });
 
 router.get('/DBtocart', function(req, res, next) {
 
   knex('cart')
-  .where('sessid', req.session.id)
-    .then(DBcart => res.json({panier : DBcart}));
+    .where('sessid', req.session.id)
+    .then(DBcart => res.json({
+      panier: DBcart
+    }));
 
 
 
 });
 
 //*********AJOUT******
-router.post('/', function(req, res, next) {
+router.post('/add', function(req, res, next) {
 
 
   var product = {};
@@ -57,14 +117,13 @@ router.post('/', function(req, res, next) {
   var index = cart.findIndex(x => x.name == req.body.item_name) //trouve l'index (0,1,2) du produit ajouté au panier
 
   if (index === -1) { //produit inexistant dans le panier
-    product.collection = req.body.item_collection;
     product.name = req.body.item_name;
     product.price = req.body.item_price;
     product.fdp = req.body.item_packaging;
     product.qty = 1;
 
     cart.push(product);
-
+    console.log(cart);
     console.log('Produit ajouté :', req.body.item_name);
 
     //enregistrement dans la session

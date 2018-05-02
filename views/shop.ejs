@@ -44,7 +44,7 @@
                       <p> <i class="fas fa-chart-bar"></i><span> {{ detailsItem[0].frequence}} Hz</span></p>
                       <p> <i class="fas fa-star"></i><span> Top {{detailsItem[0].classement}}</span></p>
                       <p> <i class="fas fa-tint"></i><span> {{detailsItem[0].nbColors}} couleurs</span> </p>
-                      <p> <i class="fas fa-th-large"></i><span> {{detailsItem[0].cellules}} cellules</span></p>
+                      <p> <i class="fas fa-th-large"></i><span> {{detailsItem[0].nbcellules}} cellules</span></p>
                       <p> <i class="fab fa-codepen"></i><span> {{detailsItem[0].longueur}} x  {{detailsItem[0].largeur}} cm</span></p>
                       <p> <i class="fa fa-expand" aria-hidden="true"></i> <span> 10 cm </span></p>
                       <p> <i class="fa fa-tree" aria-hidden="true"></i><span> Peuplier </span></p>
@@ -178,6 +178,7 @@
           totalProduits: '',
           totalFdp: '',
           amount: '',
+          promo: '',
 
 
         },
@@ -417,8 +418,40 @@
 
           },
 
+          promoForm: function(e) {
+            e.preventDefault();
+            this.errors = [];
+            fetch('cart/promoCart', {
+                credentials: 'include',
+                method: 'post',
+                body: JSON.stringify({
+                  promo: this.promo,
+
+
+                }),
+                headers: new Headers({
+                  'Content-Type': 'application/json'
+                })
+              })
+              .then(res => res.json())
+              .then(res => {
+                console.log('res', res);
+                if (res.error) {
+                  this.errors.push(res.error);
+                  console.log(res.error);
+                } else {
+                  console.log(res.success);
+                  this.updateCart();
+
+                }
+              });
+
+
+          },
+
           addToCart(item) {
-            fetch('/cart', {
+            console.log(item);
+            fetch('/cart/add', {
                 credentials: 'include',
                 method: 'post',
                 body: JSON.stringify({
@@ -432,7 +465,7 @@
                 })
               }).then(res => res.json())
               .catch(error => console.error('Error:', error))
-              .then(response => console.log('POST Success:', response.add));
+              .then(response => console.log('Article ajouté:', response.add));
             this.updateCart();
           },
           removeFromCart(item) {

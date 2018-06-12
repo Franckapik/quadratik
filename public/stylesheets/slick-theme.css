@@ -1,0 +1,131 @@
+@charset 'UTF-8';
+/* Slider */
+
+/* Arrows */
+
+.slick-prev, .slick-next {
+  display: block;
+  background-color: green;
+  font-size: 0;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+}
+
+.slick-prev:hover, .slick-prev:focus, .slick-next:hover, .slick-next:focus {
+  color: transparent;
+  outline: none;
+  background: pink;
+}
+
+.slick-prev:hover:before, .slick-prev:focus:before, .slick-next:hover:before, .slick-next:focus:before {
+  opacity: 1;
+}
+
+.slick-prev.slick-disabled:before, .slick-next.slick-disabled:before {
+  opacity: .25;
+}
+
+.slick-prev:before, .slick-next:before {
+  font-size: 20px;
+  line-height: 1;
+  opacity: .75;
+  color: white;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.slick-prev {
+  left: -25px;
+}
+
+[dir='rtl'] .slick-prev {
+  right: -25px;
+  left: auto;
+}
+
+.slick-prev:before {
+  content: '->';
+}
+
+[dir='rtl'] .slick-prev:before {
+  content: '->';
+}
+
+.slick-next {
+  right: -25px;
+}
+
+[dir='rtl'] .slick-next {
+  right: auto;
+  left: -25px;
+}
+
+.slick-next:before {
+  content: '<-';
+}
+
+[dir='rtl'] .slick-next:before {
+  content: '<-';
+}
+
+/* Dots */
+
+.slick-dots {
+  display: block;
+  width: 100vw;
+  list-style: none;
+  text-align: center;
+  padding: 0;
+}
+
+.slick-dots ul {
+  margin-top: 20px;
+}
+
+.slick-dots li {
+  position: relative;
+  display: inline-block;
+  width: 2vw;
+  height: 2vw;
+  margin: 5px;
+  padding: 2px;
+  cursor: pointer;
+}
+
+.slick-dots li button {
+  font-size: 0;
+  line-height: 0;
+  background: transparent;
+}
+
+.slick-dots li button:hover, .slick-dots li button:focus {
+  outline: none;
+}
+
+.slick-dots li button:hover:before, .slick-dots li button:focus:before {
+  opacity: 1;
+}
+
+.slick-dots li button:before {
+  background-color: var(--main_color);
+  font-size: 0px;
+  line-height: 20px;
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1vw;
+  height: 1vw;
+  content: '';
+  text-align: center;
+  opacity: .25;
+  color: var(--accentcolor);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.slick-dots li.slick-active button:before {
+  opacity: .75;
+  color: var(--accentcolor);
+}

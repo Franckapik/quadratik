@@ -1,7 +1,10 @@
 :root {
-  --colorbg1: #181818;
-  --colorbg2: #ededed;
+  --colorbg1: #1f1f21;
+  --colorbg2: #dbdbdb;
   --main_color: #00AB9C;
   --accentcolor: #FFC000;
+  --accentcolor2: #871d22;
   --main_color_light: rgba(171, 128, 0, 0.3);
+  --colorbg2dark:#8eaba8;
+  --colorbg1light: #3e3e3e;
 }

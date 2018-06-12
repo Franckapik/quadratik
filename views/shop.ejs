@@ -6,12 +6,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <title>Boutique Quadratik.fr</title>
   <link rel='stylesheet' href='/stylesheets/style.css' />
-  <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.11/css/all.css" integrity="sha384-p2jx59pefphTFIpeqCcISO9MdVfIm4pNnsL08A6v5vaQc4owkQqxMV8kg4Yvhaw/" crossorigin="anonymous">
   <script src="https://cdn.jsdelivr.net/npm/vue"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/zooming/1.2.7/zooming.js"></script>
   <script src="https://js.braintreegateway.com/web/dropin/1.10.0/js/dropin.min.js"></script>
   <script src="http://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+  <script src="http://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js" crossorigin="anonymous"></script>
 
 </head>
 
@@ -34,8 +36,8 @@
             <% include include_shop/askLogin.ejs %>
               <% include include_shop/cart_large.ejs %>
 
-                <div id="loadMore" class="details" v-if="details">
-                  <div class="details_haut">
+                <div id="loadmore" class="popup" v-if="details">
+                  <div class="haut">
 
 
                     <div class="column1 column">
@@ -46,7 +48,7 @@
                       <p> <i class="fas fa-tint"></i><span> {{detailsItem[0].nbColors}} couleurs</span> </p>
                       <p> <i class="fas fa-th-large"></i><span> {{detailsItem[0].nbcellules}} cellules</span></p>
                       <p> <i class="fab fa-codepen"></i><span> {{detailsItem[0].longueur}} x  {{detailsItem[0].largeur}} cm</span></p>
-                      <p> <i class="fa fa-expand" aria-hidden="true"></i> <span> 10 cm </span></p>
+                      <p> <i class="fa fa-expand" aria-hidden="true"></i> <span> {{detailsItem[0].prof}} cm </span></p>
                       <p> <i class="fa fa-tree" aria-hidden="true"></i><span> Peuplier </span></p>
                       <p> <i class="fa fa-truck" aria-hidden="true"></i><span> {{detailsItem[0].packaging}} €  </span></p>
 
@@ -54,46 +56,46 @@
                     <div class="column2 column">
                       <img v-bind:src="'images/modeles/'+detailsItem[0].name+'/'+detailsItem[0].nom+'.jpg'" alt="Affichage non disponible">
                       <div class="row_img">
-                        <img v-bind:src="'images/modeles/'+detailsItem[0].name+'/'+detailsItem[0].nom+'.jpg'" alt="Affichage non disponible">
-                        <img v-bind:src="'images/modeles/'+detailsItem[0].name+'/'+detailsItem[0].nom+'.jpg'" alt="Affichage non disponible">
-
+                        <img v-bind:src="'images/modeles/'+detailsItem[0].name+'/'+detailsItem[0].nom+'b.jpg'" alt="Affichage non disponible">
+                        <img v-bind:src="'images/modeles/'+detailsItem[0].name+'/'+detailsItem[0].nom+'c.jpg'" alt="Affichage non disponible">
                       </div>
                     </div>
                     <div class="column3 column">
 
 
-                      <div class="details_description">
-                        <p>{{detailsItem[0].description}}</p>
-                      </div>
+                      <u> La collection  {{ detailsItem[0].name}} </u>
+                      <p class="details_description">{{detailsItem[0].desc_collection}}</p>
+                      <p></p>
+                      <u>Le modèle {{ detailsItem[0].nom}} </u>
+                      <p class="details_description">{{detailsItem[0].desc_product}}</p>
 
 
+<!--
                       <div class="details_options">
-                      <p>  <label class="switch">
+                        <p> <label class="switch">
                               <input type="checkbox">
                               <span class="slider round"></span>
 
-                        </label>
-                        Bois supérieur (Okoumé)
+                        </label> Bois supérieur (Okoumé)
                         </p>
                         <p>
-                        <label class="switch">
+                          <label class="switch">
                               <input type="checkbox">
                               <span class="slider round"></span>
 
-                        </label>
-                        Profondeur supérieure (15cm)
+                        </label> Profondeur supérieure (15cm)
                         </p>
-                      </div>
+                      </div> -->
 
 
                     </div>
                     <div class="close" column>
-                        <i class="fa fa-window-close fa-2x" aria-hidden="true" @click="details=false"></i>
+                      <i class="fa fa-window-close fa-2x" aria-hidden="true" @click="details=false"></i>
                     </div>
 
                   </div>
-                  <div class="details_bas">
-                    {{detailsItem[0].prix}} € <button @click="addToCart(detailsItem[0])">Ajouter au panier</button>
+                  <div class="bas">
+                    <span class="price"> {{detailsItem[0].prix}} €</span> <button @click="addToCart(detailsItem[0])">Ajouter au panier</button>
                   </div>
 
 
@@ -110,7 +112,6 @@
 
 
     <script>
-
       var shop = <%-JSON.stringify(products)%>;
 
       //Tri des éléments
@@ -179,12 +180,12 @@
           totalFdp: '',
           amount: '',
           promo: '',
+          reduction: ''
 
 
         },
 
         created: function() {
-
           this.updateCart();
         },
 
@@ -252,7 +253,7 @@
                     if (res.error) {
                       this.errors.push(res.error);
                     } else {
-                      console.log(res.success);
+
                       // redirect to a new URL, or do something on success
                       this.paiement = true;
                       this.livraison = false;
@@ -267,7 +268,7 @@
               e.preventDefault();
               this.errors = [];
 
-              console.log(vm.livr_choice);
+
               fetch('dbcreate/livraison', {
                   credentials: 'include',
                   method: 'post',
@@ -284,7 +285,7 @@
                   if (res.error) {
                     this.errors.push(res.error);
                   } else {
-                    console.log(res.success);
+
                     // redirect to a new URL, or do something on success
                     this.paiement = true;
                     this.livraison = false;
@@ -309,7 +310,7 @@
                 if (res.error) {
                   this.errors.push(res.error);
                 } else {
-                  console.log(res.success);
+
                   // redirect to a new URL, or do something on success
                   this.enregistrement = true;
                   this.cart_large = false;
@@ -379,7 +380,7 @@
                   if (res.error) {
                     this.errors.push(res.error);
                   } else {
-                    console.log(res.success);
+
                     // redirect to a new URL, or do something on success
                     vm.enregistrement = false;
                     vm.livraison = true;
@@ -406,13 +407,13 @@
             var width = value;
 
             elem.style.width = width + '%';
-            console.log(elem.style.width);
+
           },
 
           showDetails(item) {
             vm.detailsItem.pop();
             vm.detailsItem.push(item);
-            console.log(item.nom);
+
             this.details = true;
             $('#details_contenu').html(item.nom + item.prix + item.frequence);
 
@@ -435,12 +436,12 @@
               })
               .then(res => res.json())
               .then(res => {
-                console.log('res', res);
+
                 if (res.error) {
                   this.errors.push(res.error);
-                  console.log(res.error);
+
                 } else {
-                  console.log(res.success);
+
                   this.updateCart();
 
                 }
@@ -450,7 +451,7 @@
           },
 
           addToCart(item) {
-            console.log(item);
+
             fetch('/cart/add', {
                 credentials: 'include',
                 method: 'post',
@@ -465,8 +466,11 @@
                 })
               }).then(res => res.json())
               .catch(error => console.error('Error:', error))
-              .then(response => console.log('Article ajouté:', response.add));
-            this.updateCart();
+              .then(response => {
+
+                this.updateCart();
+              });
+
           },
           removeFromCart(item) {
             fetch('/cart/' + item.name, {
@@ -492,6 +496,7 @@
                   vm.totalProduits = response.total_produits;
                   vm.totalFdp = response.total_FraisDePorts;
                   vm.amount = response.amount;
+                  vm.reduction = response.reduction;
 
                 });
           },

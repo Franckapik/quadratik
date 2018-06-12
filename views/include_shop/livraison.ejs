@@ -30,8 +30,8 @@
         </div>
       </fieldset>
       <div class="form_livraison_choosed">
-        <div class="error_box">
-          <p v-if="errors.length">
+        <div class="error_box" v-if="errors.length">
+          <p>
             <b>Certains champs du formulaire sont invalides :  </b>
             <ul>
               <li v-for="error in errors">{{ error }}</li>

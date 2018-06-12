@@ -1,0 +1,104 @@
+<div class="popup" v-if="form">
+
+    <i class="fa fa-window-close fa-2x cursor close_icone" aria-hidden="true" @click="form=false"></i>
+
+<form class="flex" method="post" id="form_pièce" action="/mailer/form">
+  <h2>Formulaire de description de votre pièce</h2>
+    <span>Envoyez-nous les caractéristiques de votre pièce en répondant à ces questions.</span>
+
+    <!-- Nom-->
+  <p><i class="fas fa-user"></i><label class="form_label">Votre Nom * </label></p>
+
+    <input name="traitement_nom" type="text" placeholder="Bernard Dupond">
+
+    <!-- Mail-->
+  <p><i class="fas fa-user"></i><label class="form_label">Votre Mail * </label></p>
+
+    <input name="traitement_mail" type="text" placeholder="bernard.dupond@gmail.com">
+
+    <!-- Pièce-->
+  <p><i class="fas fa-user"></i><label class="form_label">Dimensions de votre pièce à traiter* </label></p>
+
+    Longueur <input name="traitement_longueur" type="text"> Largeur <input name="traitement_largeur" type="text"> Hauteur <input name="traitement_hauteur" type="text">
+
+    <!-- Utilisation-->
+  <p><i class="fas fa-user"></i><label class="form_label">Quel est le type d'utilisation de votre pièce* </label></p>
+
+<select name="traitement_utilisation">
+<option value="mix">Mixage</option>
+<option value="mastering">Mastering</option>
+<option value="hcinema">Home Cinéma</option>
+<option value="hifi">Salon Hifi</option>
+<option value="piècevie">Pièce de vie</option>
+<option value="répé">Salle de répétition</option>
+<option value="public">Espace public d'accueil</option>
+</select>
+
+<!-- Traitement-->
+<p><i class="fas fa-user"></i><label class="form_label">Vous estimez vous même que votre pièce necessite : </label></p>
+
+<input type="radio" name="traitement_souhait" value="Diffusion"> Diffusion </input>
+<input type="radio" name="traitement_souhait" value="Absorption">  Absorption </input>
+<input type="radio" name="traitement_souhait" value="Les deux traitements">  Les deux traitements </input>
+
+<!-- Problèmes-->
+<p><i class="fas fa-user"></i><label class="form_label">Quels sont les effets indésirables de votre pièce : </label></p>
+
+<input type="checkbox" name="traitement_indesirable" value="Manque de clarté et précision"> Manque de clarté et précision </input>
+<input type="checkbox" name="traitement_indesirable" value="Un son pas homogène dans la pièce"> Un son pas homogène dans la pièce </input>
+<input type="checkbox" name="traitement_indesirable" value="Basses trop importantes"> Basses trop importantes </input>
+<input type="checkbox" name="traitement_indesirable" value="Résonnances aigües"> Résonnances aigües </input>
+<input type="checkbox" name="traitement_indesirable" value="Le son paraît etouffé"> Le son paraît etouffé </input>
+<input type="checkbox" name="traitement_indesirable" value="Un déséquilibre stéréo"> Un déséquilibre stéréo </input>
+<input type="checkbox" name="traitement_indesirable" value="Echo trop important"> Echo trop important </input>
+<input type="checkbox" name="traitement_indesirable" value="Réponse en fréquence irrégulière"> Réponse en fréquence irrégulière</input>
+
+<!-- Traitement existant-->
+<p>  <i class="fas fa-user"></i><label class="form_label">Décrire les éventuels traitements acoustiques existants : *</label></p>
+
+
+<textarea name="traitement_existant" rows="10" cols="50">
+
+</textarea>
+
+<!-- Produits -->
+<p>  <i class="fas fa-user"></i><label class="form_label">Quels sont les produits Quadratik.fr qui pourraient vous intéresser dans votre projet : *</label></p>
+
+<textarea name="traitement_intérêt" rows="10" cols="50">
+
+</textarea>
+
+<!-- Budget-->
+<p><i class="fas fa-user"></i><label class="form_label">Budget éventuel pour traiter la pièce (non obligatoire) </label></p>
+
+<input name="traitement_budget" type="text">
+
+<!-- Budget-->
+<p><i class="fas fa-user"></i><label class="form_label">Quel niveau de traitement acoustique vous souhaiteriez obtenir avec votre budget ?</label></p>
+
+<input type="radio" name="traitement_type" value="Un traitement de départ, évolutif"> Un traitement de départ, évolutif </input>
+<input type="radio" name="traitement_type" value="Un traitement de base, efficace">Un traitement de base, efficace </input>
+<input type="radio" name="traitement_type" value="Un traitement complet et optimisé">Un traitement complet et optimisé </input>
+
+<!-- Budget-->
+<p><i class="fas fa-user"></i><label class="form_label">Souhaiteriez-vous une esthetique personnalisée à vos envies?</label></p>
+
+<input type="radio" name="traitement_perso" value="Non, cela m'importe peu">Non, cela m'importe peu </input>
+<input type="radio" name="traitement_perso" value="Oui, l'esthetique est primordiale pour mon projet">Oui, l'esthetique est primordiale pour mon projet </input>
+
+<!-- Autres informations -->
+<p>  <i class="fas fa-user"></i><label class="form_label">Autres éléments à nous partager : *</label></p>
+
+<textarea name="traitement_autres" rows="10" cols="50">
+
+</textarea>
+
+<!-- Fichiers-->
+<p><i class="fas fa-user"></i><label class="form_label">Photographies ou croquis de la pièce à traiter : (fichier image ou dossier compressé .zip/.rar)</label></p>
+
+<input type="file" name="traiement_upload" value="">
+
+<button type="submit" name="button">Envoyer</button>
+</form>
+
+</div>

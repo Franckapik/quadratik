@@ -1,0 +1,14 @@
+<div id="hamburger" class="hamburger" onclick="myFunction(this)" @click="menu = !menu">
+  <div class="bar1"></div>
+  <div class="bar2"></div>
+  <div class="bar3"></div>
+  <div class="menu" v-if="menu">
+    <ul>
+      <li><a href="/">Accueil</a></li>
+      <li><a href="/guide"> Guide </a></li>
+      <li><a href="/quadralab">QuadraLab</a></li>
+      <li><a href="/shop">Boutique</a></li>
+
+    </ul>
+  </div>
+</div>

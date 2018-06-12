@@ -1,0 +1,35 @@
+<div class="chatbox_opened">
+
+  <div class="head_chat">
+    <ul>
+      <p><span class="chat_prenom">Fanch</span> de Quadratik.fr <span class="chat_dispo_circle"></span> <span class="chat_dispo">Disponible</span>
+      </p>
+      <p>Discussion en ligne de votre projet</p>
+      <li class="chat_icons"><i class="fab fa-facebook"></i> <i class="fab fa-twitter-square"></i> <i class="fab fa-instagram"></i></li>
+
+    </ul>
+    <i class="fa fa-window-close fa-1x cursor chat_close_icon" aria-hidden="true" @click="cgv=false"></i>
+  </div>
+
+
+
+  <section id="zone_chat">
+<p id="chat_date" class="center"></p>
+  </section>
+
+  <form action="/" method="post" id="formulaire_chat">
+
+    <input type="text" name="message" id="message" placeholder="Entrez votre message..." size="50" autofocus />
+    <button type="submit" class="envoi_message"/><i class="far fa-comment-alt"></i></button>
+  </form>
+
+
+</div>
+
+<div class="chatbox_closed mobile_none">
+<i class="far fa-comment-alt"></i>
+</div>
+
+<script type="text/javascript" src="js/chatbox.js">
+
+</script>

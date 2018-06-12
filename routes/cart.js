@@ -8,50 +8,27 @@ var knex = require('knex')({
   connection: config.connection
 });
 
-var cart = [];
-var promo = 0;
+
 
 //*******CONTENU PANIER***********
 router.get('/update', function(req, res, next) {
-
-console.log(req.session.cart);
-
-if (!req.session.cart || req.session.cart.length == 0 ) {
-  req.session.cart_total_produits = 0;
-  req.session.cart_total_fdp = 0;
-  req.session.cart_promo = 0;
-  req.session.cart_total = 0;
-  req.session.cart = [];
-  console.log('Panier créé', req.session.cart.length);
-}
+var tp = 0;
+var tfdp = 0;
 
   for (var i = 0; i < req.session.cart.length; i++) {
-    req.session.cart_total_produits += req.session.cart[i].price * req.session.cart[i].qty;
-    req.session.cart_total_fdp += req.session.cart[i].fdp * req.session.cart[i].qty;
-    req.session.cart_total = req.session.cart_total_produits + req.session.cart_total_fdp - req.session.cart_promo;
+    tp += req.session.cart[i].price * req.session.cart[i].qty;
+    tfdp += req.session.cart[i].fdp * req.session.cart[i].qty;
   }
 
+req.session.cart_total = tp + tfdp - req.session.cart_promo;
+req.session.cart_total_produits = tp;
+req.session.cart_total_fdp = tfdp;
 
-/*
-  if (req.session.cart_promo) {
-    promo = req.session.cart_promo
-  }
-
-  for (var i = 0; i < cart.length; i++) {
-    total_produits += cart[i].price * cart[i].qty;
-    total_fdp += cart[i].fdp * cart[i].qty;
-    total = total_produits + total_fdp - promo;
-  }
-
-  //enregistrement dans la session
-  req.session.cart_total_produits = total_produits;
-  req.session.cart_total_fdp = total_fdp;
-  req.session.cart_total = total;
-*/
   res.json({
     cart: req.session.cart,
     total_produits: req.session.cart_total_produits,
     total_FraisDePorts: req.session.cart_total_fdp,
+    reduction: req.session.cart_promo,
     amount: req.session.cart_total
   }); //renvoie le contenu du panier.
 
@@ -61,54 +38,25 @@ if (!req.session.cart || req.session.cart.length == 0 ) {
 //*******PROMO***********
 router.post('/promoCart', function(req, res, next) {
 
-  console.log('ici', req.body.promo);
+console.log('Code promo :', req.body.promo);
 
   knex('promo')
     .where('code', req.body.promo)
     .then(reduc => {
-      console.log(reduc);
         if (reduc.length != 1) {
           res.json({
             error: "Code non valide"
           })
         } else {
-          console.log(promo);
           req.session.cart_promo = req.session.cart_total_produits * Number(reduc[0].reduction) / 100;
+          console.log('Pourcentage: ', reduc[0].reduction, '%');
+          console.log('Reduction de ', req.session.cart_promo, '€');
 
-          console.log('promo', req.session.cart_promo);
-          console.log(reduc[0].reduction);
           res.json({
-            success: reduc
+            success: 'Code promotion ajouté'
           })
         }
       })
-
-
-/*
-
-  total_produits = 0; //variables globales
-  total_fdp = 0;
-  total=0;
-
-  for (var i = 0; i < cart.length; i++) {
-    total_produits += cart[i].price * cart[i].qty;
-    total_fdp += cart[i].fdp * cart[i].qty;
-    total = total_produits + total_fdp;
-  }
-
-  //enregistrement dans la session
-  req.session.cart_total_produits = total_produits;
-  req.session.cart_total_fdp = total_fdp;
-  req.session.cart_total = total;
-
-  res.json({
-    cart: cart,
-    total_produits :total_produits,
-    total_FraisDePorts : total_fdp,
-    amount : total
-  }); //renvoie le contenu du panier.
-
-*/
 });
 
 router.get('/DBtocart', function(req, res, next) {
@@ -126,6 +74,10 @@ router.get('/DBtocart', function(req, res, next) {
 //*********AJOUT******
 router.post('/add', function(req, res, next) {
 
+  if (!req.session.cart) {
+    req.session.cart = [];
+    req.session.cart_promo = 0;
+  }
 
   var product = {};
 
@@ -138,13 +90,8 @@ router.post('/add', function(req, res, next) {
     product.fdp = req.body.item_packaging;
     product.qty = 1;
 
-    console.log('product', product);
     req.session.cart.push(product);
-    console.log('panier', req.session.cart);
     console.log('Produit ajouté :', req.body.item_name);
-
-    //enregistrement dans la session
-    //req.session.cart = cart;
 
     res.json({
       add: product
@@ -163,10 +110,6 @@ router.post('/add', function(req, res, next) {
       add: product
     })
   }
-
-
-
-
 
 });
 

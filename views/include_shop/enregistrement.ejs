@@ -1,8 +1,8 @@
 <div class="enregistrement" v-show="enregistrement">
 <h2>Enregistrement de commande</h2>
   <form id="form" @submit="userForm" method="post">
-    <div class="error_box">
-      <p v-if="errors.length">
+    <div class="error_box" v-if="errors.length">
+      <p>
         <b>Certains champs du formulaire sont invalides :  </b>
         <ul>
           <li v-for="error in errors">{{ error }}</li>

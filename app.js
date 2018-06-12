@@ -5,6 +5,10 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
 var config = require('./config');
+var server = app.listen(3000);
+var io = require('socket.io').listen(server);
+var ent = require('ent');
+
 
 
 const session = require('express-session');
@@ -38,7 +42,7 @@ app.use(session({
     maxAge: 1800000 // 30min
   },
   store: store,
-  resave: true,
+  resave: false, //laissé sur false pour le panier
   saveUninitialized: true
 }));
 
@@ -49,8 +53,8 @@ app.use(logger('dev'));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+
+app.use(favicon(path.join(__dirname, 'public/', 'favicon.ico')));
 
 //STATICS
 
@@ -72,6 +76,8 @@ var admin = require('./routes/admin');
 var dbcreate = require('./routes/dbcreate');
 var checkout = require('./routes/checkout');
 var essai = require('./routes/essai');
+var mailer = require('./routes/mailer');
+var success = require('./routes/success');
 
 
 
@@ -87,6 +93,8 @@ app.use('/dbcreate', dbcreate);
 app.use('/admin', admin);
 app.use('/checkout', checkout);
 app.use('/essai', essai);
+app.use('/mailer', mailer);
+app.use('/success', success);
 
 
 // catch 404 and forward to error handler
@@ -106,6 +114,23 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   //console.warn(err);
   res.render('error');
+});
+
+//Socket.IO
+
+io.sockets.on('connection', function (socket, couleur) {
+    // Dès qu'on nous donne un couleur, on le stocke en variable de session et on informe les autres personnes
+    socket.on('nouveau_client', function(couleur) {
+        socket.couleur = couleur;
+        socket.broadcast.emit('nouveau_client', couleur);
+    });
+
+    // Dès qu'on reçoit un message, on récupère le couleur de son auteur et on le transmet aux autres personnes
+    socket.on('message', function (message) {
+        message = ent.encode(message);
+        socket.broadcast.emit('message', {couleur: socket.couleur, message: message});
+
+    });
 });
 
 

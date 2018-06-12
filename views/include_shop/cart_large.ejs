@@ -1,40 +1,78 @@
-<!-- Panier -->
-<div class="cart_large" v-show="cart_large">
-  <h2>Votre Panier</h2>
+<div v-show="cart_large">
+
+    <h2>Votre Panier</h2>
+
+  <div id="panier_large" class="flex_row full ">
+    <div class="flex flex_center">
+      <table id="cart_list" class="cart_table">
+        <tr>
+          <th>Produit</th>
+          <th>Quantité</th>
+          <th>Prix</th>
+          <th>Frais de ports</th>
+          <th></th>
+          <th></th>
+        </tr>
+        <tr v-for="item in items">
+          <th>{{ item.name }}</th>
+          <th>{{ item.qty }} article(s)</th>
+          <th>{{ item.price * item.qty }} €</th>
+          <th>{{ item.fdp * item.qty }} €</th>
+          <th><i class="fas fa-plus-square"></i></th>
+          <th><i class="fa fa-trash cursor" @click="removeFromCart(item)"></i></th>
+        </tr>
+      </table>
+
+  <p></p>
+      <button value="Retour" @click="cart_large=false, boutique=true">Continuer mes achats</button>
+      <p></p>
+  <p class="check_cgv">
+  <input type="checkbox" name="Okcgv" value="CGV lues" class="check_cgv"> J'accepte les conditions générales de ventes de Quadratik.fr .
+  </p>  </div>
+    <div class="flex flex_center">
+      <table id="cart_total" class="cart_table">
+    <tr>
+      <th>Nombre d'article(s)</th>
+      <td>{{articlesQty}}</td>
+    </tr>
+    <tr>
+      <th>Total des produits</th>
+      <td>{{totalProduits}}  €</td>
+    </tr>
+    <tr>
+      <th>Total Frais de ports</th>
+      <td>{{totalFdp}}  €</td>
+    </tr>
+    <tr v-if="reduction">
+      <th>Réduction</th>
+      <td>{{reduction}}  €</td>
+    </tr>
+    <tr>
+      <th>Total TTC</th>
+      <td>{{ amount }} €</td>
+    </tr>
+  </table>
+
+  <p></p>
+  <form id="codepromo" @submit="promoForm" method="post">
+
+    Code promotion <input type="text" name="code" v-model="promo"><i class="far fa-arrow-alt-circle-right fa-2x"></i>
+  </form>
+
+  <p></p>
+  <form id="cartform" @submit="cartForm" method="post" class="center">
+  <button type="submit" class="accent cart_button" value="Suivant" @click="moveBar(25)">Passer la commande</button>
+  </form>
 
 
-  <div class="cart_articles">
-
-
-  <h3 v-for="item in items">
-  {{ item.collection }}  <strong>{{ item.name }}</strong> {{ item.qty }} article(s)<span>   {{ item.price * item.qty }} €</span> {{ item.fdp * item.qty }} €</span> <i class="fas fa-plus-square" @click="addToCart(item)"></i> <i class="fa fa-trash" @click="removeFromCart(item)"></i>
-  </h3>
-
+    </div>
   </div>
-  <hr />
 
-    <div class="cart_total">
-      <h5>Nombre d'article(s): <span>{{articlesQty}}</span></h5>
-      <h5>Total des produits: <span>{{totalProduits}}  €</span></h5>
-      <h5>Frais de ports: <span>{{totalFdp}}  €</span></h5>
-
-      <h5>Total: <span>{{ amount }} €</span></h5>
-
-      <form id="promoform" @submit="promoForm" method="post">
-      <input type="text" name="code" v-model="promo" >Code promo</input>
-      <button type="submit" class="accent">Mettre à jour</button>
-      </form>
-
-
-
-        </div>
-        <p></p>
-        <p></p>
-<form id="cartform" @submit="cartForm" method="post">
-<div class="cart_button">
-  <button value="Retour" @click="boutique=true, cart_large=false">Continuer mes achats</button>
-  <button type="submit" class="accent" value="Suivant" @click="moveBar(25)">Passer la commande</button>
-</div>
-</form>
-
+  <div class="error_box full" v-if="errors.length">
+    <p>
+      <ul>
+        <li v-for="error in errors">{{ error }}</li>
+      </ul>
+    </p>
+  </div>
 </div>

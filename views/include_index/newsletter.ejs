@@ -1,0 +1,23 @@
+<div class="popup" v-if="newsletter">
+
+    <i class="fa fa-window-close fa-2x cursor close_icone" aria-hidden="true" @click="newsletter=false"></i>
+
+  <h2>S'abonner à la Newsletter</h2>
+
+  <form id="newsletter_mail" class="flex" action="/mailer/newsletter" method="post">
+
+    <!-- Nom-->
+  <p><i class="fas fa-user"></i><label class="form_label">Votre Nom * </label></p>
+
+    <input name="newsletter_nom" type="text" placeholder="Dupond" class="input-xlarge">
+
+    <!-- Mail-->
+    <p>  <i class="fas fa-at"></i><label class="form_label">Votre Adresse Mail * </label></p>
+
+    <input name="newsletter_mail" type="text" placeholder="dupondgerard@gmail.com" class="input-xlarge">
+
+    <button type="submit" name="button">S'abonner</button>
+
+  </form>
+
+</div>

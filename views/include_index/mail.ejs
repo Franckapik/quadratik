@@ -1,0 +1,36 @@
+<div class="popup" v-if="mail">
+
+    <i class="fa fa-window-close fa-2x cursor close_icone" aria-hidden="true" @click="mail=false"></i>
+
+  <h2>Contact par mail</h2>
+
+  <form id="contact_mail" class="flex" action="/mailer/contact" method="post">
+
+    <!-- Nom-->
+  <p><i class="fas fa-user"></i><label class="form_label">Votre Nom * </label></p>
+
+    <input name="contact_nom" type="text" placeholder="Dupond" class="input-xlarge">
+
+    <!-- Mail-->
+    <p>  <i class="fas fa-at"></i><label class="form_label">Votre Adresse Mail * </label></p>
+
+    <input name="contact_mail" type="text" placeholder="dupondgerard@gmail.com" class="input-xlarge">
+
+    <!-- Superficie-->
+    <p>  <i class="fas fa-user"></i><label class="form_label">Superficie de votre pièce à traiter [m²] </label></p>
+
+    <input  name="contact_superficie" type="text" placeholder="12m²" class="input-xlarge">
+
+    <!-- Message-->
+    <p>  <i class="fas fa-user"></i><label class="form_label">Message *</label></p>
+
+
+    <textarea name="contact_msg" rows="10" cols="50">
+ Votre message ...
+</textarea>
+
+    <button type="submit" name="button">Envoyer</button>
+
+  </form>
+
+</div>

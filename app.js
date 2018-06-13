@@ -10,13 +10,13 @@ var io = require('socket.io').listen(server);
 var ent = require('ent');
 
 
-
 const session = require('express-session');
 const KnexSessionStore = require('connect-session-knex')(session);
 
 var knex = require('knex')({
   client: 'pg',
   version: '9.6',
+  debug: true,
   connection: config.connection
 });
 
@@ -75,7 +75,6 @@ var sess = require('./routes/sessionObj');
 var admin = require('./routes/admin');
 var dbcreate = require('./routes/dbcreate');
 var checkout = require('./routes/checkout');
-var essai = require('./routes/essai');
 var mailer = require('./routes/mailer');
 var success = require('./routes/success');
 
@@ -92,7 +91,6 @@ app.use('/sessionObj', sess);
 app.use('/dbcreate', dbcreate);
 app.use('/admin', admin);
 app.use('/checkout', checkout);
-app.use('/essai', essai);
 app.use('/mailer', mailer);
 app.use('/success', success);
 

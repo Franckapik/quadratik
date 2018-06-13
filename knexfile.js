@@ -8,5 +8,6 @@ module.exports = {
   production: {
     client: 'pg',
     connection: config.connection,
+    pool: { min: 0, max: 7 }
   },
 };

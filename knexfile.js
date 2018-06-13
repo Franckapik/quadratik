@@ -1,44 +1,12 @@
-// Update with your config settings.
+var config = require('./config');
 
 module.exports = {
-
   development: {
-    client: 'sqlite3',
-    connection: {
-      filename: './dev.sqlite3'
-    }
+    client: 'pg',
+    connection: config.connection,
   },
-
-  staging: {
-    client: 'postgresql',
-    connection: {
-      database: 'my_db',
-      user:     'username',
-      password: 'password'
-    },
-    pool: {
-      min: 2,
-      max: 10
-    },
-    migrations: {
-      tableName: 'knex_migrations'
-    }
-  },
-
   production: {
-    client: 'postgresql',
-    connection: {
-      database: 'quadratik',
-      user:     'fanchovh',
-      password: 'Fanch/448g7doh3k'
-    },
-    pool: {
-      min: 2,
-      max: 10
-    },
-    migrations: {
-      tableName: 'knex_migrations'
-    }
-  }
-
+    client: 'pg',
+    connection: config.connection,
+  },
 };

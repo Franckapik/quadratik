@@ -1,5 +1,0 @@
-if you want to create a 'guest checkout' sort of thing... then uh
-<zsoc> either 1.) userId should be optional, and then some orders won't be related to a user... or 2.) you create a user table entry with limited information based on the session data
-<zsoc> you can't use the sessionId tho, that's temporary
-<zsoc> but you can use the data in the session to create a more permanent guest user... like by their email for instance (most guest checkout still require an email... even if you don't create a login)
-<zsoc> that way there is still some form of uniqueness

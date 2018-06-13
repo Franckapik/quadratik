@@ -13,12 +13,7 @@ var ent = require('ent');*/
 const session = require('express-session');
 const KnexSessionStore = require('connect-session-knex')(session);
 
-var knex = require('knex')({
-  client: 'pg',
-  version: '9.6',
-  debug: true,
-  connection: config.connection
-});
+const knex = require('knex')(require('./knexfile')[process.env.NODE_ENV]);
 
 var cookieParser = require('cookie-parser');
 

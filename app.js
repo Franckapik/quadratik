@@ -5,9 +5,9 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
 var config = require('./config');
-var server = app.listen(3000);
+/*var server = app.listen(3000);
 var io = require('socket.io').listen(server);
-var ent = require('ent');
+var ent = require('ent');*/
 
 
 const session = require('express-session');
@@ -115,7 +115,7 @@ app.use(function(err, req, res, next) {
 });
 
 //Socket.IO
-
+/*
 io.sockets.on('connection', function (socket, couleur) {
     // Dès qu'on nous donne un couleur, on le stocke en variable de session et on informe les autres personnes
     socket.on('nouveau_client', function(couleur) {
@@ -129,7 +129,7 @@ io.sockets.on('connection', function (socket, couleur) {
         socket.broadcast.emit('message', {couleur: socket.couleur, message: message});
 
     });
-});
+});*/
 
 
 module.exports = app;

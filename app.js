@@ -111,7 +111,7 @@ app.use(function(err, req, res, next) {
 });
 
 //Socket.IO
-/*
+
 io.sockets.on('connection', function (socket, couleur) {
     // Dès qu'on nous donne un couleur, on le stocke en variable de session et on informe les autres personnes
     socket.on('nouveau_client', function(couleur) {
@@ -125,7 +125,7 @@ io.sockets.on('connection', function (socket, couleur) {
         socket.broadcast.emit('message', {couleur: socket.couleur, message: message});
 
     });
-});*/
+});
 
 
 module.exports = app;

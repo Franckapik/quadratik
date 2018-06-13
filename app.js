@@ -5,15 +5,16 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
 var config = require('./config');
-/*var server = app.listen(3000);
+var server = app.listen(3000);
 var io = require('socket.io').listen(server);
-var ent = require('ent');*/
-
+var ent = require('ent');
+const environment = process.env.NODE_ENV || 'development';    // if something else isn't setting ENV, use development
+const configuration = require('./knexfile')[environment];    // require environment's settings from knexfile
+const knex = require('knex')(configuration);  
 
 const session = require('express-session');
 const KnexSessionStore = require('connect-session-knex')(session);
 
-const knex = require('knex')(require('./knexfile')[process.env.NODE_ENV]);
 
 var cookieParser = require('cookie-parser');
 

@@ -1,13 +1,16 @@
 www.quadratik.fr {
   proxy / localhost:3000
+  proxy /stream localhost:3000 {
+	websocket
+}
 }
 
 quadratik.fr {
   proxy / localhost:3000
+  proxy /stream localhost:3000 {
+	websocket
+}
 }
 
-shop.quadratik.fr {
-  proxy / localhost:1111
-}
 
 

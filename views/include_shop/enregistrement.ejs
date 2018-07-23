@@ -1,14 +1,6 @@
-<div class="enregistrement" v-show="enregistrement">
+<div class="enregistrement">
 <h2>Enregistrement de commande</h2>
-  <form id="form" @submit="userForm" method="post">
-    <div class="error_box" v-if="errors.length">
-      <p>
-        <b>Certains champs du formulaire sont invalides :  </b>
-        <ul>
-          <li v-for="error in errors">{{ error }}</li>
-        </ul>
-      </p>
-    </div>
+  <form id="user_form" method="post">
 
     <fieldset>
  <legend> Coordonnées : </legend>
@@ -17,7 +9,7 @@
       <div class="form_box">
         <i class="fas fa-user"></i><label class="form_label">Nom </label>
         <div class="controls">
-          <input id="nom" name="nom" type="text" placeholder="Dupond" class="input-xlarge"  v-model="nom">
+          <input id="nom" name="nom" type="text" placeholder="Dupond" class="input-xlarge"  >
 
         </div>
       </div>
@@ -25,7 +17,7 @@
       <div class="form_box">
         <i class="fas fa-user"></i><label class="form_label">Prénom</label>
         <div class="controls">
-          <input id="prenom" name="prenom" type="text" placeholder="Bernard" class="input-xlarge"  v-model="prenom">
+          <input id="prenom" name="prenom" type="text" placeholder="Bernard" class="input-xlarge"  >
 
         </div>
       </div>
@@ -33,7 +25,7 @@
       <div class="form_box">
         <i class="fas fa-address-book"></i><label class="form_label">Adresse</label>
         <div class="controls">
-          <input id="adresse" name="adresse" type="text" placeholder="Rue des Camélias, Batiment C, Etage 2" class="input-xlarge"  v-model="adresse">
+          <input id="adresse" name="adresse" type="text" placeholder="Rue des Camélias, Batiment C, Etage 2" class="input-xlarge"  >
 
         </div>
       </div>
@@ -41,7 +33,7 @@
       <div class="form_box">
         <i class="fas fa-building"></i></i><label class="form_label">Ville/Commune</label>
         <div class="controls">
-          <input id="ville" name="ville" type="text" placeholder="Paris" class="input-xlarge"  v-model="ville">
+          <input id="ville" name="ville" type="text" placeholder="Paris" class="input-xlarge"  >
 
         </div>
       </div>
@@ -50,7 +42,7 @@
       <div class="form_box">
         <i class="fas fa-home"></i><label class="form_label">Code Postal</label>
         <div class="controls">
-          <input id="codepostal" name="codepostal" type="text" placeholder="95200" class="input-xlarge"  v-model="codepostal">
+          <input id="codepostal" name="codepostal" type="text" placeholder="95200" class="input-xlarge"  >
 
         </div>
       </div>
@@ -64,7 +56,7 @@
       <div class="form_box">
         <i class="fas fa-at"></i><label class="form_label">Téléphone</label>
         <div class="controls">
-          <input id="telephone" name="telephone" type="text" placeholder="0631928475" class="input-xlarge"  v-model="telephone">
+          <input id="telephone" name="telephone" type="text" placeholder="0631928475" class="input-xlarge"  >
 
         </div>
       </div>
@@ -72,7 +64,7 @@
       <div class="form_box">
         <i class="fas fa-at"></i><label class="form_label">Adresse E-mail</label>
         <div class="controls">
-          <input id="mail" name="mail" placeholder="bernard.dupond@gmail.com" class="input-xlarge"  v-model="mail">
+          <input id="mail" name="mail" placeholder="bernard.dupond@gmail.com" class="input-xlarge"  >
 
         </div>
       </div>
@@ -81,20 +73,22 @@
       <div class="form_box">
         <label class="form_label">Contexte d'utilisation</label>
         <div class="controls">
-          <input  id="utilisation" type="radio" name="utilisation" value="homestudio" checked v-model="utilisation"> Home studio<br>
-          <input  id="utilisation" type="radio" name="utilisation" value="studiopro" v-model="utilisation"> Studio professionnel<br>
-          <input  id="utilisation" type="radio" name="utilisation" value="homecinema" v-model="utilisation"> Home cinema <br>
-          <input  id="utilisation" type="radio" name="utilisation" value="autre" v-model="utilisation"> Autre <br>
+          <input  id="utilisation" type="radio" name="utilisation" value="homestudio" checked > Home studio<br>
+          <input  id="utilisation" type="radio" name="utilisation" value="studiopro" > Studio professionnel<br>
+          <input  id="utilisation" type="radio" name="utilisation" value="homecinema" > Home cinema <br>
+          <input  id="utilisation" type="radio" name="utilisation" value="autre" > Autre <br>
         </div>
       </div>
     </div>
 
 </fieldset>
-<div class="form_part">
-   <button type="submit" @click="vm.moveBar(50)">Envoyer</button>
-  <!--<button type="submit" @click="enregistrement = false, livraison=true, moveBar(50)">Suivant</button>
--->
+<div class="error_box">
+  <p>
+    <b>Certains champs du formulaire sont invalides :  </b>
+    <p class="errors_txt"></p>
+  </p>
 </div>
+<button type="submit">Suivant</button>
     </form>
 
 </div>

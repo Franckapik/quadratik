@@ -1,58 +1,31 @@
 $(document).ready(function() {
 
-
-  const index_vue = new Vue({
-    el: "#popup",
-    data: {
-      mentions: false,
-      cgv: false,
-      mail: false,
-      chat: false,
-      social: false,
-      form: false,
-      newsletter: false
-    }
+  $('.mail').click(function() {
+    $('#mail-pop').toggle();
   });
 
-  const hamb = new Vue({
-    el: "#hamburger",
-    data: {
-      menu: false
-    },
-    methods: {
-
-    }
+  $('.form').click(function() {
+    $('#form-pop').toggle();
   });
 
-
-  function myFunction(x) {
-    x.classList.toggle("change");
-  }
-
-
-
-  $("#mail").click(function() {
-    index_vue.mail = true;
+  $('.social').click(function() {
+    $('#social-pop').toggle();
   });
+
+  $('.newsletter').click(function() {
+    $('#newsletter-pop').toggle();
+  });
+
   $("#chat").click(function() {
     $('.chatbox_opened').css('visibility', 'visible');
     $('.chatbox_closed').css('visibility', 'hidden');
   });
-  $("#social").click(function() {
-    index_vue.cgv = true;
-  });
-  $("#form").click(function() {
-    index_vue.form = true;
-  });
-  $("#newsletter").click(function() {
-    index_vue.newsletter = true;
-  });
 
-  $("#mail").mouseenter(function() {
-    $('#mail .st3').css('fill', 'var(--accentcolor)');
+  $(".mail").mouseenter(function() {
+    $('.mail .st3').css('fill', 'var(--accentcolor)');
   });
-  $("#mail").mouseleave(function() {
-    $('#mail .st3').css('fill', 'var(--colorbg2)');
+  $(".mail").mouseleave(function() {
+    $('.mail .st3').css('fill', 'var(--colorbg2)');
   });
 
   $("#chat").mouseenter(function() {
@@ -62,28 +35,26 @@ $(document).ready(function() {
     $('#chat .st3').css('fill', 'var(--colorbg2)');
   });
 
-  $("#social").mouseenter(function() {
-    $('#social .st3').css('fill', 'var(--accentcolor)');
+  $(".social").mouseenter(function() {
+    $('.social .st3').css('fill', 'var(--accentcolor)');
   });
-  $("#social").mouseleave(function() {
-    $('#social .st3').css('fill', 'var(--colorbg2)');
-  });
-
-  $("#form").mouseenter(function() {
-    $('#form .st3').css('fill', 'var(--accentcolor)');
-  });
-  $("#form").mouseleave(function() {
-    $('#form .st3').css('fill', 'var(--colorbg2)');
+  $(".social").mouseleave(function() {
+    $('.social .st3').css('fill', 'var(--colorbg2)');
   });
 
-  $("#newsletter").mouseenter(function() {
-    $('#newsletter .st3').css('fill', 'var(--accentcolor)');
+  $(".form").mouseenter(function() {
+    $('.form .st3').css('fill', 'var(--accentcolor)');
   });
-  $("#newsletter").mouseleave(function() {
-    $('#newsletter .st3').css('fill', 'var(--colorbg2)');
+  $(".form").mouseleave(function() {
+    $('.form .st3').css('fill', 'var(--colorbg2)');
   });
 
-
+  $(".newsletter").mouseenter(function() {
+    $('.newsletter .st3').css('fill', 'var(--accentcolor)');
+  });
+  $(".newsletter").mouseleave(function() {
+    $('.newsletter .st3').css('fill', 'var(--colorbg2)');
+  });
 
 
   $(".ga").mouseover(function() {

@@ -1,8 +1,10 @@
 <footer>
-    <p class="cursor" @click="mentions=true">mentions légales</p>
-    <p class="cursor" @click="cgv=true">conditions générales de ventes</p>
+    <p class="cursor mentions" >mentions légales</p>
+    <p class="cursor cgv">conditions générales de ventes</p>
     <p>®Quadratik.fr 2018</p>
   </div>
+  <% include include_index/mentions.ejs %>
+    <% include include_index/cgv.ejs %>
   <% include include_index/chatbox.ejs %>
-
+<script type="text/javascript" src='js/footer.js'></script>
 </footer>

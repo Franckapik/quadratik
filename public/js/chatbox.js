@@ -24,7 +24,7 @@ document.getElementById("chat_date").innerHTML ="------" +  d.toLocaleDateString
   }
 
   // Connexion à socket.io
-  var socket = io.connect('https://localhost:3000');
+  var socket = io.connect('http://localhost:3000');
 
   //Envoi de la couleur générée
   socket.emit('nouveau_client', couleur);

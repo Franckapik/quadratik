@@ -165,11 +165,11 @@ router.post('/livraison', function(req, res, next) {
         .returning('id')
         .insert({
           userid: req.session.userid,
-          mode: req.body.livr_choice,
-          nom: req.body.livr_nom,
-          adresse: req.body.livr_adresse,
-          ville: req.body.livr_ville,
-          postal: req.body.livr_postal
+          livr_mode: req.body.livr_choice,
+          livr_nom: req.body.livr_nom,
+          livr_adresse: req.body.livr_adresse,
+          livr_ville: req.body.livr_ville,
+          livr_postal: req.body.livr_postal
         })
         .then(id => {
             console.log('Formulaire Livraison validé || userid:', req.session.userid, 'livraison [id]', id);

@@ -1,4 +1,4 @@
-<div v-show="cart_large">
+<div class="cart_large">
 
     <h2>Votre Panier</h2>
 
@@ -54,25 +54,24 @@
   </table>
 
   <p></p>
-  <form id="codepromo" @submit="promoForm" method="post">
+  <form id="codepromo" method="post">
 
-    Code promotion <input type="text" name="code" v-model="promo"><i class="far fa-arrow-alt-circle-right fa-2x"></i>
+    Code promotion <input type="text" name="code"> <button type="submit"><i class="far fa-arrow-alt-circle-right fa-2x"></i></button> 
   </form>
 
   <p></p>
-  <form id="cartform" @submit="cartForm" method="post" class="center">
-  <button type="submit" class="accent cart_button" value="Suivant" @click="moveBar(25)">Passer la commande</button>
+  <form id="cartform" method="post" class="center">
+  <button type="submit" class="accent cart_button" value="Suivant">Passer la commande</button>
   </form>
 
 
     </div>
   </div>
-
-  <div class="error_box full" v-if="errors.length">
+  <div class="error_box">
     <p>
-      <ul>
-        <li v-for="error in errors">{{ error }}</li>
-      </ul>
+      <b>Certains champs du formulaire sont invalides :  </b>
+      <p class="errors_txt"></p>
     </p>
   </div>
+
 </div>

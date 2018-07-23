@@ -1,13 +1,13 @@
-<div class="cart_box" v-show="cart_box">
+<div class="cart_box">
 
   <!-- PANIER-->
 
-  <button @click="showCart = !showCart" v-show="!cart_large">
+  <button class='nbArticles'>
 
  {{ articlesQty + (articlesQty > 1 ? " articles" : " article") }}
 </button>
 
-<div v-show="showCart">
+<div class="showcart">
 <fieldset>
 <legend> Panier </legend>
 
@@ -18,7 +18,7 @@
           <p><strong>{{ item.qty }}</strong> - {{ item.name }} <i class="fa fa-trash" @click="removeFromCart(item)"></i></p>
         </li>
       </ul>
-      <div><button @click="cart_large = true, showCart = false, boutique = false" id="order_button">Commander</button></div>
+      <div><button class='order' id="order_button">Commander</button></div>
     </div>
     <div v-show="items.length === 0">
       <p>Votre panier est vide!</p>

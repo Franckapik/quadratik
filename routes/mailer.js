@@ -3,6 +3,33 @@ var router = express.Router();
 var config = require('../config');
 var nodemailer = require('nodemailer');
 
+router.get('/io_msg', function(req, res, next) {
+
+  nodemailer.createTestAccount((err, account) => {
+      // create reusable transporter object using the default SMTP transport
+      let transporter = nodemailer.createTransport(config.mail);
+
+      // setup email data with unicode symbols
+      let mailOptions = {
+          from: req.body.contact_nom + '<foo@example.com>', // sender address
+          to: 'contact@quadratik.fr', // list of receivers
+          subject: '[ ' + req.body.contact_mail + ' ]' + '[ ' + req.body.contact_superficie + ' ]' + ' Mail Quadratik.fr', // Subject line
+          text: req.body.contact_msg // plain text body
+          //html: '<b>Hello world?</b>' // html body
+      };
+
+      // send mail with defined transport object
+      transporter.sendMail(mailOptions, (error, info) => {
+          if (error) {
+              return console.log(error);
+          }
+          res.redirect('/success?type=Message+Envoyé');
+          console.log('Message sent: %s', info.messageId);
+            });
+  });
+
+  });
+
 router.post('/contact', function(req, res, next) {
 
   nodemailer.createTestAccount((err, account) => {

@@ -5,16 +5,28 @@
   <title>
     Quadratik | Maitriser l'acoustique de votre studio !
   </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <link rel='stylesheet' href='/stylesheets/style.css' />
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.11/css/all.css" integrity="sha384-p2jx59pefphTFIpeqCcISO9MdVfIm4pNnsL08A6v5vaQc4owkQqxMV8kg4Yvhaw/" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css" />
   <link rel="stylesheet" href="/stylesheets/slick-theme.css" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
   <script src="https://code.jquery.com/jquery-3.2.1.min.js" ></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js" ></script>
 
+  <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase.js"></script>
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyDJc3yhXtFRQ2-5uFtauRnDpLEVMtnVqNM",
+      authDomain: "quadratik-1511423170072.firebaseapp.com",
+      databaseURL: "https://quadratik-1511423170072.firebaseio.com",
+      projectId: "quadratik-1511423170072",
+      storageBucket: "quadratik-1511423170072.appspot.com",
+      messagingSenderId: "136823446557"
+    };
+    firebase.initializeApp(config);
+  </script>
 </head>
 
 <body>
@@ -249,8 +261,7 @@
 
       </section>
       <div id="popup">
-        <% include include_index/mentions.ejs %>
-          <% include include_index/cgv.ejs %>
+
             <% include include_index/mail.ejs %>
               <% include include_index/form.ejs %>
                 <% include include_index/newsletter.ejs %>

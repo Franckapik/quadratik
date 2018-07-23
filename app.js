@@ -8,9 +8,10 @@ var config = require('./config');
 var server = app.listen(3000);
 var io = require('socket.io').listen(server);
 var ent = require('ent');
-const environment = process.env.NODE_ENV || 'development';    // if something else isn't setting ENV, use development
-const configuration = require('./knexfile')[environment];    // require environment's settings from knexfile
-const knex = require('knex')(configuration);  
+var nodemailer = require('nodemailer');
+const environment = process.env.NODE_ENV || 'development'; // if something else isn't setting ENV, use development
+const configuration = require('./knexfile')[environment]; // require environment's settings from knexfile
+const knex = require('knex')(configuration);
 
 const session = require('express-session');
 const KnexSessionStore = require('connect-session-knex')(session);
@@ -73,6 +74,7 @@ var dbcreate = require('./routes/dbcreate');
 var checkout = require('./routes/checkout');
 var mailer = require('./routes/mailer');
 var success = require('./routes/success');
+var commande = require('./routes/commande');
 
 
 
@@ -89,6 +91,7 @@ app.use('/admin', admin);
 app.use('/checkout', checkout);
 app.use('/mailer', mailer);
 app.use('/success', success);
+app.use('/commande', commande);
 
 
 // catch 404 and forward to error handler
@@ -110,21 +113,87 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+//web-push
+const webpush = require('web-push');
+
+// VAPID keys should only be generated only once.
+const vapidKeys = webpush.generateVAPIDKeys();
+
+webpush.setGCMAPIKey('BCya3fsYBlFEX2OeFTQk0jXD06_SP1zFuO0goxC7RGkGd9CnSRPF11JevDWxed72x_XaJKsqFU80pjzKwda0Msk');
+webpush.setVapidDetails(
+  'mailto:contact@quadratik.fr',
+  vapidKeys.publicKey,
+  vapidKeys.privateKey
+);
+
+// This is the same output of calling JSON.stringify on a PushSubscription
+const pushSubscription = {
+  endpoint: 'https://www.quadratik.fr',
+  keys: {
+    auth: '<JWTHeader>.<Payload>.<Signature>',
+    p256dh: 'BDd3_hVL9fZi9Ybo2UUzA284WG5FZR30_95YeZJsiApwXKpNcF1rRPF3foIiBHXRdJI2Qhumhf6_LFTeZaNndIo'
+  }
+};
+
+webpush.sendNotification(pushSubscription, 'Your Push Payload Text');
+
 //Socket.IO
+var client = [];
+var count = 0;
+io.sockets.on('connection', function(socket, couleur) {
+  console.log('Nouvel utilisateur connecté : ', socket.id);
+  // Dès qu'on nous donne un couleur, on le stocke en variable de session et on informe les autres personnes
+  socket.on('nouveau_client', function(couleur) {
+    socket.couleur = couleur;
+    socket.broadcast.emit('nouveau_client', couleur);
+  });
 
-io.sockets.on('connection', function (socket, couleur) {
-    // Dès qu'on nous donne un couleur, on le stocke en variable de session et on informe les autres personnes
-    socket.on('nouveau_client', function(couleur) {
-        socket.couleur = couleur;
-        socket.broadcast.emit('nouveau_client', couleur);
+  // Dès qu'on reçoit un message, on récupère le couleur de son auteur et on le transmet aux autres personnes
+  socket.on('message', function(message) {
+    message = ent.encode(message);
+    console.log(message);
+
+    socket.broadcast.emit('message', {
+      couleur: socket.couleur,
+      message: message
     });
 
-    // Dès qu'on reçoit un message, on récupère le couleur de son auteur et on le transmet aux autres personnes
-    socket.on('message', function (message) {
-        message = ent.encode(message);
-        socket.broadcast.emit('message', {couleur: socket.couleur, message: message});
 
-    });
+
+    if (client.indexOf(socket.id) == -1) { //first msg
+      client.push(socket.id);
+      console.log("1er message de ", socket.id, message);
+      count = 1;
+      nodemailer.createTestAccount((err, account) => {
+        let transporter = nodemailer.createTransport(config.mail);
+        let mailOptions = {
+          from: '<serveur@Quadratik.fr>', // sender address
+          to: 'contact@quadratik.fr', // list of receivers
+          subject: '[Chatbox] Demande de conversation instantanée', // Subject line
+          text: socket.id + ' | ' + message // plain text body
+          //html: '<b>Hello world?</b>' // html body
+        };
+
+        // send mail with defined transport object
+        transporter.sendMail(mailOptions, (error, info) => {
+          if (error) {
+            return console.log(error);
+          }
+
+          console.log('Mail envoyé :', message );
+        });
+      });
+      console.log('nvo client', socket.id);
+
+
+    } else {
+      count = count + 1;
+      console.log(count, message);
+    }
+
+
+
+  });
 });
 
 

@@ -1,7 +1,7 @@
-<div id="Orderlivraison" v-show="livraison">
+<div id="Orderlivraison" class='livraison'>
 
   <h2>Livraison</h2>
-  <form id="deliveryform" @submit="deliveryForm" method="post">
+  <form id="deliveryform" method="post">
 
     <div class="form_livraison_container flex">
       <fieldset>
@@ -11,47 +11,39 @@
           <div class="form_choice_block">
             Point Relais (Mondial relay)
             <p></p>
-            <input type="radio" name="typeLivraison" v-model="livr_choice" value="relais" checked @change="livraison_relais=true, livraison_domicile=false, livraison_newAdress=false">
+            <input type="radio" class='relais' name="typeLivraison" value="relais" checked>
             <p></p>
           </div>
           <div class="form_choice_block">
             Domicile Personnel
             <p></p>
-            <input type="radio" name="typeLivraison" v-model="livr_choice" value="domicile" @change="livraison_relais=false, livraison_domicile=true, livraison_newAdress=false">
+            <input type="radio" class='domicile' name="typeLivraison" value="domicile" >
             <p></p>
           </div>
           <div class="form_choice_block">
             Autre adresse
             <p></p>
-            <input type="radio" name="typeLivraison" v-model="livr_choice" value="autreAdresse" @change="livraison_relais=false, livraison_domicile=false, livraison_newAdress=true">
+            <input type="radio" class='autreAdresse' name="typeLivraison" value="autreAdresse">
             <p></p>
           </div>
 
         </div>
       </fieldset>
       <div class="form_livraison_choosed">
-        <div class="error_box" v-if="errors.length">
-          <p>
-            <b>Certains champs du formulaire sont invalides :  </b>
-            <ul>
-              <li v-for="error in errors">{{ error }}</li>
-            </ul>
-          </p>
-        </div>
-        <div id="relais" v-if="livraison_relais">
+        <div id="relais">
           MONDIAL RELAY
         </div>
-        <div id="domicile" v-if="livraison_domicile">
+        <div id="domicile">
           Adresse renseignée auparavant.
         </div>
 
-        <div id="autreAdresse" v-if="livraison_newAdress">
+        <div id="autreAdresse">
 
           <!-- Nom complet -->
           <div class="form_box">
             <label class="control-label">Nom complet</label>
             <div class="controls">
-              <input id="livraison_nom" v-model="livr_nom" name="livraison_nom" type="text" placeholder="Mr Bernard Dupond" class="input-xlarge">
+              <input id="livraison_nom" name="livraison_nom" type="text" placeholder="Mr Bernard Dupond" class="input-xlarge">
 
             </div>
           </div>
@@ -60,7 +52,7 @@
           <div class="form_box">
             <label class="control-label">Adresse</label>
             <div class="controls">
-              <input id="livraison_adresse" v-model="livr_adresse" name="livraison_adresse" type="text" placeholder="Rue des Camélias, Batiment C, Etage 2" class="input-xlarge">
+              <input id="livraison_adresse" name="livraison_adresse" type="text" placeholder="Rue des Camélias, Batiment C, Etage 2" class="input-xlarge">
 
             </div>
           </div>
@@ -70,7 +62,7 @@
           <div class="form_box">
             <label class="control-label">Ville/Commune</label>
             <div class="controls">
-              <input id="livraison_ville" v-model="livr_ville" name="livraison_ville" type="text" placeholder="Paris" class="input-xlarge">
+              <input id="livraison_ville" name="livraison_ville" type="text" placeholder="Paris" class="input-xlarge">
 
             </div>
           </div>
@@ -79,13 +71,19 @@
           <div class="form_box">
             <label class="control-label">Code Postal</label>
             <div class="controls">
-              <input id="livraison_codepostal" v-model="livr_postal" name="livraison_codepostal" type="text" placeholder="95200" class="input-xlarge">
+              <input id="livraison_codepostal" name="livraison_codepostal" type="text" placeholder="95200" class="input-xlarge">
 
             </div>
           </div>
         </div>
       </div>
-      <button type="submit" @click="moveBar(75)">Suivant</button>
+      <div class="error_box">
+        <p>
+          <b>Certains champs du formulaire sont invalides :  </b>
+          <p class="errors_txt"></p>
+        </p>
+      </div>
+      <button type="submit">Suivant</button>
 
     </div>
 

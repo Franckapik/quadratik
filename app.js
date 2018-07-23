@@ -113,30 +113,6 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-//web-push
-const webpush = require('web-push');
-
-// VAPID keys should only be generated only once.
-const vapidKeys = webpush.generateVAPIDKeys();
-
-webpush.setGCMAPIKey('BCya3fsYBlFEX2OeFTQk0jXD06_SP1zFuO0goxC7RGkGd9CnSRPF11JevDWxed72x_XaJKsqFU80pjzKwda0Msk');
-webpush.setVapidDetails(
-  'mailto:contact@quadratik.fr',
-  vapidKeys.publicKey,
-  vapidKeys.privateKey
-);
-
-// This is the same output of calling JSON.stringify on a PushSubscription
-const pushSubscription = {
-  endpoint: 'https://www.quadratik.fr',
-  keys: {
-    auth: '<JWTHeader>.<Payload>.<Signature>',
-    p256dh: 'BDd3_hVL9fZi9Ybo2UUzA284WG5FZR30_95YeZJsiApwXKpNcF1rRPF3foIiBHXRdJI2Qhumhf6_LFTeZaNndIo'
-  }
-};
-
-webpush.sendNotification(pushSubscription, 'Your Push Payload Text');
-
 //Socket.IO
 var client = [];
 var count = 0;

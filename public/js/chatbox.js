@@ -1,9 +1,12 @@
-
 $(document).ready(function() {
 
-var d = new Date();
-var options = { weekday: 'long', month: 'long', day: 'numeric' };
-document.getElementById("chat_date").innerHTML ="------" +  d.toLocaleDateString('fr-FR', options) + "------";
+  var d = new Date();
+  var options = {
+    weekday: 'long',
+    month: 'long',
+    day: 'numeric'
+  };
+  document.getElementById("chat_date").innerHTML = "------" + d.toLocaleDateString('fr-FR', options) + "------";
 
 
   //generer un couleur au hasard
@@ -18,35 +21,53 @@ document.getElementById("chat_date").innerHTML ="------" +  d.toLocaleDateString
 
   var couleur = getRandomColor();
 
+  $('.chatbox_closed').click(function() {
+    // Connexion à socket.io
+    var socket = io.connect('/');
+    if (window.Notification && Notification.permission !== "granted") { //nouvel utilisateur = demande de permission
+      Notification.requestPermission(function(status) {
+        if (Notification.permission !== status) {
+          Notification.permission = status;
+        }
+      });
+    }
+
+    //Envoi de la couleur générée
+    socket.emit('nouveau_client', couleur);
+
+    // Quand on reçoit un message, on l'insère dans la page
+    socket.on('message', function(data) {
+      insereMessage(data.couleur, data.message)
+    })
+
+    socket.on('notification', function(message) {
+      // Si l'utilisateur accepte d'être notifié
+      if (window.Notification && Notification.permission === "granted") {
+        var n = new Notification(message);
+      }
+    })
+
+    // Quand un nouveau client se connecte, on affiche l'information
+    socket.on('nouveau_client', function(couleur) {
+      $('#zone_chat').prepend('<p><em> Une nouvelle personne a rejoint la discussion !</em></p>');
+    })
+
+    // Lorsqu'on envoie le formulaire, on transmet le message et on l'affiche sur la page
+    $('#formulaire_chat').submit(function() {
+      var message = $('#message').val();
+      socket.emit('message', message); // Transmet le message aux autres
+      insereMessage(couleur, message); // Affiche le message aussi sur notre page
+      $('#message').val('').focus(); // Vide la zone de Chat et remet le focus dessus
+      return false; // Permet de bloquer l'envoi "classique" du formulaire
+    });
+
+  });
   // Ajoute un message dans la page
   function insereMessage(couleur, message) {
     $('#zone_chat').prepend('<p class="msg" style="background-color:' + couleur + '";>' + message + '</p>');
   }
 
-  // Connexion à socket.io
-  var socket = io.connect('/');
 
-  //Envoi de la couleur générée
-  socket.emit('nouveau_client', couleur);
-
-  // Quand on reçoit un message, on l'insère dans la page
-  socket.on('message', function(data) {
-    insereMessage(data.couleur, data.message)
-  })
-
-  // Quand un nouveau client se connecte, on affiche l'information
-  socket.on('nouveau_client', function(couleur) {
-    $('#zone_chat').prepend('<p><em> Une nouvelle personne a rejoint la discussion !</em></p>');
-  })
-
-  // Lorsqu'on envoie le formulaire, on transmet le message et on l'affiche sur la page
-  $('#formulaire_chat').submit(function() {
-    var message = $('#message').val();
-    socket.emit('message', message); // Transmet le message aux autres
-    insereMessage(couleur, message); // Affiche le message aussi sur notre page
-    $('#message').val('').focus(); // Vide la zone de Chat et remet le focus dessus
-    return false; // Permet de bloquer l'envoi "classique" du formulaire
-  });
 
   $(".chatbox_closed").click(function() {
     $('.chatbox_opened').css('visibility', 'visible');
@@ -58,4 +79,4 @@ document.getElementById("chat_date").innerHTML ="------" +  d.toLocaleDateString
     $('.chatbox_closed').css('visibility', 'visible');
   });
 
-  });
+});

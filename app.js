@@ -137,6 +137,10 @@ io.sockets.on('connection', function(socket, couleur) {
 
 
     if (client.indexOf(socket.id) == -1) { //first msg
+
+      //notification
+      socket.emit('notification', message);
+
       client.push(socket.id);
       console.log("1er message de ", socket.id, message);
       count = 1;

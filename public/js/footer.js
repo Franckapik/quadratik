@@ -17,4 +17,5 @@ $(document).ready(function() {
     $('.chatbox_closed').css('visibility', 'hidden');
   });
 
+
 });

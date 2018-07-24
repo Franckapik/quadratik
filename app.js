@@ -5,11 +5,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
 var config = require('./config');
-var server = app.listen(3000, function () {
-    var host = server.address().address;
-    var port = server.address().port;
-    console.log('running at http://' + host + ':' + port)
-});
+var server = app.listen(3000);
 var io = require('socket.io').listen(server);
 var ent = require('ent');
 var nodemailer = require('nodemailer');

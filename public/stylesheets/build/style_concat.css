@@ -1,10 +1,10 @@
 @import url('https://fonts.googleapis.com/css?family=Oswald');
 @import url('https://fonts.googleapis.com/css?family=Alegreya+Sans+SC:100,100i,300,300i,400,400i,500,500i,700,700i,800,800i,900,900i|Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i');
 :root {
-  --colorbg1: #1f1f21;
+  --colorbg1: #252525;
   --colorbg2: #dbdbdb;
   --main_color: #00AB9C;
-  --accentcolor: #FFC000;
+  --accentcolor: #FAA912;
   --accentcolor2: #871d22;
   --main_color_light: rgba(171, 128, 0, 0.3);
   --colorbg2dark:#8eaba8;
@@ -145,7 +145,6 @@ body {
   overflow-x: hidden;
   /* Vertical scroll caché */
 }
-
 
 #body_success {
   font-family: 'Oswald', sans-serif;
@@ -613,7 +612,27 @@ h2 {
   font-family: 'Alegreya Sans SC', sans-serif;
   font-weight: 400;
   font-size: 2em;
-  width: 70vw;
+}
+
+/* diffuseur svg */
+
+#group_carreaux rect {
+  fill: var(--colorbg2);
+}
+
+#group_carreaux rect:hover {
+  fill: var(--accentcolor2);
+}
+
+.separator {
+  background-image: url(/images/square_divider.svg);
+  background-position: 50%;
+  background-size: auto 100%;
+  position: relative;
+  height: 4vh;
+  width: 100%;
+  z-index: 3;
+  bottom: -5vh;
 }
 
 h3 {
@@ -639,6 +658,20 @@ h5 {
   font-size: 1.5em;
   padding: 5px;
 }
+
+.section_title h2 {
+  margin-top: 0px;
+}
+
+.section_title h1 {
+  margin-bottom: -4px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  letter-spacing: 3px;
+  line-height: 1;
+  color: var(--main_color);
+}
+
 
 .rule {
   color: white;
@@ -725,6 +758,11 @@ header {
   top: -10px;
   opacity: 0.8;
   z-index: 3;
+  transition-duration: 0.5s;
+}
+
+.active {
+  transform: translateY( -100%);
 }
 
 .logo_header {
@@ -865,7 +903,7 @@ nav ul {
 }
 
 section {
-  padding-top: 2vh;
+  position: relative;
   height: 100vh;
   display: flex;
   flex-direction: row;
@@ -875,8 +913,6 @@ section {
   font-size: 1em;
   font-weight: 300;
   text-align: justify;
-  padding-left: 1.5vw;
-  padding-right: 1.5vw;
 }
 
 button {
@@ -901,7 +937,10 @@ button {
 .flex_row {
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
+}
+
+.flex_nw {
+  flex-wrap: nowrap;
 }
 
 .article_box {
@@ -913,9 +952,8 @@ button {
   color: var(--main_color);
 }
 
-.section_description {
-  margin-left: 0;
-  text-align: left;
+.text_center {
+  text-align: center;
 }
 
 .article_box span {
@@ -931,6 +969,22 @@ button {
   min-width: 300px;
 }
 
+.column3 {
+  width: 33%;
+}
+
+.ul_left {
+  text-align: left;
+}
+
+.ul_right {
+  text-align: right;
+}
+
+#presentation svg {
+  margin: auto;
+}
+
 #main_dif {
   position: absolute;
   width: 50%;
@@ -944,6 +998,13 @@ button {
 
 #presentation ul {
   margin: auto;
+}
+
+.bigger {
+  font-size: 2em;
+  position: relative;
+  top: 0.2em;
+  margin: 0.2em;
 }
 
 #presentation .list-number {
@@ -963,11 +1024,11 @@ button {
 #presentation .list-titre {
   padding-left: 2vw;
   font-weight: 500;
+  padding-right: 2vw;
 }
 
 #presentation .list-text {
-  padding: 0 0 0 10vw;
-  padding-bottom: 1em;
+  padding-bottom: 2em;
 }
 
 #quadralab .dif-edges {
@@ -992,16 +1053,19 @@ button {
 }
 
 .button_dot {
-  width: 300px;
-  padding-top: 30px;
-  padding-bottom: 30px;
+  width: 15vw;
+  padding-top: 2vh;
+  padding-bottom: 2vh;
   background-clip: padding-box;
 }
 
 .button_white {
   color: var(--colorbg2);
-  background-color: #323235;
+  background-color: var(--colorbg1);
   border-color: var(--colorbg2);
+  border: solid 2px white;
+  border-radius: 50px;
+  transition: 1s;
 }
 
 .button_black {
@@ -1073,16 +1137,151 @@ button {
 }
 
 #boutique {
-  background-color: var(--colorbg2);
+  background-color: var(--colorbg1);
+  color: var(--colorbg2);
+  position: relative;
+}
+/**
+#boutique h2 {
+  color: var(--colorbg1);
+  position: absolute;
+  font-size: 3em;
+  left: 10%;
+  bottom: -10%;
+  z-index: 2;
+  transform: rotate(-90deg);
+  transform-origin: left;
+}*/
+
+
+#presentation .letter_special, #boutique h2::first-letter, #quadralab .letter_special {
+  padding: 0.3em;
+  background-color: var(--main_color);
+  color: var(--colorbg2);
+  font-size: 130%;
+  margin: 0.1em;
+  border-radius: 2px;
+}
+
+.quadra_circle {
+  position: absolute;
+  height: 25vw;
+width: 25vw;
+background-color: #bbb;
+border-radius: 50%;
+right: 2vw;
+}
+
+.boutique_button {
+  position: absolute;
+  bottom: 1vw;
+  left: 4vw;
+  text-align: center;
+}
+
+.quadralab_button {
+  position: absolute;
+  bottom: 1vw;
+  left: 4vw;
+  text-align: center;
+}
+
+.boutique_container {
+  position: absolute;
+  top: 2%;
+}
+
+.boutique_box {
+  position: relative;
+  background-color: transparent;
+  margin: 5vw;
+  width: 274px;
+  height: 450px;
+  z-index: 1;
+  border-radius: 5px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+}
+
+.boutique_box_title {
+  transform: rotate(-90deg);
+  transform-origin: right;
+  margin-left: 29%;
+  margin-right: 10%;
   color: var(--colorbg1);
 }
 
+.boutique_dif {
+  width: 50%;
+  margin: 25%;
+}
+
+.boutique_bg2 {
+  height: 45%;
+  background-color: var(--colorbg2);
+  position: absolute;
+  top: 93px;
+  width: 110%;
+  transform-origin: center;
+  transform: rotate(6deg);
+}
+
+.boutique_bg3 {
+  background-color: var(--colorbg2);
+  height: 100%;
+  width: 80%;
+}
+
+/* ajouter des traits  */
+
+.trait
+{
+border-top : 1px solid #000;
+width : 500px;
+}
+
+.boutique_2 {
+  transform: translateY(50px);
+}
+
+.boutique_3 {
+  transform: translateY(100px);
+  transition: 2s;
+}
+
 .top_container {
-  padding: 2em;
-  border: 2px solid var(--main_color);
-  border-radius: 5em;
   position: relative;
-  width: 70vw;
+  width: 50vw;
+}
+
+.boutique_box:hover .rideau {
+  height: 100%;
+  opacity: 0.9;
+}
+
+.rideau {
+  position: absolute;
+  background: var(--main_color);
+  opacity: 0;
+  width: 100%;
+  height: 0%;
+  transition: 1s;
+  margin: auto;
+  text-align: center;
+}
+
+.rideau_text {
+  position: relative;
+  top: 25%;
+  color: white;
+  font-size: 2em;
+}
+
+.rideau ul {
+  position: relative;
+padding: 0;
+font-style: oblique;
+font-size: 0.6em;
+margin-top: 4em;
 }
 
 .top_container h4 {
@@ -1122,6 +1321,36 @@ button {
 .goshop {
   background-color: var(--accentcolor);
   padding: 20px;
+}
+.faders_container {
+  width: 22vw;
+  justify-content: space-around;
+}
+
+.faders_css {
+  position: relative;
+}
+.faders_stick {
+  position: absolute;
+  height: 320px;
+  width: 10px;
+  background-color: var(--colorbg2);
+  border-radius: 5px;
+}
+
+.faders_button {
+  position: absolute;
+  width: 50px;
+  height: 40px;
+  background: var(--main_color);
+  top: 65px;
+  left: -20px;
+  border-radius: 2px;
+  transition: 2s;
+}
+
+.faders_button:hover {
+  top: 130px;
 }
 
 #valeurs {
@@ -1384,7 +1613,6 @@ ul {
   box-shadow: 0px 13px 21px -10px rgba(0, 0, 0, 0.5);
 }
 
-
 .chat_icons {
   color: white;
   font-size: 1.5em;
@@ -1527,6 +1755,22 @@ footer {
   justify-content: space-around;
 }
 
+/*zigzag
+#boutique:after {
+    background: linear-gradient(45deg, var(--colorbg1) 16px, transparent 0), linear-gradient(-45deg, var(--colorbg1) 16px, transparent 0);
+    background-position: left-bottom;
+    background-repeat: repeat-x;
+    background-size: 32px 32px;
+    content: " ";
+    display: block;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    width: 100%;
+    height: 32px;
+}
+*/
+
 /*
 First : 360 x 640 (smartphone)
 Second : 1366x768 (laptop)
@@ -1545,15 +1789,7 @@ Third : 1920x1080 (desktop)
     display: block;
   }
   section {
-    padding: 0 1em 0 1em;
     font-size: 1em;
-  }
-  .section_description {
-    text-align: justify;
-  }
-  .section_description h2 {
-    font-size: 1.5em;
-    text-align: left;
   }
   .block {
     width: 100%;
@@ -1586,7 +1822,7 @@ Third : 1920x1080 (desktop)
     margin: auto;
     top: 2%;
     right: 4%;
-    bottom:0%;
+    bottom: 0%;
     box-shadow: none;
     z-index: 2;
   }
@@ -1617,7 +1853,6 @@ Third : 1920x1080 (desktop)
   #zone_chat {
     height: 70vh;
   }
-
 }
 
 /* Tablet/iPads (portrait and landscape) -----------*/

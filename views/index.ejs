@@ -6,13 +6,13 @@
     Quadratik | Maitriser l'acoustique de votre studio !
   </title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <link rel='stylesheet' href='/stylesheets/build/style.min.css'  />
+  <link rel='stylesheet' href='/stylesheets/build/style.min.css' />
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.11/css/all.css" integrity="sha384-p2jx59pefphTFIpeqCcISO9MdVfIm4pNnsL08A6v5vaQc4owkQqxMV8kg4Yvhaw/" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css" />
   <link rel="stylesheet" href="/stylesheets/slick-theme.css" />
 
-  <script src="https://code.jquery.com/jquery-3.2.1.min.js" ></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js" ></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
 
 
 </head>
@@ -33,42 +33,49 @@
 
       </section>
 
-
       <section id="presentation">
+        <div class="section_title full flex text_center ">
+          <h1>| 0<sub>1</sub> |</h1>
+          <h2>Le diffuseur acoustique en <span class="letter_special">6</span> points</h2>
+        </div>
 
-        <div class="block flex">
+        <div class="column3 flex">
 
-          <div class="section_description">
-            <h2>Le diffuseur acoustique</h2>
-            <p>Le diffuseur acoustique permets d'améliorer l'acoustique d'un studio de manière considérable.</p>
-            <p>Il révèle la sensation agréable d'être entouré par le son et favorise ainsi inspiration et émotions.</p>
+          <!--<div class=" ">
 
-            <p>Il supprime les phénomènes indésirables dans les fréquences medium et aigues. </p>
-          </div>
-
-
-          <img src="images/bureau.svg" alt="Station de Home Studio avec enceintes de monitoring">
+          </div>-->
+          <ul class="ul_right">
+            <li> <span class="list-titre">Redistribue le son</span><span class="list-number" id="num1">1</span>
+              <p class="list-text">Homogénéité des ondes sonores dans la pièce.</p>
+            </li>
+            <li> <span class="list-titre">Améliore l'acoustique</span><span class="list-number" id="num2">2</span>
+              <p class="list-text">Le phénomène de flutter echo est supprimé</p>
+            </li>
+            <li> <span class="list-titre">Entoure vos oreilles</span><span class="list-number" id="num3">3</span>
+              <p class="list-text">Une impression de baigner dans le son</p>
+            </li>
+          </ul>
 
 
 
         </div>
 
-        <div class="top_auto block flex mobile_none">
-          <ul class="">
-            <li> <span class="list-number">1</span><span class="list-titre">Redistribue le son</span>
-              <p class="list-text">Homogénéité des ondes sonores dans la pièce.</p>
-            </li>
-            <li> <span class="list-number">2</span><span class="list-titre">Améliore l'acoustique</span>
-              <p class="list-text">Le phénomène de flutter echo est supprimé</p>
-            </li>
-            <li> <span class="list-number">3</span><span class="list-titre">Entoure vos oreilles</span>
-              <p class="list-text">Une impression de baigner dans le son</p>
-            </li>
-            <li> <span class="list-number">4</span><span class="list-titre">Clarifie vos mix</span>
+
+        <div class="column3 flex top_auto">
+
+          <% include include_svg/diffuseur.ejs %>
+        </div>
+
+        <div class="column3 flex">
+          <ul class="ul_left">
+            <li> <span class="list-number" id="num4">4</span><span class="list-titre">Clarifie vos mix</span>
               <p class="list-text">Un son plus aéré, clair et précis</p>
             </li>
-            <li> <span class="list-number">5</span><span class="list-titre">Agrandit votre pièce</span>
+            <li> <span class="list-number" id="num5">5</span><span class="list-titre">Agrandit votre pièce</span>
               <p class="list-text">Une sensation de pièce plus grande</p>
+            </li>
+            <li> <span class="list-number" id="num6">6</span><span class="list-titre">Apporte une esthetique</span>
+              <p class="list-text">Un décor de studio inspirant</p>
             </li>
           </ul>
 
@@ -81,84 +88,154 @@
 
           <a href="/guide">  <button class="button_dot button_white">Suivez le Guide !</button></a>
         </div>
+        <!--        <div class="separator">
+</div>-->
+
 
       </section>
 
       <section id="boutique">
-
-        <div class="full flex">
-
-          <div class="section_description">
-            <h2>Boutique</h2>
-            <p>Faites la différence avec votre studio !</p>
-            <p>Nous proposons différentes collections, classiques, ambitieuses et excentriques!</p>
+        <div class="flex_row flex_nw boutique_container">
+          <div class="boutique_box boutique_1">
+            <div class="rideau"><span class="rideau_text">La simplicité <ul>
+                <li>Discretion</li>
+                <li>Sérénité</li>
+                <li>Naturel</li>
+              </ul></span>
           </div>
 
+            <h3 class="boutique_box_title">Botanik</h3>
+            <img src="/images/modeles/Organik/Anemone-7c.png" alt="" class="boutique_dif">
+          </div>
 
-        </div>
+          <div class="boutique_box boutique_2">
+            <div class="rideau"><span class="rideau_text">L'incontournable <ul>
+                <li>Caractère</li>
+                <li>Robustesse</li>
+                <li>Epicé</li>
+              </ul></span>
+          </div>
+            <h3 class="boutique_box_title">Organik</h3>
+            <img src="/images/modeles/Organik/Chêne-7c.png" alt="" class="boutique_dif">
+          </div>
 
-
-        <div class="top_container">
-          <h4 class="center">Classement des ventes 2018</h4>
-
-          <div class="topshop">
-
-            <div><img src="images/modeles/Organik/Woodik-7.jpg" class="center"> <span class="topnumber">#1</span>
-              <p>Woodik-7</p>
-            </div>
-            <div><img src="images/modeles/Klassik/Klassik-6.jpg"><span class="topnumber">#2</span>
-              <p>Klassik-6</p>
-            </div>
-            <div><img src="images/modeles/Organik/Wenge-7.jpg"><span class="topnumber">#3</span>
-              <p>Wenge-7</p>
-            </div>
-            <div><img src="images/modeles/Botanik/Anemone-7.jpg"><span class="topnumber">#4</span>
-              <p>Anemone-7</p>
-            </div>
-            <div><img src="images/modeles/Minimalik/Gruk-7.jpg"><span class="topnumber">#5</span>
-              <p>Gruk-7</p>
-            </div>
-
+          <div class="boutique_box boutique_3">
+            <div class="rideau"><span class="rideau_text">L'ambition <ul>
+                <li>Minimaliste</li>
+                <li>Design</li>
+                <li>Fantaisie</li>
+              </ul></span>
+          </div>
+            <h3 class="boutique_box_title">Minimalik</h3>
+            <img src="/images/modeles/Organik/Gruk-7c.png" alt="" class="boutique_dif">
           </div>
         </div>
+        <div class="boutique_bg2">
 
-        <div class="full index_calltoaction center ">
-
-
-          <p>Equipez votre studio !</p>
-
-
-          <a href="/shop"> <button class="button_dot button_black">Entrer en Boutique</button></a>
         </div>
 
+        <div class="boutique_button">
+
+        <h2 >Equipez votre studio!</h2>
+
+        <a href="/shop">  <button class="button_dot button_white">La Boutique</button></a>
+      </div>
       </section>
+
+
+<!-- modification boutique -->
+
+
+      <section id="boutique">
+        <div class="flex_row flex_nw boutique_container">
+          <div class="boutique_box boutique_1">
+            <div class="rideau"><span class="rideau_text">La simplicité <ul>
+                <li>Discretion</li>
+                <li>Sérénité</li>
+                <li>Naturel</li>
+              </ul></span>
+          </div>
+
+            <h3 class="boutique_box_title">Botanik</h3>
+            <img src="/images/modeles/Organik/Anemone-7c.png" alt="" class="boutique_dif">
+          </div>
+
+          <div class="boutique_box boutique_2">
+            <div class="rideau"><span class="rideau_text">L'incontournable <ul>
+                <li>Caractère</li>
+                <li>Robustesse</li>
+                <li>Epicé</li>
+              </ul></span>
+          </div>
+            <h3 class="boutique_box_title">Organik</h3>
+            <img src="/images/modeles/Organik/Chêne-7c.png" alt="" class="boutique_dif">
+          </div>
+
+          <div class="boutique_box boutique_3">
+            <div class="rideau"><span class="rideau_text">L'ambition <ul>
+                <li>Minimaliste</li>
+                <li>Design</li>
+                <li>Fantaisie</li>
+              </ul></span>
+          </div>
+            <h3 class="boutique_box_title">Minimalik</h3>
+            <img src="/images/modeles/Organik/Gruk-7c.png" alt="" class="boutique_dif">
+          </div>
+        </div>
+        <div class="boutique_bg3">
+
+        </div>
+
+        <div class="boutique_button">
+
+        <h2 >Equipez votre studio!</h2>
+
+        <a href="/shop">  <button class="button_dot button_white">La Boutique</button></a>
+      </div>
+      </section>
+
+<!-- fin de modif -->
 
       <section id="quadralab">
         <div class="block flex">
 
-
-          <div class="section_description">
-
-
-            <h2>Le QuadraLab: Un Laboratoire de Design en ligne</h2>
-
+            <h2>QuadraLab: <span class="letter_special">L</span>aboratoire de Design en ligne</h2>
+<!--
             <p>Vous pouvez facilement adapter votre matériel acoustique à l'image de votre studio.</p>
             <p>Transformer votre espace de créativité avec un design innovant et totalement personnel !</p>
 
-          </div>
 
           <img class="faders center mobile_none" src="images/fadersanim.svg" alt="Faders de console Home Studio">
         </div>
         <div class="top_auto block flex">
           <img class="quadra_meters center" src="images/diffuseur.svg" alt="Diffuseur 7 cellules animé">
         </div>
-        <div class="full index_calltoaction center">
+-->
+<div class="faders_container flex_row flex_nw">
+  <div class="faders_css">
+  <div class="faders_stick"></div>
+  <div class="faders_button"></div>
+  </div>
+  <div class="faders_css">
+  <div class="faders_stick"></div>
+  <div class="faders_button"></div>
+  </div>
+  <div class="faders_css">
+  <div class="faders_stick"></div>
+  <div class="faders_button"></div>
+  </div>
+</div>
+<div class="quadra_circle">
 
+</div>
 
-          <p>Creez un diffuseur acoustique aux couleurs de votre studio !</p>
+<div class="quadralab_button">
+  <p>Creez un diffuseur acoustique aux couleurs de votre studio !</p>
 
-          <a href="/QuadraLab">  <button class="button_dot button_white">Construire son diffuseur</button></a>
-        </div>
+  <a href="/QuadraLab">  <button class="button_dot button_white">Construire son diffuseur</button></a>
+
+</div>
+
       </section>
 
 
@@ -194,7 +271,7 @@
 
         <div class="block flex ">
 
-          <div class="section_description">
+          <div class="">
             <h2>Nos valeurs</h2>
 
             <p>En commandant sur Quadratik.fr vous soutenez le respect du travail, de la santé et l'environnement.</p>
@@ -230,7 +307,7 @@
         <div class="full flex">
 
 
-          <div class="section_description">
+          <div class="">
 
 
             <h2>Prenons contact</h2>
@@ -250,13 +327,13 @@
       </section>
       <div id="popup">
 
-            <% include include_index/mail.ejs %>
-              <% include include_index/form.ejs %>
-                <% include include_index/newsletter.ejs %>
+        <% include include_index/mail.ejs %>
+          <% include include_index/form.ejs %>
+            <% include include_index/newsletter.ejs %>
 
 
 
-                  <% include footer.ejs %>
+              <% include footer.ejs %>
       </div>
 
 

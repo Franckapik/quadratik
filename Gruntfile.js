@@ -15,13 +15,14 @@ module.exports = function(grunt) {
       dev: {
         bsFiles: {
           src: [
-            'public/stylesheets/build/style.min.css',
-            'views/*.ejs'
+            'public/**/*.css',
+            'views/*.ejs',
           ]
         },
         options: {
           watchTask: true,
-          proxy: 'localhost:3000'
+          proxy: 'localhost:3000',
+	  browser: 'firefox'
         }
       }
     },

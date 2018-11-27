@@ -56,6 +56,53 @@ $(document).ready(function() {
     $('.newsletter .st3').css('fill', 'var(--colorbg2)');
   });
 
+  $("#car1").hover(function() {
+    $('#num1').css('background-color', 'var(--accentcolor2)')
+  }, function(){
+    $('#num1').css('background-color', '#323235')
+  });
+
+  $("#car2").hover(function() {
+    $('#num2').css('background-color', 'var(--accentcolor2)')
+  }, function(){
+    $('#num2').css('background-color', '#323235')
+  });
+  $("#car3").hover(function() {
+    $('#num3').css('background-color', 'var(--accentcolor2)')
+  }, function(){
+    $('#num3').css('background-color', '#323235')
+  });
+  $("#car4").hover(function() {
+    $('#num4').css('background-color', 'var(--accentcolor2)')
+  }, function(){
+    $('#num4').css('background-color', '#323235')
+  });
+  $("#car5").hover(function() {
+    $('#num5').css('background-color', 'var(--accentcolor2)')
+  }, function(){
+    $('#num5').css('background-color', '#323235')
+  });
+  $("#car6").hover(function() {
+    $('#num6').css('background-color', 'var(--accentcolor2)')
+  }, function(){
+    $('#num6').css('background-color', '#323235')
+  });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   $(".ga").mouseover(function() {
     $('#valeur_msg').text("Le son est au centre de nos activités. Nous rencontrons chaque jour de nouvelles personnes passionées proposant des configurations nouvelles. Nos expériences augmentent et se partagent sur Quadratik.fr!");

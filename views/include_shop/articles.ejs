@@ -2,9 +2,52 @@
 <div class="container">
   <div class="shop">
     <h2>Boutique</h2>
+    <div class="collection" class="flex articles">
+
+        <% products.forEach((collection) => { %>
+          <ul class="flex_row"><h4 class="list-group-item-heading">
+          <%= collection[0].name %>
+        </h4>
 
 
-    <div class="collection">
+          <% collection.forEach((product) => { %>
+              <li>
+          <div class="article_box">
+
+
+            <h5>
+              <%= product.nom %>
+            </h5>
+            <p>
+              <%= product.prix %> €</p>
+
+
+         <img src="images/modeles/<%= product.name %>/<%= product.nom %>.jpg" alt="Affichage non disponible" data-action="zoom">
+            <p> <i class="fas fa-chart-bar"></i><span>
+                <%= product.frequence %> Hz</span>
+              <i class="fas fa-star"></i><span>
+                <%= product.classement %></span>
+              <i class="fas fa-tint"></i><span>
+                <%= product.nbColors %></span> </p>
+            <p><i class="fas fa-th-large"></i><span>
+                <%= product.nbcellules %> cellules</span>
+              <i class="fab fa-codepen"></i><span>
+                <%= product.longueur %> x
+                <%= product.largeur %> cm</span></p>
+                <% var essai =[product]; %>
+            <p><i class="fas fa-search cursor details_icons" onclick="openNav('/include_shop/details', <% essai %>)"> Détails </i> </p>
+            <p> <i class="fas fa-3x fa-cart-arrow-down cursor accent_icons" @click="addToCart(item)"></i></p>
+
+          </div>
+            </li>
+          <% }) %>
+
+</ul>
+        <% }) %>
+
+    </div>
+
+<!--    <div class="collection">
 
       <ul v-for="(item, index) in collections" class="flex_row articles">
 
@@ -22,15 +65,16 @@
               <i class="fas fa-star"></i><span>{{item.classement}}</span>
               <i class="fas fa-tint"></i><span> {{item.nbColors}}</span> </p>
             <p><i class="fas fa-th-large"></i><span> {{item.nbcellules}} cellules</span>
-            <i class="fab fa-codepen"></i><span> {{item.longueur}} x  {{item.largeur}} cm</span></p>
+              <i class="fab fa-codepen"></i><span> {{item.longueur}} x {{item.largeur}} cm</span></p>
 
-            <p><i class="fas fa-search cursor details_icons" @click="showDetails(item)"> Détails </i> </p> <p> <i class="fas fa-3x fa-cart-arrow-down cursor accent_icons" @click="addToCart(item)"></i></p>
+            <p><i class="fas fa-search cursor details_icons" onclick="openNav('/include_shop/load_more');"> Détails </i> </p>
+            <p> <i class="fas fa-3x fa-cart-arrow-down cursor accent_icons" @click="addToCart(item)"></i></p>
 
           </div>
         </li>
 
       </ul>
-    </div>
+    </div>-->
 
 
 

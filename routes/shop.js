@@ -11,12 +11,35 @@ var knex = require('knex')({
 router.get('/', function(req, res, next) {
 
   knex('product')
-  .leftJoin('collection', 'product.collectionId', 'collection.id')
-  .innerJoin('product_performances', 'product.performance','product_performances.type')
-  .then( shopData =>
-    res.render('shop', {
-      products : shopData
-    }));
+    .leftJoin('collection', 'product.collectionId', 'collection.id')
+    .innerJoin('product_performances', 'product.performance', 'product_performances.type')
+    .then(shopData => {
+      var collections = new Map();
+      shopData.forEach(product => {
+        //Get the array associated with this collection id
+        var currentCollection = collections.get(product.collectionId);
+
+        //If there is no array for this value yet, create it.
+        if (currentCollection == null) {
+          currentCollection = [];
+          collections.set(product.collectionId, currentCollection);
+        }
+
+        //Place the current product into the array
+        currentCollection.push(product);
+      })
+
+      //The map will now contain an array for each collectionid, which again contains an array with its items
+      var collectionsArray = [];
+      collections.forEach((products, collectionid, map) => {
+        collectionsArray.push(products);
+      })
+        res.render('shop', {
+          products: collectionsArray
+        })
+      }
+
+    );
 
 });
 

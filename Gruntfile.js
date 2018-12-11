@@ -85,8 +85,6 @@ module.exports = function(grunt) {
             }]
         }
     }
-
-
   });
 
   //Les taches dépendantes sont chargées ici

@@ -1,10 +1,12 @@
 <footer>
-    <p class="cursor mentions" >mentions légales</p>
-    <p class="cursor cgv">conditions générales de ventes</p>
-    <p>®Quadratik.fr 2018</p>
-  </div>
-  <% include include_index/mentions.ejs %>
-    <% include include_index/cgv.ejs %>
+  <span class="burger"><i onclick="openNav('/include_index/hamburger')" class="fas fa-bars cursor"></i></span> 
+  <span onclick="openNav('/include_index/cgv')" class="cursor">Conditions générales de ventes</span>
+  <span onclick="openNav('/include_index/mentions')" class="cursor">Mentions légales</span>
+  <span>®Quadratik.fr 2018</span>
+  <% include popup.ejs %>
   <% include include_index/chatbox.ejs %>
-<script type="text/javascript" src='js/footer.js'></script>
+  <script type="text/javascript" src='js/footer.js'></script>
+  <script type="text/javascript" src="js/ejs.js"></script>
+  <script type="text/javascript" src="js/overlay.js"></script>
+
 </footer>

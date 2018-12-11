@@ -15,7 +15,6 @@
 </head>
 
 <body id="body_shop">
-    <% include include_index/hamburger.ejs %>
   <% include header.ejs %>
     <div class="shop_container">
       <div id="app">
@@ -24,36 +23,15 @@
         <% include include_shop/articles.ejs %>
           <% include include_shop/cartBox.ejs %>
               <% include include_shop/cart_large.ejs %>
-                <% include include_shop/load_more.ejs %>
       </div>
 
     </div>
 
-
     <script>
+
+
+
       var shop = <%-JSON.stringify(products)%>;
-      //Tri des éléments
-      var collections = new Map();
-
-      shop.forEach(product => {
-        //Get the array associated with this collection id
-        var currentCollection = collections.get(product.collectionId);
-
-        //If there is no array for this value yet, create it.
-        if (currentCollection == null) {
-          currentCollection = [];
-          collections.set(product.collectionId, currentCollection);
-        }
-
-        //Place the current product into the array
-        currentCollection.push(product);
-      })
-
-      //The map will now contain an array for each collectionid, which again contains an array with its items
-      var collectionsArray = [];
-      collections.forEach((products, collectionid, map) => {
-        collectionsArray.push(products);
-      })
 
       const vm = new Vue({
         el: "#app",
@@ -62,7 +40,7 @@
           detailsItem: [],
           shop: shop,
           details: false,
-          collections: collectionsArray,
+          collections: shop,
           cart_box: true,
           errors: [],
           totalProduits: '',
@@ -161,7 +139,6 @@
           showDetails(item) {
             vm.detailsItem.pop();
             vm.detailsItem.push(item);
-            this.details = true;
             $('#details_contenu').html(item.nom + item.prix + item.frequence);
           }
         }
@@ -170,6 +147,7 @@
 
     <% include footer.ejs %>
       <script type="text/javascript" src="/js/shop.js"></script>
+
 </body>
 
 </html>
